@@ -38,14 +38,21 @@ form{
     border-bottom: 1px solid #666;
 }
 
-form > label {
-    
-    margin: 0.4rem;
-}
-
 label > input {
     margin: .4rem;
     height: 1.4rem;
+}
+
+.input{
+    margin: .4rem;
+}
+
+@media screen and (max-width: 600px) {
+    .input {
+        display: flex;
+        flex-direction: column;
+        margin: .4rem 1rem;
+    }
 }
 
 .addBtn {
