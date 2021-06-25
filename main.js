@@ -8,13 +8,18 @@ function Book(title, author, pages, pagesRead, rating) {
     this.rating = rating;
 };
 
+function removeCard (item) {
+    item.remove()
+}
+
 function displayBooks () {
-    let myBooks = myLibrary.map( function (book) {
-        console.log(book.title);
-        console.log(book.author);
-        console.log(book.pages);
-        console.log(book.pagesRead);
-        console.log(book.rating);
+
+    const bookCards = document.querySelectorAll('.book');
+    bookCards.forEach(removeCard)
+
+    myLibrary.map( function (book) {
+        createBookCard(book.title, book.author, book.pages, book.pagesRead, book.rating)
+
     })
 }
 
@@ -42,6 +47,18 @@ const bookRating = document.createElement('p');
 const bookShelf = document.querySelector('#bookShelf');
 
 function createBookCard (title,  author, pages, pagesRead, rating) {
+    
+    // Create page entry for book
+    const bookDiv = document.createElement('div');
+    const bookTitle = document.createElement('p');
+    const bookAuthor = document.createElement('p');
+    const bookPages = document.createElement('p');
+    const bookPagesRead = document.createElement('p');
+    const bookComplete = document.createElement('p');
+    const bookRating = document.createElement('p');
+    const bookShelf = document.querySelector('#bookShelf');
+
+    
     bookShelf.appendChild(bookDiv)
     bookDiv.classList.add('book');
 
@@ -76,8 +93,9 @@ function addBookToLibrary() {
     let newBook = new Book (title.value, author.value, pages.value, pagesRead.value, rating.value);
     myLibrary.push(newBook);
     console.table(myLibrary);
+    displayBooks()
     form.reset();
-}
+    }
 
 const addBtn = document.querySelector('.addBtn');
 addBtn.addEventListener('click', addBookToLibrary);
