@@ -18,7 +18,7 @@ header {
     height: 4rem;
     text-align: center;
     width: 100%;
-    position: sticky;
+    position: fixed;
     top: 0;
     padding: .6rem;
 }
@@ -36,6 +36,7 @@ form{
     justify-content: space-evenly;
     padding: 1rem 0;
     border-bottom: 1px solid #666;
+    background: #333;
 }
 
 label > input {
