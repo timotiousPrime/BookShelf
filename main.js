@@ -5,17 +5,38 @@ function Book(title, author, pages, pagesRead, rating) {
     this.author = author;
     this.pages = pages;
     this.pagesRead = pagesRead;
-    this.rating = rating
+    this.rating = rating;
 };
 
-function createNewBook(ev) {
-    ev.preventDefault();
-    let bookTitle = document.getElementById('title').value;
-    let bookAuthor = document.getElementById('author').value;
-    let id = Date.now();
+// function displayBooks () {
+//     let myBooks = myLibrary.map( function (book) {
+//         console.log(book.title);
+//         console.log(book.author);
+//         console.log(book.pages);
+//         console.log(book.pagesRead);
+//         console.log(book.rating);
+//     })
+// }
 
-    let NewBook = new Book (bookTitle, bookAuthor);
-    myLibrary.push(NewBook);
-    console.log('new book added');
+// function createNewBook(title, author, pages, pagesRead, rating) {
+//     let newBook = new Book (title, author, pages, pagesRead, rating)
+// }
+
+// Form Details
+const form = document.querySelector('form');
+const title = document.querySelector('#title');
+const author = document.querySelector('#author');
+const pages = document.querySelector('#pages');
+const pagesRead = document.querySelector('#pagesRead');
+const rating = document.querySelector('#rating');
+// 
+
+function addBookToLibrary() {
+    let newBook = new Book (title.value, author.value, pages.value, pagesRead.value, rating.value);
+    myLibrary.push(newBook);
+    console.table(myLibrary);
+    form.reset();
 }
 
+const addBtn = document.querySelector('.addBtn');
+addBtn.addEventListener('click', addBookToLibrary);
