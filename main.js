@@ -1,11 +1,12 @@
 let myLibrary = [];
 
-function Book(title, author, pages, pagesRead, rating) {
+function Book(title, author, pages, pagesRead, rating, index) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.pagesRead = pagesRead;
     this.rating = rating;
+    this.index = index;
 };
 
 function removeCard (item) {
@@ -89,10 +90,18 @@ function createBookCard (title,  author, pages, pagesRead, rating) {
 }
 // 
 
+function setBookIndex(newBook){
+    let index = myLibrary.indexOf(newBook)
+    console.log('The index of the new book is ' + index)
+    newBook.index = index;
+    console.log(newBook)
+}
+
 function addBookToLibrary() {
     let newBook = new Book (title.value, author.value, pages.value, pagesRead.value, rating.value);
     myLibrary.push(newBook);
-    console.table(myLibrary);
+    console.log(myLibrary.indexOf(newBook));
+    setBookIndex(newBook)
     displayBooks()
     form.reset();
     }
