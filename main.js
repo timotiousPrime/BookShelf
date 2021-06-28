@@ -13,12 +13,15 @@ function removeCard (item) {
     item.remove()
 }
 
-function displayBooks () {
+function displayLibrary () {
 
     const bookCards = document.querySelectorAll('.book');
     bookCards.forEach(removeCard)
 
+    // Set the index for each book in the library and create a book card for each
     myLibrary.map( function (book) {
+        let bookIndex = myLibrary.indexOf(book);
+        book.index = bookIndex;
         createBookCard(book.title, book.author, book.pages, book.pagesRead, book.rating)
 
     })
@@ -90,19 +93,11 @@ function createBookCard (title,  author, pages, pagesRead, rating) {
 }
 // 
 
-function setBookIndex(newBook){
-    let index = myLibrary.indexOf(newBook)
-    console.log('The index of the new book is ' + index)
-    newBook.index = index;
-    console.log(newBook)
-}
-
 function addBookToLibrary() {
     let newBook = new Book (title.value, author.value, pages.value, pagesRead.value, rating.value);
     myLibrary.push(newBook);
     console.log(myLibrary.indexOf(newBook));
-    setBookIndex(newBook)
-    displayBooks()
+    displayLibrary()
     form.reset();
     }
 
