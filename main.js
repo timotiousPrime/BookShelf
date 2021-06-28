@@ -10,20 +10,19 @@ function Book(title, author, pages, pagesRead, rating, index) {
 };
 
 function removeCard (item) {
-    item.remove()
+    item.remove();
 }
 
 function displayLibrary () {
 
     const bookCards = document.querySelectorAll('.book');
-    bookCards.forEach(removeCard)
+    bookCards.forEach(removeCard);
 
     // Set the index for each book in the library and create a book card for each
     myLibrary.map( function (book) {
         let bookIndex = myLibrary.indexOf(book);
         book.index = bookIndex;
-        createBookCard(book.title, book.author, book.pages, book.pagesRead, book.rating)
-
+        createBookCard(book.title, book.author, book.pages, book.pagesRead, book.rating);
     })
 }
 
@@ -63,7 +62,7 @@ function createBookCard (title,  author, pages, pagesRead, rating) {
     const bookShelf = document.querySelector('#bookShelf');
 
     
-    bookShelf.appendChild(bookDiv)
+    bookShelf.appendChild(bookDiv);
     bookDiv.classList.add('book');
 
     bookDiv.appendChild(bookTitle);
@@ -97,7 +96,7 @@ function addBookToLibrary() {
     let newBook = new Book (title.value, author.value, pages.value, pagesRead.value, rating.value);
     myLibrary.push(newBook);
     console.log(myLibrary.indexOf(newBook));
-    displayLibrary()
+    displayLibrary();
     form.reset();
     }
 
