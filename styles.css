@@ -36,7 +36,7 @@ form{
     justify-content: space-evenly;
     padding: 1rem 0;
     border-bottom: 1px solid #666;
-    background: #333;
+    /* background: #333; */
 }
 
 label > input {
@@ -74,6 +74,8 @@ label > input {
 }
 
 #bookShelf {
+    margin-top: 4.4rem;
+    padding-bottom: 2.4rem;
     height: 100%;
 }
 
