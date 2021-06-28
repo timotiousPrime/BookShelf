@@ -84,6 +84,28 @@ label > input {
     border-bottom: 1px solid #666;
 }
 
+#deleteBtn {
+    display: absolute;
+    background: red;
+    height: 0.8rem;
+    width: 0.8rem;
+    border-radius: 50%;
+}
+
+.deleteXlineOne {
+    background: #fff;
+    width: .2rem;
+    rotate: 45;
+    display: absolute;
+}
+
+.deleteXlineTwo {
+    background: #fff;
+    width: .2rem;
+    rotate: 315;
+    display: absolute;
+    
+}
 
 footer {
     height: 2rem;
