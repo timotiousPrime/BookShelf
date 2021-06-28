@@ -22,7 +22,7 @@ function displayLibrary () {
     myLibrary.map( function (book) {
         let bookIndex = myLibrary.indexOf(book);
         book.index = bookIndex;
-        createBookCard(book.title, book.author, book.pages, book.pagesRead, book.rating);
+        createBookCard(book.title, book.author, book.pages, book.pagesRead, book.rating, book.index);
     })
 }
 
@@ -49,7 +49,7 @@ const bookComplete = document.createElement('p');
 const bookRating = document.createElement('p');
 const bookShelf = document.querySelector('#bookShelf');
 
-function createBookCard (title,  author, pages, pagesRead, rating) {
+function createBookCard (title,  author, pages, pagesRead, rating, index) {
     
     // Create page entry for book
     const bookDiv = document.createElement('div');
@@ -64,6 +64,7 @@ function createBookCard (title,  author, pages, pagesRead, rating) {
     
     bookShelf.appendChild(bookDiv);
     bookDiv.classList.add('book');
+    bookDiv.setAttribute('id', index)
 
     bookDiv.appendChild(bookTitle);
     bookTitle.classList.add('title');
@@ -102,3 +103,34 @@ function addBookToLibrary() {
 
 const addBtn = document.querySelector('.addBtn');
 addBtn.addEventListener('click', addBookToLibrary);
+
+const deleteBtn = document.createElement('div');
+const deleteLineOne = document.createElement('div');
+const deleteLineTwo = document.createElement('div');
+
+function displayDeleteBtn(){
+
+    // console.log(Book.index)
+
+    // bookDiv.appendChild(deleteBtn);
+    // deleteBtn.setAttribute('id', 'deleteBtn');;
+
+    // deleteBtn.appendChild(deleteLineOne);
+    // deleteLineOne.classList.add('deleteXlineOne');
+
+    // deleteBtn.appendChild(deleteLineTwo);
+    // deleteLineOne.classList.add('deleteXlineTwo');
+
+    console.log('the mouse is hovering over a bookdiv')
+}
+
+function listenForHover(book) {
+    console.log(book.index)
+};
+
+let libraryBooks = document.querySelectorAll('.book');
+libraryBooks.forEach(book => {
+    book.addEventListener('mouseover', (e) => {
+        console.log(e.target.id)
+    })
+});
