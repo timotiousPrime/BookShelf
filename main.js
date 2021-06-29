@@ -99,38 +99,38 @@ function addBookToLibrary() {
     console.log(myLibrary.indexOf(newBook));
     displayLibrary();
     form.reset();
+    listenForHover()
     }
 
 const addBtn = document.querySelector('.addBtn');
 addBtn.addEventListener('click', addBookToLibrary);
 
-const deleteBtn = document.createElement('div');
-const deleteLineOne = document.createElement('div');
-const deleteLineTwo = document.createElement('div');
+function displayDeleteBtn(e){
 
-function displayDeleteBtn(){
+    console.log(e.target.id)
 
-    // console.log(Book.index)
+    const bookDiv = document.querySelector('.book');
+    const deleteBtn = document.createElement('div');
+    const deleteLineOne = document.createElement('div');
+    const deleteLineTwo = document.createElement('div');
+    
+    bookDiv.appendChild(deleteBtn);
+    deleteBtn.setAttribute('id', 'deleteBtn');;
 
-    // bookDiv.appendChild(deleteBtn);
-    // deleteBtn.setAttribute('id', 'deleteBtn');;
+    deleteBtn.appendChild(deleteLineOne);
+    deleteLineOne.classList.add('deleteXlineOne');
 
-    // deleteBtn.appendChild(deleteLineOne);
-    // deleteLineOne.classList.add('deleteXlineOne');
-
-    // deleteBtn.appendChild(deleteLineTwo);
-    // deleteLineOne.classList.add('deleteXlineTwo');
+    deleteBtn.appendChild(deleteLineTwo);
+    deleteLineOne.classList.add('deleteXlineTwo');
 
     console.log('the mouse is hovering over a bookdiv')
 }
 
-function listenForHover(book) {
-    console.log(book.index)
+function listenForHover() {
+    let libraryBooks = document.querySelectorAll('.book');
+    libraryBooks.forEach(book => {
+        book.addEventListener('mouseover', displayDeleteBtn)
+});
 };
 
-let libraryBooks = document.querySelectorAll('.book');
-libraryBooks.forEach(book => {
-    book.addEventListener('mouseover', (e) => {
-        console.log(e.target.id)
-    })
-});
+
