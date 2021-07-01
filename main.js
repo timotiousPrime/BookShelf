@@ -134,15 +134,39 @@ addBtn.addEventListener('click', addBookToLibrary);
 //         book.addEventListener('mouseover', displayDeleteBtn)
 // });
 // };
+listenForHover();
+
+function displayDeleteBtn(){
+
+    const deleteBtn = document.createElement('div');
+    const deleteLineOne = document.createElement('div');
+    const deleteLineTwo = document.createElement('div');
+
+    deleteBtn.appendChild(deleteLineOne);
+    deleteLineOne.classList.add('deleteXlineOne');
+
+    deleteBtn.appendChild(deleteLineTwo);
+    deleteLineOne.classList.add('deleteXlineTwo');
+
+    
+    this.appendChild(deleteBtn);
+    deleteBtn.setAttribute('id', 'deleteBtn');
+}
+
+function removeDeleteBtn(){
+    delBtn = document.getElementById('deleteBtn');
+    delBtn.remove();
+}
 
 function listenForHover() {
-    let libraryBooks = document.querySelectorAll('.book');
+    const libraryBooks = document.querySelectorAll('.book');
     libraryBooks.forEach(book => {
-        console.log(book.id)
+        book.addEventListener('mouseenter', displayDeleteBtn);
+        book.addEventListener('mouseleave', removeDeleteBtn)
     })
 }
 
 
-function addDeleteBtn(e){
-    console.log(e)
-}
+// function addDeleteBtn(e){
+//     console.log(e)
+// }
