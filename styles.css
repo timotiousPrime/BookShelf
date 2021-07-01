@@ -65,7 +65,7 @@ label > input {
 
 #bookShelfHeading {
     display: grid;
-    grid-template-columns: 2fr 2fr 1fr 1.5fr 1fr;
+    grid-template-columns: 2fr 2fr 1fr 1.5fr 1fr 0.5fr;
     margin: .6rem 1rem;
     justify-content: center;
 }
@@ -78,7 +78,7 @@ label > input {
 
 .book {
     display: grid;
-    grid-template-columns: 2fr 2fr 1fr 1.5fr 1fr;
+    grid-template-columns: 2fr 2fr 1fr 1.5fr 1fr 0.5fr;
     margin: 0 1rem;
     padding: 0.8rem;
     border-bottom: 1px solid #666;
@@ -95,16 +95,14 @@ label > input {
 .deleteXlineOne {
     background: #fff;
     width: .2rem;
-    rotate: 45;
-    display: absolute;
+    /* rotate: 45; */
+    position: absolute;
 }
 
-.deleteXlineTwo {
+.deleteXlineTwo {  
+    position: absolute;
     background: #fff;
     width: .2rem;
-    rotate: 315;
-    display: absolute;
-    
 }
 
 footer {
