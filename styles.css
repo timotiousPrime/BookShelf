@@ -92,17 +92,22 @@ label > input {
     border-radius: 50%;
 }
 
-.deleteXlineOne {
+#deleteXlineOne {
     background: #fff;
-    width: .2rem;
-    /* rotate: 45; */
+    width: 1.2rem;
+    height: .2rem;
+    transform: rotate(45deg);
     position: absolute;
+    margin: auto;
 }
 
-.deleteXlineTwo {  
+#deleteXlineTwo {  
     position: absolute;
     background: #fff;
     width: .2rem;
+    height: 1.2rem;
+    transform: rotate(225deg)
+    
 }
 
 footer {
