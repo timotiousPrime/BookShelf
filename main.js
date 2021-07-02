@@ -141,21 +141,23 @@ function displayDeleteBtn(){
     const deleteBtn = document.createElement('div');
     const deleteLineOne = document.createElement('div');
     const deleteLineTwo = document.createElement('div');
-
-    deleteBtn.appendChild(deleteLineOne);
-    deleteLineOne.classList.add('deleteXlineOne');
-
-    deleteBtn.appendChild(deleteLineTwo);
-    deleteLineOne.classList.add('deleteXlineTwo');
-
     
     this.appendChild(deleteBtn);
     deleteBtn.setAttribute('id', 'deleteBtn');
+
+    
+    deleteBtn.appendChild(deleteLineOne);
+    deleteLineOne.setAttribute('id', 'deleteXlineOne');
+
+    deleteBtn.appendChild(deleteLineTwo);
+    deleteLineTwo.setAttribute('id', 'deleteXlineTwo');
+
+
 }
 
 function removeDeleteBtn(){
     delBtn = document.getElementById('deleteBtn');
-    delBtn.remove();
+    // delBtn.remove();
 }
 
 function listenForHover() {
