@@ -152,12 +152,14 @@ function displayDeleteBtn(){
     deleteBtn.appendChild(deleteLineTwo);
     deleteLineTwo.setAttribute('id', 'deleteXlineTwo');
 
-
+    const delBtn = document.getElementById('deleteBtn');
+    delBtn.addEventListener('click', removeBook)
 }
 
+
 function removeDeleteBtn(){
-    delBtn = document.getElementById('deleteBtn');
-    // delBtn.remove();
+    const delBtn = document.getElementById('deleteBtn');
+    delBtn.remove();
 }
 
 function listenForHover() {
@@ -168,7 +170,9 @@ function listenForHover() {
     })
 }
 
+function removeBook(e){
+    console.log(this)
+}
 
-// function addDeleteBtn(e){
-//     console.log(e)
-// }
+// const delBtn = document.getElementById('deleteBtn');
+// delBtn.addEventListener('click', removeBook)
