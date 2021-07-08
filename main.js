@@ -93,13 +93,17 @@ function createBookCard (title,  author, pages, pagesRead, rating, index) {
 }
 // 
 
+function prepareShelf(){
+    displayLibrary();
+    form.reset();
+    listenForHover();
+}
+
 function addBookToLibrary() {
     let newBook = new Book (title.value, author.value, pages.value, pagesRead.value, rating.value);
     myLibrary.push(newBook);
     console.log(myLibrary.indexOf(newBook));
-    displayLibrary();
-    form.reset();
-    listenForHover()
+    prepareShelf();
     }
 
 const addBtn = document.querySelector('.addBtn');
@@ -154,6 +158,13 @@ function displayDeleteBtn(){
 
     const delBtn = document.getElementById('deleteBtn');
     delBtn.addEventListener('click', removeBook)
+
+    let bookID = this.id;
+
+    function removeBook(){
+        myLibrary.splice(bookID, 1)
+        prepareShelf();
+    }
 }
 
 
@@ -169,10 +180,3 @@ function listenForHover() {
         book.addEventListener('mouseleave', removeDeleteBtn)
     })
 }
-
-function removeBook(e){
-    console.log(this)
-}
-
-// const delBtn = document.getElementById('deleteBtn');
-// delBtn.addEventListener('click', removeBook)
