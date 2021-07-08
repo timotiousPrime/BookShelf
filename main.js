@@ -37,6 +37,7 @@ const author = document.querySelector('#author');
 const pages = document.querySelector('#pages');
 const pagesRead = document.querySelector('#pagesRead');
 const rating = document.querySelector('#rating');
+const completed = document.querySelector('#completed');
 // 
 
 // Create page entry for book
@@ -82,13 +83,20 @@ function createBookCard (title,  author, pages, pagesRead, rating, index) {
     bookPagesRead.classList.add('pagesRead');
     bookPagesRead.textContent = pagesRead;
 
-    // bookDiv.appendChild(bookComplete);
-    // bookComplete.classList.add('complete');
-    // bookComplete.textContent = title;
+    bookDiv.appendChild(bookComplete);
+    bookComplete.classList.add('complete');
+    if (completed.checked == true) {
+        bookComplete.textContent = 'Finished'
+    } else {
+        bookComplete.textContent = 'not finished'
+
+    }
 
     bookDiv.appendChild(bookRating);
     bookRating.classList.add('rating');
     bookRating.textContent = rating;
+
+   
 
 }
 // 
@@ -150,4 +158,10 @@ function listenForHover() {
         book.addEventListener('mouseenter', displayDeleteBtn);
         book.addEventListener('mouseleave', removeDeleteBtn)
     })
+}
+
+
+// updated number of pages read if completed is clicked
+function updatePagesRead(){
+
 }
