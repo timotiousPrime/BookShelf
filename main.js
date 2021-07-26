@@ -1,167 +1,85 @@
-let myLibrary = [];
+let myLibrary = {}
 
-function Book(title, author, pages, pagesRead, rating, index) {
+const BOOK = (title, author, pages, pagesRead, completed, rating, id) => {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.pagesRead = pagesRead;
-    this.rating = rating;
-    this.index = index;
-};
-
-function removeCard (item) {
-    item.remove();
+    this.pagesRead = pagesRead
+    this.completed = completed
+    this.rating = rating
+    this.id = id
 }
 
-function displayLibrary () {
+const titleInput = document.getElementById('title-input')
+const authorInput = document.getElementById('author-input')
+const pagesInput = document.getElementById('pages-input')
+const pagesReadInput = document.getElementById('pages-read-input')
+const completedInput = document.getElementById('completed-input')
+const ratingInput = document.getElementById('rating-input')
 
-    const bookCards = document.querySelectorAll('.book');
-    bookCards.forEach(removeCard);
+const bookCase = document.getElementById('book-case')
 
-    // Set the index for each book in the library and create a book card for each
-    myLibrary.map( function (book) {
-        let bookIndex = myLibrary.indexOf(book);
-        book.index = bookIndex;
-        createBookCard(book.title, book.author, book.pages, book.pagesRead, book.rating, book.index);
-    })
-}
+// define elements to create for book card
+const tableRow = document.createElement('tr')
+const bookTitle = document.createElement('td')
+const bookAuthor = document.createElement('td')
+const bookPages = document.createElement('td')
+const bookPagesRead = document.createElement('td')
+const bookComplete = document.createElement('td')
+const bookRating = document.createElement('td')
 
-// function createNewBook(title, author, pages, pagesRead, rating) {
-//     let newBook = new Book (title, author, pages, pagesRead, rating)
-// }
+let bookId
 
-// Form Details
-const form = document.querySelector('form');
-const title = document.querySelector('#title');
-const author = document.querySelector('#author');
-const pages = document.querySelector('#pages');
-const pagesRead = document.querySelector('#pagesRead');
-const rating = document.querySelector('#rating');
-const completed = document.querySelector('#completed');
-// 
+const bookCard = (id, title, author, pages, pagesRead, complete, rating) => {
 
-// Create page entry for book
-const bookDiv = document.createElement('div');
-const bookTitle = document.createElement('p');
-const bookAuthor = document.createElement('p');
-const bookPages = document.createElement('p');
-const bookPagesRead = document.createElement('p');
-const bookComplete = document.createElement('p');
-const bookRating = document.createElement('p');
-const bookShelf = document.querySelector('#bookShelf');
+    bookCase.appendChild(tableRow)
+    tableRow.setAttribute('id', id)
 
-function createBookCard (title,  author, pages, pagesRead, rating, index) {
-    
-    // Create page entry for book
-    const bookDiv = document.createElement('div');
-    const bookTitle = document.createElement('p');
-    const bookAuthor = document.createElement('p');
-    const bookPages = document.createElement('p');
-    const bookPagesRead = document.createElement('p');
-    const bookComplete = document.createElement('p');
-    const bookRating = document.createElement('p');
-    const bookShelf = document.querySelector('#bookShelf');
+    tableRow.appendChild(bookTitle)
+    bookTitle.className.add('title')
+    bookTitle.textContent = title
 
-    
-    bookShelf.appendChild(bookDiv);
-    bookDiv.classList.add('book');
-    bookDiv.setAttribute('id', index)
+    tableRow.appendChild(bookTitle)
+    bookAuthor.className.add('title')
+    bookAuthor.textContent = author
 
-    bookDiv.appendChild(bookTitle);
-    bookTitle.classList.add('title');
-    bookTitle.textContent = title;
+    tableRow.appendChild(bookTitle)
+    bookPages.className.add('title')
+    bookPages.textContent = pages
 
-    bookDiv.appendChild(bookAuthor);
-    bookAuthor.classList.add('author');
-    bookAuthor.textContent = author;
+    tableRow.appendChild(bookTitle)
+    bookPagesRead.className.add('title')
+    bookPagesRead.textContent = pagesRead
 
-    bookDiv.appendChild(bookPages);
-    bookPages.classList.add('pages');
-    bookPages.textContent = pages;
+    tableRow.appendChild(bookTitle)
+    bookComplete.className.add('title')
+    bookComplete.textContent = complete
 
-    bookDiv.appendChild(bookPagesRead);
-    bookPagesRead.classList.add('pagesRead');
-    bookPagesRead.textContent = pagesRead;
-
-    bookDiv.appendChild(bookComplete);
-    bookComplete.classList.add('complete');
-    if (completed.checked == true) {
-        bookComplete.textContent = 'Finished'
-    } else {
-        bookComplete.textContent = 'not finished'
-
-    }
-
-    bookDiv.appendChild(bookRating);
-    bookRating.classList.add('rating');
-    bookRating.textContent = rating;
-
-   
+    tableRow.appendChild(bookTitle)
+    bookRating.className.add('title')
+    bookRating.textContent = rating
 
 }
-// 
 
-function prepareShelf(){
-    displayLibrary();
-    form.reset();
-    listenForHover();
+const createNewBook = () => {
+    bookId += 1
+
+    return new BOOK (titleInput.value, authorInput.value, pagesInput.value, pagesReadInput.value, completedInput.value, ratingInput.value, bookId)
 }
 
-function addBookToLibrary() {
-    let newBook = new Book (title.value, author.value, pages.value, pagesRead.value, rating.value);
-    myLibrary.push(newBook);
-    console.log(myLibrary.indexOf(newBook));
-    prepareShelf();
-    }
-
-const addBtn = document.querySelector('.addBtn');
-addBtn.addEventListener('click', addBookToLibrary);
-
-listenForHover();
-
-function displayDeleteBtn(){
-
-    const deleteBtn = document.createElement('div');
-    const deleteLineOne = document.createElement('div');
-    const deleteLineTwo = document.createElement('div');
-    
-    this.appendChild(deleteBtn);
-    deleteBtn.setAttribute('id', 'deleteBtn');
-
-    
-    deleteBtn.appendChild(deleteLineOne);
-    deleteLineOne.setAttribute('id', 'deleteXlineOne');
-
-    deleteBtn.appendChild(deleteLineTwo);
-    deleteLineTwo.setAttribute('id', 'deleteXlineTwo');
-
-    const delBtn = document.getElementById('deleteBtn');
-    delBtn.addEventListener('click', removeBook)
-
-    let bookID = this.id;
-
-    function removeBook(){
-        myLibrary.splice(bookID, 1)
-        prepareShelf();
+const addNewBookToLibrary = () => {
+    let book = createNewBook()
+    return {
+        myLibrary: {
+            ...myLibrary,
+            [book.id]: {...book}
+        }
     }
 }
 
-
-function removeDeleteBtn(){
-    const delBtn = document.getElementById('deleteBtn');
-    delBtn.remove();
+const tellMe = () => {
+    console.log('did you hear me?')
 }
 
-function listenForHover() {
-    const libraryBooks = document.querySelectorAll('.book');
-    libraryBooks.forEach(book => {
-        book.addEventListener('mouseenter', displayDeleteBtn);
-        book.addEventListener('mouseleave', removeDeleteBtn)
-    })
-}
-
-
-// updated number of pages read if completed is clicked
-function updatePagesRead(){
-
-}
+const addBookButton = document.getElementById('addBookButton')
+addBookButton.addEventListener('click', tellMe)
