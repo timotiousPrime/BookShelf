@@ -16,14 +16,13 @@ const pagesInput = document.getElementById('pages-input')
 const pagesReadInput = document.getElementById('pages-read-input')
 const completedInput = document.getElementById('completed-input')
 const ratingInput = document.getElementById('rating-input')
-
+const form = document.getElementById('form')
 const bookCase = document.getElementById('book-case')
 
 
 
 
 let newBookCard = (id, title, author, pages, pagesRead, complete, rating) => {
-
 // define elements to create for book card
 const tableRow = document.createElement('tr')
 const bookTitle = document.createElement('td')
@@ -97,6 +96,7 @@ const displayMyLibrary = () => {
 const handleAddBookClick = () => {
     addNewBookToLibrary(createNewBook())
     console.log(myLibrary)
+    form.reset()
     displayMyLibrary()
     listenForHover()
 }
@@ -118,4 +118,5 @@ function listenForHover() {
         book.addEventListener('mouseenter', hello)
     })
 }
+
 
