@@ -95,27 +95,37 @@ const displayMyLibrary = () => {
 
 const handleAddBookClick = () => {
     addNewBookToLibrary(createNewBook())
-    console.log(myLibrary)
     form.reset()
     displayMyLibrary()
-    listenForHover()
+    listenForMouseEventsOnBooks()
 }
 
 const addBookButton = document.getElementById('addBookButton')
 addBookButton.addEventListener('click', handleAddBookClick)
 
-listenForHover()
+listenForMouseEventsOnBooks()
 
-function hello () {
+function mouseOver () {
     console.log('hello')
+    this.classList.add('bg-info')
 }
 
+function mouseOut () {
+    console.log('bye')
+    this.classList.remove('bg-info')
+}
 
-function listenForHover() {
+function showBook () {
+    console.log(this.id)
+}
+
+function listenForMouseEventsOnBooks() {
 
     const libraryBooks = document.querySelectorAll('.book')
     libraryBooks.forEach( book => {
-        book.addEventListener('mouseenter', hello)
+        book.addEventListener('mouseenter', mouseOver)
+        book.addEventListener('mouseout', mouseOut)
+        book.addEventListener('click', showBook)
     })
 }
 
