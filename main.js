@@ -22,7 +22,7 @@ const bookCase = document.getElementById('book-case')
 
 
 
-let bookCard = (id, title, author, pages, pagesRead, complete, rating) => {
+let newBookCard = (id, title, author, pages, pagesRead, complete, rating) => {
 
 // define elements to create for book card
 const tableRow = document.createElement('tr')
@@ -84,13 +84,13 @@ function removeCard (item) {
 const displayMyLibrary = () => {
     let keys = Object.keys(myLibrary)
 
-    const bookCards = document.querySelectorAll('.book');
-    bookCards.forEach(removeCard);
+    const newBookCards = document.querySelectorAll('.book');
+    newBookCards.forEach(removeCard);
     // let numberOfBooks = Object.keys(myLibrary).length
     // for (let i = 1; i > numberOfBooks; i++)
     keys.forEach( (key) => {
         console.log(myLibrary[key])
-        bookCard(myLibrary[key].id, myLibrary[key].title, myLibrary[key].author, myLibrary[key].pages, myLibrary[key].pagesRead, myLibrary[key].completed, myLibrary[key].rating)
+        newBookCard(myLibrary[key].id, myLibrary[key].title, myLibrary[key].author, myLibrary[key].pages, myLibrary[key].pagesRead, myLibrary[key].completed, myLibrary[key].rating)
     })
 }
 
@@ -98,7 +98,24 @@ const handleAddBookClick = () => {
     addNewBookToLibrary(createNewBook())
     console.log(myLibrary)
     displayMyLibrary()
+    listenForHover()
 }
 
 const addBookButton = document.getElementById('addBookButton')
 addBookButton.addEventListener('click', handleAddBookClick)
+
+listenForHover()
+
+function hello () {
+    console.log('hello')
+}
+
+
+function listenForHover() {
+
+    const libraryBooks = document.querySelectorAll('.book')
+    libraryBooks.forEach( book => {
+        book.addEventListener('mouseenter', hello)
+    })
+}
+
