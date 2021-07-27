@@ -19,6 +19,11 @@ const ratingInput = document.getElementById('rating-input')
 
 const bookCase = document.getElementById('book-case')
 
+
+
+
+let bookCard = (id, title, author, pages, pagesRead, complete, rating) => {
+
 // define elements to create for book card
 const tableRow = document.createElement('tr')
 const bookTitle = document.createElement('td')
@@ -28,59 +33,72 @@ const bookPagesRead = document.createElement('td')
 const bookComplete = document.createElement('td')
 const bookRating = document.createElement('td')
 
-
-const bookCard = (id, title, author, pages, pagesRead, complete, rating) => {
-
     bookCase.appendChild(tableRow)
     tableRow.setAttribute('id', id)
+    tableRow.classList.add('book')
 
     tableRow.appendChild(bookTitle)
-    bookTitle.className.add('title')
+    bookTitle.classList.add('title')
     bookTitle.textContent = title
 
     tableRow.appendChild(bookAuthor)
-    bookAuthor.className.add('title')
+    bookAuthor.classList.add('author')
     bookAuthor.textContent = author
 
     tableRow.appendChild(bookPages)
-    bookPages.className.add('title')
+    bookPages.classList.add('pages')
     bookPages.textContent = pages
 
     tableRow.appendChild(bookPagesRead)
-    bookPagesRead.className.add('title')
+    bookPagesRead.classList.add('pagesRead')
     bookPagesRead.textContent = pagesRead
 
     tableRow.appendChild(bookComplete)
-    bookComplete.className.add('title')
+    bookComplete.classList.add('complete')
     bookComplete.textContent = complete
 
     tableRow.appendChild(bookRating)
-    bookRating.className.add('title')
+    bookRating.classList.add('rating')
     bookRating.textContent = rating
 
 }
 
 let bookId = 0
 
-const createNewBook = (title, author, pages, pagesRead, completed, rating) => {
+const createNewBook = () => {
     bookId += 1
-    return new BOOK (title, author, pages, pagesRead, completed, rating, bookId)
+    return new BOOK (titleInput.value, authorInput.value, pagesInput.value, pagesReadInput.value, completedInput.value, ratingInput.value, bookId)
 }
 
-const addNewBookToLibrary = () => {
-    let newBook = createNewBook(titleInput.value, authorInput.value, pagesInput.value, pagesReadInput.value, completedInput.value, ratingInput.value, bookId)
-    console.log(newBook)
-    
-    return myLibrary = {
+const addNewBookToLibrary = (book) => {    
+    myLibrary = {
         ...myLibrary,
-        [newBook.id]: {...newBook}
+        [book.id]: {...book}
     }
-
 }
 
-const tellMe = () => {
-    console.log('did you hear me?')
+function removeCard (item) {
+    item.remove();
+}
+
+const displayMyLibrary = () => {
+    let keys = Object.keys(myLibrary)
+
+    const bookCards = document.querySelectorAll('.book');
+    bookCards.forEach(removeCard);
+    // let numberOfBooks = Object.keys(myLibrary).length
+    // for (let i = 1; i > numberOfBooks; i++)
+    keys.forEach( (key) => {
+        console.log(myLibrary[key])
+        bookCard(myLibrary[key].id, myLibrary[key].title, myLibrary[key].author, myLibrary[key].pages, myLibrary[key].pagesRead, myLibrary[key].completed, myLibrary[key].rating)
+    })
+}
+
+const handleAddBookClick = () => {
+    addNewBookToLibrary(createNewBook())
+    console.log(myLibrary)
+    displayMyLibrary()
 }
 
 const addBookButton = document.getElementById('addBookButton')
-addBookButton.addEventListener('click', addNewBookToLibrary)
+addBookButton.addEventListener('click', handleAddBookClick)
