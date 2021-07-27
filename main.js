@@ -1,6 +1,6 @@
 let myLibrary = {}
 
-const BOOK = (title, author, pages, pagesRead, completed, rating, id) => {
+function BOOK (title, author, pages, pagesRead, completed, rating, id) {
     this.title = title;
     this.author = author;
     this.pages = pages;
@@ -28,7 +28,6 @@ const bookPagesRead = document.createElement('td')
 const bookComplete = document.createElement('td')
 const bookRating = document.createElement('td')
 
-let bookId
 
 const bookCard = (id, title, author, pages, pagesRead, complete, rating) => {
 
@@ -39,42 +38,44 @@ const bookCard = (id, title, author, pages, pagesRead, complete, rating) => {
     bookTitle.className.add('title')
     bookTitle.textContent = title
 
-    tableRow.appendChild(bookTitle)
+    tableRow.appendChild(bookAuthor)
     bookAuthor.className.add('title')
     bookAuthor.textContent = author
 
-    tableRow.appendChild(bookTitle)
+    tableRow.appendChild(bookPages)
     bookPages.className.add('title')
     bookPages.textContent = pages
 
-    tableRow.appendChild(bookTitle)
+    tableRow.appendChild(bookPagesRead)
     bookPagesRead.className.add('title')
     bookPagesRead.textContent = pagesRead
 
-    tableRow.appendChild(bookTitle)
+    tableRow.appendChild(bookComplete)
     bookComplete.className.add('title')
     bookComplete.textContent = complete
 
-    tableRow.appendChild(bookTitle)
+    tableRow.appendChild(bookRating)
     bookRating.className.add('title')
     bookRating.textContent = rating
 
 }
 
-const createNewBook = () => {
-    bookId += 1
+let bookId = 0
 
-    return new BOOK (titleInput.value, authorInput.value, pagesInput.value, pagesReadInput.value, completedInput.value, ratingInput.value, bookId)
+const createNewBook = (title, author, pages, pagesRead, completed, rating) => {
+    bookId += 1
+    return new BOOK (title, author, pages, pagesRead, completed, rating, bookId)
 }
 
 const addNewBookToLibrary = () => {
-    let book = createNewBook()
-    return {
-        myLibrary: {
-            ...myLibrary,
-            [book.id]: {...book}
-        }
+    let newBook = createNewBook(titleInput.value, authorInput.value, pagesInput.value, pagesReadInput.value, completedInput.value, ratingInput.value, bookId)
+    console.log(newBook)
+    
+    return myLibrary = {
+        ...myLibrary,
+        [newBook.id]: {...newBook}
     }
+
 }
 
 const tellMe = () => {
@@ -82,4 +83,4 @@ const tellMe = () => {
 }
 
 const addBookButton = document.getElementById('addBookButton')
-addBookButton.addEventListener('click', tellMe)
+addBookButton.addEventListener('click', addNewBookToLibrary)
