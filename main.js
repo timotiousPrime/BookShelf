@@ -116,7 +116,7 @@ function mouseOut () {
 }
 
 function showBook () {
-    console.log(this.id)
+    openBookDetails()
 }
 
 function listenForMouseEventsOnBooks() {
@@ -129,4 +129,100 @@ function listenForMouseEventsOnBooks() {
     })
 }
 
+function openBookDetails() {
+    console.log('Book is open')
+    
+    const bookDetailsOverlay = document.createElement('div')
+    const bookDetailCard = document.createElement('div')
 
+    const bookTitleHeading = document.createElement('h2')
+    const bookAuthorHeading = document.createElement('h4')
+
+    const bookDetailsNameDiv = document.createElement('div')
+    const bookDetailsDiv =  document.createElement('div')
+
+    const bookPages = document.createElement('label')
+    const bookPagesRead = document.createElement('label')
+    const bookRating = document.createElement('label')
+    const bookSummary = document.createElement('label')
+
+    const btnDiv = document.createElement('div')
+    const completedBtn = document.createElement('button')
+    const editdBtn = document.createElement('button')
+    const deletedBtn = document.createElement('button')
+
+    const bookPagesValue = document.createElement('p')
+    const bookPagesReadValue = document.createElement('P')
+    const bookRatingValue = document.createElement('P')
+    const bookSummaryValue = document.createElement('P')
+
+    const bookPagesValueInput = document.createElement('input')
+    const bookPagesReadValueInput = document.createElement('input')
+    const bookRatingValueInput = document.createElement('input')
+    const bookSummaryValueInput = document.createElement('input')
+
+    document.body.appendChild(bookDetailsOverlay)
+    bookDetailsOverlay.setAttribute('id', 'bookDetailsOverlay')
+    bookDetailsOverlay.appendChild(bookDetailCard)
+    bookDetailCard.setAttribute('id', 'bookDetailCard')
+
+    bookDetailCard.appendChild(bookTitleHeading)
+    bookTitleHeading.classList.add('row')
+    bookDetailCard.appendChild(bookAuthorHeading)
+    bookAuthorHeading.classList.add('row')
+
+
+    bookDetailCard.appendChild(bookDetailsNameDiv)
+    bookDetailsNameDiv.classList.add('col')
+    bookDetailsNameDiv.appendChild(bookPages)    
+    bookPages.classList.add('row')
+    bookDetailCard.appendChild(bookPagesRead)
+    bookPagesRead.classList.add('row')
+    bookDetailCard.appendChild(bookRating)
+    bookRating.classList.add('row')
+    bookDetailCard.appendChild(bookSummary)
+    bookSummary.classList.add('row')
+
+    bookDetailCard.appendChild(bookDetailsDiv)
+    bookDetailsDiv.classList.add('col')
+    bookDetailCard.appendChild(bookPagesValue)
+    bookPagesValue.classList.add('row')
+    bookDetailCard.appendChild(bookPagesReadValue)
+    bookPagesReadValue.classList.add('row')
+    bookDetailCard.appendChild(bookRatingValue)
+    bookRatingValue.classList.add('row')
+    bookDetailCard.appendChild(bookSummaryValue)
+    bookSummaryValue.classList.add('row')
+
+    bookDetailCard.appendChild(btnDiv)
+    btnDiv.classList.add('row')
+    bookDetailCard.appendChild(completedBtn)
+    completedBtn.classList.add('btn')
+    completedBtn.classList.add('btn-success')
+    completedBtn.classList.add('btn-lg')
+    bookDetailCard.appendChild(editdBtn)
+    editdBtn.classList.add('btn')
+    editdBtn.classList.add('btn-secondary')
+    editdBtn.classList.add('btn-lg')
+    bookDetailCard.appendChild(deletedBtn)
+    deletedBtn.classList.add('btn')
+    deletedBtn.classList.add('btn-danger')
+    deletedBtn.classList.add('btn-lg')
+
+}
+
+function createBookDetailsCard() {
+
+}
+
+function listenForEditClick() {
+
+}
+
+function listenForDeleteClick() {
+
+}
+
+function updateThisBook() {
+
+}
