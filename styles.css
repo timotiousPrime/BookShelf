@@ -1,3 +1,22 @@
 #form-section > h2 {
     margin: 1rem 0;
 }
+
+#bookDetailsOverlay {
+    background: #aaaaaa69;
+    width: 100vw;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#bookDetailCard {
+    border-radius: 2rem;
+    background: #fff;
+    width: 60vw;
+    max-width: 600px;
+    min-height: 60vh;
+}
+
