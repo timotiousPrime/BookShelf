@@ -115,8 +115,8 @@ function mouseOut () {
     this.classList.remove('bg-info')
 }
 
-function showBook () {
-    openBookDetails()
+function showBook (book) {
+    openBookDetails(book)
 }
 
 function listenForMouseEventsOnBooks() {
@@ -125,12 +125,18 @@ function listenForMouseEventsOnBooks() {
     libraryBooks.forEach( book => {
         book.addEventListener('mouseenter', mouseOver)
         book.addEventListener('mouseout', mouseOut)
-        book.addEventListener('click', showBook)
+        book.addEventListener('click', (e) => {
+            console.log(e.path[1].id)
+            let bookId = e.path[1].id
+            showBook(myLibrary[bookId])
+        })
     })
 }
 
-function openBookDetails() {
-    console.log('Book is open')
+function openBookDetails(book) {
+    console.log(`Book ${book.id} is open`)
+    console.log(book)
+
     
     const bookDetailsOverlay = document.createElement('div')
     const bookDetailCard = document.createElement('div')
@@ -151,10 +157,10 @@ function openBookDetails() {
     const editdBtn = document.createElement('button')
     const deletedBtn = document.createElement('button')
 
-    const bookPagesValue = document.createElement('p')
-    const bookPagesReadValue = document.createElement('P')
-    const bookRatingValue = document.createElement('P')
-    const bookSummaryValue = document.createElement('P')
+    const bookPagesValue = document.createElement('label')
+    const bookPagesReadValue = document.createElement('label')
+    const bookRatingValue = document.createElement('label')
+    const bookSummaryValue = document.createElement('label')
 
     const bookPagesValueInput = document.createElement('input')
     const bookPagesReadValueInput = document.createElement('input')
@@ -167,10 +173,11 @@ function openBookDetails() {
     bookDetailCard.setAttribute('id', 'bookDetailCard')
 
     bookDetailCard.appendChild(bookTitleHeading)
+    bookTitleHeading.textContent = `${book.title}`
     bookTitleHeading.classList.add('row')
     bookDetailCard.appendChild(bookAuthorHeading)
+    bookAuthorHeading.textContent = `${book.author}`
     bookAuthorHeading.classList.add('row')
-
 
     bookDetailCard.appendChild(bookDetailsNameDiv)
     bookDetailsNameDiv.classList.add('col')
@@ -186,12 +193,31 @@ function openBookDetails() {
     bookDetailCard.appendChild(bookDetailsDiv)
     bookDetailsDiv.classList.add('col')
     bookDetailCard.appendChild(bookPagesValue)
+    bookPagesValue.textContent = `Pages:`
+    console.log(`${book.pages}`)
     bookPagesValue.classList.add('row')
     bookDetailCard.appendChild(bookPagesReadValue)
+    bookPagesReadValue.textContent = `Pages read:`
+    console.log(`${book.pagesRead}`)
     bookPagesReadValue.classList.add('row')
     bookDetailCard.appendChild(bookRatingValue)
+    bookRatingValue.textContent = `Book Rating`
+    console.log(`${book.rating}`)
     bookRatingValue.classList.add('row')
     bookDetailCard.appendChild(bookSummaryValue)
+    bookSummaryValue.textContent = `This is a summary`
+    console.log(`${book.title}`)
+    bookSummaryValue.classList.add('row')
+
+    // bookDetailCard.appendChild(bookDetailsDiv)
+    // bookDetailsDiv.classList.add('col')
+    bookDetailCard.appendChild(bookPagesValueInput)
+    bookPagesValue.classList.add('row')
+    bookDetailCard.appendChild(bookPagesReadValueInput)
+    bookPagesReadValue.classList.add('row')
+    bookDetailCard.appendChild(bookRatingValueInput)
+    bookRatingValue.classList.add('row')
+    bookDetailCard.appendChild(bookSummaryValueInput)
     bookSummaryValue.classList.add('row')
 
     bookDetailCard.appendChild(btnDiv)
