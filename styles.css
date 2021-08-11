@@ -16,7 +16,17 @@
     border-radius: 2rem;
     background: #fff;
     width: 60vw;
-    max-width: 600px;
+    max-width: 650px;
     min-height: 60vh;
+    border: 1px solid black;
+
 }
 
+#btnDiv {
+    justify-self: center;
+    width: 100%;
+    border: 1px solid black;
+}
+
+#bookDetailCard .btn {
+}

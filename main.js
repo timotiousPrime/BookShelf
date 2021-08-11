@@ -165,6 +165,7 @@ function openBookDetails() {
     bookDetailsOverlay.setAttribute('id', 'bookDetailsOverlay')
     bookDetailsOverlay.appendChild(bookDetailCard)
     bookDetailCard.setAttribute('id', 'bookDetailCard')
+    bookDetailCard.classList.add('container')
 
     bookDetailCard.appendChild(bookTitleHeading)
     bookTitleHeading.classList.add('row')
@@ -195,19 +196,17 @@ function openBookDetails() {
     bookSummaryValue.classList.add('row')
 
     bookDetailCard.appendChild(btnDiv)
+    btnDiv.setAttribute('id', 'btnDiv')
     btnDiv.classList.add('row')
-    bookDetailCard.appendChild(completedBtn)
-    completedBtn.classList.add('btn')
-    completedBtn.classList.add('btn-success')
-    completedBtn.classList.add('btn-lg')
-    bookDetailCard.appendChild(editdBtn)
-    editdBtn.classList.add('btn')
-    editdBtn.classList.add('btn-secondary')
-    editdBtn.classList.add('btn-lg')
-    bookDetailCard.appendChild(deletedBtn)
-    deletedBtn.classList.add('btn')
-    deletedBtn.classList.add('btn-danger')
-    deletedBtn.classList.add('btn-lg')
+    btnDiv.appendChild(completedBtn)
+    completedBtn.textContent = 'Book Complete'
+    completedBtn.classList.add('btn', 'col', 'btn-success')
+    btnDiv.appendChild(editdBtn)
+    editdBtn.textContent = 'Edit Details'
+    editdBtn.classList.add('btn', 'col', 'btn-secondary')
+    btnDiv.appendChild(deletedBtn)
+    deletedBtn.textContent = 'Delete Book'
+    deletedBtn.classList.add('btn', 'col', 'btn-danger')
 
 }
 
