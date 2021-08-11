@@ -66,15 +66,24 @@ let bookId = 0
 
 const createNewBook = () => {
     bookId += 1
-    return new BOOK (titleInput.value, authorInput.value, pagesInput.value, pagesReadInput.value, completedInput.value, ratingInput.value, bookId)
+    return new BOOK (titleInput.value, authorInput.value, pagesInput.value, pagesReadInput.value, completedInput.checked, ratingInput.value, bookId)
 }
 
 const addNewBookToLibrary = (book) => {    
     myLibrary = {
         ...myLibrary,
-        [book.id]: {...book}
+        [`ID${book.id}`]: {...book}
     }
 }
+
+const saveLibrary = (library) => {
+    localStorage.setItem('theLibrary', JSON.stringify(library))
+}
+
+const clearStoredLibrary = () => {
+    localStorage.clear()
+}
+
 
 function removeCard (item) {
     item.remove();
@@ -96,6 +105,8 @@ const displayMyLibrary = () => {
 const handleAddBookClick = () => {
     addNewBookToLibrary(createNewBook())
     form.reset()
+    clearStoredLibrary()
+    saveLibrary(myLibrary)
     displayMyLibrary()
     listenForMouseEventsOnBooks()
 }
@@ -126,8 +137,8 @@ function listenForMouseEventsOnBooks() {
         book.addEventListener('mouseenter', mouseOver)
         book.addEventListener('mouseout', mouseOut)
         book.addEventListener('click', (e) => {
-            console.log(e.path[1].id)
-            let bookId = e.path[1].id
+            console.log(e.target.parentNode.id)
+            let bookId = e.target.parentNode.id
             showBook(myLibrary[bookId])
         })
     })
@@ -135,104 +146,109 @@ function listenForMouseEventsOnBooks() {
 
 function openBookDetails(book) {
     console.log(`Book ${book.id} is open`)
-    console.log(book)
+//     console.log(book)
 
     
-    const bookDetailsOverlay = document.createElement('div')
-    const bookDetailCard = document.createElement('div')
+//     const bookDetailsOverlay = document.createElement('div')
+//     const bookDetailCard = document.createElement('div')
 
-    const bookTitleHeading = document.createElement('h2')
-    const bookAuthorHeading = document.createElement('h4')
+//     const bookTitleHeading = document.createElement('h2')
+//     const bookAuthorHeading = document.createElement('h4')
 
-    const bookDetailsNameDiv = document.createElement('div')
-    const bookDetailsDiv =  document.createElement('div')
+//     const bookDetailsNameDiv = document.createElement('div')
+//     const bookDetailsDiv =  document.createElement('div')
 
-    const bookPages = document.createElement('label')
-    const bookPagesRead = document.createElement('label')
-    const bookRating = document.createElement('label')
-    const bookSummary = document.createElement('label')
+//     const bookPages = document.createElement('label')
+//     const bookPagesRead = document.createElement('label')
+//     const bookRating = document.createElement('label')
+//     const bookSummary = document.createElement('label')
 
-    const btnDiv = document.createElement('div')
-    const completedBtn = document.createElement('button')
-    const editdBtn = document.createElement('button')
-    const deletedBtn = document.createElement('button')
+//     const btnDiv = document.createElement('div')
+//     const completedBtn = document.createElement('button')
+//     const editdBtn = document.createElement('button')
+//     const deletedBtn = document.createElement('button')
 
-    const bookPagesValue = document.createElement('label')
-    const bookPagesReadValue = document.createElement('label')
-    const bookRatingValue = document.createElement('label')
-    const bookSummaryValue = document.createElement('label')
+//     // const bookPagesValue = document.createElement('label')
+//     // const bookPagesReadValue = document.createElement('label')
+//     // const bookRatingValue = document.createElement('label')
+//     // const bookSummaryValue = document.createElement('label')
 
-    const bookPagesValueInput = document.createElement('input')
-    const bookPagesReadValueInput = document.createElement('input')
-    const bookRatingValueInput = document.createElement('input')
-    const bookSummaryValueInput = document.createElement('input')
+//     const bookPagesValueInput = document.createElement('input')
+//     const bookPagesReadValueInput = document.createElement('input')
+//     const bookRatingValueInput = document.createElement('input')
+//     const bookSummaryValueInput = document.createElement('input')
 
-    document.body.appendChild(bookDetailsOverlay)
-    bookDetailsOverlay.setAttribute('id', 'bookDetailsOverlay')
-    bookDetailsOverlay.appendChild(bookDetailCard)
-    bookDetailCard.setAttribute('id', 'bookDetailCard')
-    bookDetailCard.classList.add('container')
+//     document.body.appendChild(bookDetailsOverlay)
+//     bookDetailsOverlay.setAttribute('id', 'bookDetailsOverlay')
+//     bookDetailsOverlay.appendChild(bookDetailCard)
+//     bookDetailCard.setAttribute('id', 'bookDetailCard')
+//     bookDetailCard.classList.add('container')
 
-    bookDetailCard.appendChild(bookTitleHeading)
-    bookTitleHeading.textContent = `${book.title}`
-    bookTitleHeading.classList.add('row')
-    bookDetailCard.appendChild(bookAuthorHeading)
-    bookAuthorHeading.textContent = `${book.author}`
-    bookAuthorHeading.classList.add('row')
+//     bookDetailCard.appendChild(bookTitleHeading)
+//     bookTitleHeading.textContent = `${book.title}`
+//     bookTitleHeading.classList.add('row')
+//     bookDetailCard.appendChild(bookAuthorHeading)
+//     bookAuthorHeading.textContent = `${book.author}`
+//     bookAuthorHeading.classList.add('row')
 
-    bookDetailCard.appendChild(bookDetailsNameDiv)
-    bookDetailsNameDiv.classList.add('col')
-    bookDetailsNameDiv.appendChild(bookPages)    
-    bookPages.classList.add('row')
-    bookDetailCard.appendChild(bookPagesRead)
-    bookPagesRead.classList.add('row')
-    bookDetailCard.appendChild(bookRating)
-    bookRating.classList.add('row')
-    bookDetailCard.appendChild(bookSummary)
-    bookSummary.classList.add('row')
+//     bookDetailCard.appendChild(bookDetailsNameDiv)
+//     bookDetailsNameDiv.classList.add('col')
+//     bookDetailsNameDiv.appendChild(bookPages)    
+//     bookPages.textContent = `Pages:`
+//     bookPages.classList.add('row')
+//     bookDetailCard.appendChild(bookPagesRead)
+//     bookPagesRead.classList.add('row')
+//     bookDetailCard.appendChild(bookRating)
+//     bookRating.classList.add('row')
+//     bookDetailCard.appendChild(bookSummary)
+//     bookSummary.classList.add('row')
 
-    bookDetailCard.appendChild(bookDetailsDiv)
-    bookDetailsDiv.classList.add('col')
-    bookDetailCard.appendChild(bookPagesValue)
-    bookPagesValue.textContent = `Pages:`
-    console.log(`${book.pages}`)
-    bookPagesValue.classList.add('row')
-    bookDetailCard.appendChild(bookPagesReadValue)
-    bookPagesReadValue.textContent = `Pages read:`
-    console.log(`${book.pagesRead}`)
-    bookPagesReadValue.classList.add('row')
-    bookDetailCard.appendChild(bookRatingValue)
-    bookRatingValue.textContent = `Book Rating`
-    console.log(`${book.rating}`)
-    bookRatingValue.classList.add('row')
-    bookDetailCard.appendChild(bookSummaryValue)
-    bookSummaryValue.textContent = `This is a summary`
-    console.log(`${book.title}`)
-    bookSummaryValue.classList.add('row')
+//     bookDetailCard.appendChild(bookDetailsDiv)
+//     bookDetailsDiv.classList.add('col')
+//     bookPages.appendChild(bookPages)
+//     bookPagesValue.textContent = `Pages:`
+//     console.log(`${book.pages}`)
+//     bookPagesValue.classList.add('row')
+//     bookDetailCard.appendChild(bookPagesReadValue)
+//     bookPagesReadValue.textContent = `Pages read:`
+//     console.log(`${book.pagesRead}`)
+//     bookPagesReadValue.classList.add('row')
+//     bookDetailCard.appendChild(bookRatingValue)
+//     bookRatingValue.textContent = `Book Rating:`
+//     console.log(`${book.rating}`)
+//     bookRatingValue.classList.add('row')
+//     bookDetailCard.appendChild(bookSummaryValue)
+//     bookSummaryValue.textContent = `This is a summary`
+//     console.log(`${book.title}`)
+//     bookSummaryValue.classList.add('row')
 
-    // bookDetailCard.appendChild(bookDetailsDiv)
-    // bookDetailsDiv.classList.add('col')
-    bookDetailCard.appendChild(bookPagesValueInput)
-    bookPagesValue.classList.add('row')
-    bookDetailCard.appendChild(bookPagesReadValueInput)
-    bookPagesReadValue.classList.add('row')
-    bookDetailCard.appendChild(bookRatingValueInput)
-    bookRatingValue.classList.add('row')
-    bookDetailCard.appendChild(bookSummaryValueInput)
-    bookSummaryValue.classList.add('row')
 
-    bookDetailCard.appendChild(btnDiv)
-    btnDiv.setAttribute('id', 'btnDiv')
-    btnDiv.classList.add('row')
-    btnDiv.appendChild(completedBtn)
-    completedBtn.textContent = 'Book Complete'
-    completedBtn.classList.add('btn', 'col', 'btn-success')
-    btnDiv.appendChild(editdBtn)
-    editdBtn.textContent = 'Edit Details'
-    editdBtn.classList.add('btn', 'col', 'btn-secondary')
-    btnDiv.appendChild(deletedBtn)
-    deletedBtn.textContent = 'Delete Book'
-    deletedBtn.classList.add('btn', 'col', 'btn-danger')
+//     // Inputs
+//     // bookDetailCard.appendChild(bookDetailsDiv)
+//     // bookDetailsDiv.classList.add('col')
+//     bookDetailCard.appendChild(bookPagesValueInput)
+//     bookPages.classList.add('row')
+//     bookDetailCard.appendChild(bookPagesReadValueInput)
+//     bookPagesReadValue.classList.add('row')
+//     bookDetailCard.appendChild(bookRatingValueInput)
+//     bookRatingValue.classList.add('row')
+//     bookDetailCard.appendChild(bookSummaryValueInput)
+//     bookSummaryValue.classList.add('row')
+
+
+//     // Btns
+//     bookDetailCard.appendChild(btnDiv)
+//     btnDiv.setAttribute('id', 'btnDiv')
+//     btnDiv.classList.add('row')
+//     btnDiv.appendChild(completedBtn)
+//     completedBtn.textContent = 'Book Complete'
+//     completedBtn.classList.add('btn', 'col', 'btn-success')
+//     btnDiv.appendChild(editdBtn)
+//     editdBtn.textContent = 'Edit Details'
+//     editdBtn.classList.add('btn', 'col', 'btn-secondary')
+//     btnDiv.appendChild(deletedBtn)
+//     deletedBtn.textContent = 'Delete Book'
+//     deletedBtn.classList.add('btn', 'col', 'btn-danger')
 
 }
 
