@@ -76,6 +76,11 @@ const addNewBookToLibrary = (book) => {
     }
 }
 
+const updateMyLibrary = () => {
+    !localStorage.theLibrary ? console.log(`You haven't added any books yet`) : 
+        myLibrary = unpackTheLibrary()
+}
+
 const saveLibrary = (library) => {
     localStorage.setItem('theLibrary', JSON.stringify(library))
 }
@@ -89,23 +94,29 @@ function removeCard (item) {
     item.remove();
 }
 
-const displayMyLibrary = () => {
-    let keys = Object.keys(myLibrary)
+const unpackTheLibrary = () => {
+    const library = JSON.parse(localStorage.theLibrary)
+    return library
+}
 
+const displayMyLibrary = () => {
+    let keys = Object.keys(unpackTheLibrary())
+
+    console.log(keys)
     const newBookCards = document.querySelectorAll('.book');
     newBookCards.forEach(removeCard);
     // let numberOfBooks = Object.keys(myLibrary).length
     // for (let i = 1; i > numberOfBooks; i++)
     keys.forEach( (key) => {
-        console.log(myLibrary[key])
-        newBookCard(myLibrary[key].id, myLibrary[key].title, myLibrary[key].author, myLibrary[key].pages, myLibrary[key].pagesRead, myLibrary[key].completed, myLibrary[key].rating)
+        newBookCard(unpackTheLibrary()[key].id, unpackTheLibrary()[key].title, unpackTheLibrary()[key].author, unpackTheLibrary()[key].pages, unpackTheLibrary()[key].pagesRead, unpackTheLibrary()[key].completed, unpackTheLibrary()[key].rating)
     })
 }
 
 const handleAddBookClick = () => {
+    updateMyLibrary()
     addNewBookToLibrary(createNewBook())
     form.reset()
-    clearStoredLibrary()
+    // clearStoredLibrary()
     saveLibrary(myLibrary)
     displayMyLibrary()
     listenForMouseEventsOnBooks()
@@ -117,12 +128,10 @@ addBookButton.addEventListener('click', handleAddBookClick)
 listenForMouseEventsOnBooks()
 
 function mouseOver () {
-    console.log('hello')
     this.classList.add('bg-info')
 }
 
 function mouseOut () {
-    console.log('bye')
     this.classList.remove('bg-info')
 }
 
@@ -138,14 +147,15 @@ function listenForMouseEventsOnBooks() {
         book.addEventListener('mouseout', mouseOut)
         book.addEventListener('click', (e) => {
             console.log(e.target.parentNode.id)
-            let bookId = e.target.parentNode.id
+            let bookId = 'ID' + e.target.parentNode.id
             showBook(myLibrary[bookId])
         })
     })
 }
 
 function openBookDetails(book) {
-    console.log(`Book ${book.id} is open`)
+    console.log(book)
+    // console.log(`Book ${book.id} is open`)
 //     console.log(book)
 
     
