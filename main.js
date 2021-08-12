@@ -66,7 +66,27 @@ let bookId = 0
 
 const createNewBook = () => {
     bookId += 1
+
+    completedInput.checked ? pagesReadInput.value = pagesInput.value : console.log('finish the damn book')
+
     return new BOOK (titleInput.value, authorInput.value, pagesInput.value, pagesReadInput.value, completedInput.checked, ratingInput.value, bookId)
+}
+
+window.addEventListener('load', () => {
+    console.log('page has loaded')
+    !localStorage.theLibrary ? console.log('there are no books saved yet') : updateMyLibrary(), displayMyLibrary(), console.log(myLibrary) 
+})
+
+const updateMyLibrary = () => {
+
+    myLibrary = unpackTheLibrary()
+}
+
+const unpackTheLibrary = () => {
+    const library = JSON.parse(localStorage.theLibrary)
+    console.log(library)
+    console.log(myLibrary)
+    return library
 }
 
 const addNewBookToLibrary = (book) => {    
@@ -74,11 +94,6 @@ const addNewBookToLibrary = (book) => {
         ...myLibrary,
         [`ID${book.id}`]: {...book}
     }
-}
-
-const updateMyLibrary = () => {
-    !localStorage.theLibrary ? console.log(`You haven't added any books yet`) : 
-        myLibrary = unpackTheLibrary()
 }
 
 const saveLibrary = (library) => {
@@ -94,13 +109,8 @@ function removeCard (item) {
     item.remove();
 }
 
-const unpackTheLibrary = () => {
-    const library = JSON.parse(localStorage.theLibrary)
-    return library
-}
-
 const displayMyLibrary = () => {
-    let keys = Object.keys(unpackTheLibrary())
+    let keys = Object.keys(myLibrary)
 
     console.log(keys)
     const newBookCards = document.querySelectorAll('.book');
@@ -108,15 +118,13 @@ const displayMyLibrary = () => {
     // let numberOfBooks = Object.keys(myLibrary).length
     // for (let i = 1; i > numberOfBooks; i++)
     keys.forEach( (key) => {
-        newBookCard(unpackTheLibrary()[key].id, unpackTheLibrary()[key].title, unpackTheLibrary()[key].author, unpackTheLibrary()[key].pages, unpackTheLibrary()[key].pagesRead, unpackTheLibrary()[key].completed, unpackTheLibrary()[key].rating)
+        newBookCard(myLibrary[key].id, myLibrary[key].title, myLibrary[key].author, myLibrary[key].pages, myLibrary[key].pagesRead, myLibrary[key].completed, myLibrary[key].rating)
     })
 }
 
 const handleAddBookClick = () => {
-    updateMyLibrary()
     addNewBookToLibrary(createNewBook())
     form.reset()
-    // clearStoredLibrary()
     saveLibrary(myLibrary)
     displayMyLibrary()
     listenForMouseEventsOnBooks()
