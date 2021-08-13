@@ -113,10 +113,10 @@ const displayMyLibrary = () => {
     let keys = Object.keys(myLibrary)
 
     console.log(keys)
+    
     const newBookCards = document.querySelectorAll('.book');
     newBookCards.forEach(removeCard);
-    // let numberOfBooks = Object.keys(myLibrary).length
-    // for (let i = 1; i > numberOfBooks; i++)
+
     keys.forEach( (key) => {
         newBookCard(myLibrary[key].id, myLibrary[key].title, myLibrary[key].author, myLibrary[key].pages, myLibrary[key].pagesRead, myLibrary[key].completed, myLibrary[key].rating)
     })
