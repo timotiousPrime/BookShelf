@@ -1,4 +1,19 @@
+// Handling myLibrary 
+
 let myLibrary = {}
+
+// check for saved library in LocalStorage
+window.addEventListener('load', () => {
+    console.log('page has loaded')
+    !localStorage.theLibrary ? console.log('there are no books saved yet') : 
+    pullLibraryFromLS(), 
+    displayMyLibrary()
+    // console.table(myLibrary) 
+})
+
+const pullLibraryFromLS = () => {
+    myLibrary = JSON.parse(localStorage.theLibrary)
+}
 
 function BOOK (title, author, pages, pagesRead, completed, rating, summary, id) {
     this.title = title;
@@ -9,7 +24,7 @@ function BOOK (title, author, pages, pagesRead, completed, rating, summary, id) 
     this.rating = rating
     this.summary = summary
     this.id = id
-}
+}    
 
 let newBookCard = (id, title, author, pages, pagesRead, complete, rating, summary) => {
     let target = `collapseBook${id}`
@@ -21,15 +36,15 @@ let newBookCard = (id, title, author, pages, pagesRead, complete, rating, summar
             <h4 class="accordion-header h3" data-toggle="collapse" href="#collapse1">
                     <p class="h3">${title}</p>
                     <p class="h6">${author}</p>
-                </h4>
-            </button>
+                </h4>    
+            </button>    
             </div>
-        <div id="flush-${target}" class="accordion-collapse collapse" aria-labelledby="flush-${targetHeading}" data-bs-parent="#flush-${target}">
+        <div id="flush-${target}" class="accordion-collapse collapse" aria-labelledby="flush-${targetHeading}" data-bs-parent="#flush-${target}">    
         <div class=" row">
                 <div class="col-sm-3">Pages:</div>
                 <div class="col-sm">${pages}</div>
                 </div>
-            <div class=" row">
+            <div class=" row">    
             <div class="col-sm-3">Pages read:</div>
                 <div class="col-sm">${pagesRead}</div>
                 </div>
@@ -51,7 +66,7 @@ let newBookCard = (id, title, author, pages, pagesRead, complete, rating, summar
                 <button type="button" id="deleteBtn${id}" class="btn btn-danger">Delete</button>
                 </div>
                 </div>
-    `
+    `            
     
     const accordion = document.createElement('div')
     accordion.classList.add('accordion', 'accordion-flush', 'book')
@@ -59,7 +74,7 @@ let newBookCard = (id, title, author, pages, pagesRead, complete, rating, summar
     accordion.setAttribute('id', `${id}`)
     
     bookCase.appendChild(accordion)
-}
+}    
 
 // User inputs from form
 const titleInput = document.getElementById('title-input')
@@ -79,29 +94,10 @@ const createNewBook = () => {
     completedInput.checked ? pagesReadInput.value = pagesInput.value : console.log('finish the damn book')
     
     return new BOOK (titleInput.value, authorInput.value, pagesInput.value, pagesReadInput.value, completedInput.checked, ratingInput.value, summaryInput.value, bookId)
-}    
-
-// check for saved library in LocalStorage
-window.addEventListener('load', () => {
-    console.log('page has loaded')
-    !localStorage.theLibrary ? console.log('there are no books saved yet') : 
-    updateMyLibrary(), 
-    displayMyLibrary()
-    // console.table(myLibrary) 
-})
-
-
-const updateMyLibrary = () => {
-    myLibrary = unpackTheLibrary()
-}
+}        
 
 const getNextBookId = (library) => {
     return Object.keys(library).length +1
-}
-
-const unpackTheLibrary = () => {
-    const library = JSON.parse(localStorage.theLibrary)
-    return library
 }
 
 const addNewBookToLibrary = (book) => {    
@@ -156,24 +152,36 @@ function listenForBookClicks() {
     bookEls.forEach( (el) => {
         el.addEventListener('click', (e) => {
             let bookId = e.target.id
-            const delBTn = document.getElementById(`deleteBtn${bookId}`)
-            const editBTn = document.getElementById(`editBtn${bookId}`)
-            
-            function listenForEditClick(button) {
-                button.addEventListener('click', () => {
-                    console.log('Edit button has been clicked')
-                })
-            }
-            
-            function listenForDeleteClick(button) {
-            
-                button.addEventListener('click', () => {
-                    console.log('Delete button has been clicked')
-                })
-            }
+            let key = `ID${bookId}`
+            const btnEls = document.querySelectorAll('.btn')
+            btnEls.forEach( (btn) => {
+                btn.addEventListener('click', (e) => {
+                    let btnClickedId = e.target.id
+                    switch (`${btnClickedId}`) {
+                        case `completeBtn${bookId}`:
+                            myLibrary[key].pagesRead = myLibrary[key].pages
+                            saveLibrary(myLibrary)
+                            displayMyLibrary()
+                            break;
+                        case `editBtn${bookId}`:
+                            console.log('You clicked on edit')
+                            break;
+                        case `deleteBtn${bookId}`:
+                            console.log('You clicked on delete')
+                            delete myLibrary[key]
+                            saveLibrary(myLibrary)
+                            displayMyLibrary()
+                            break;
+                        default:
+                            console.log(`You didn't click an appropriate btn`)
+                            console.log(`${btnClickedId}${bookId}`)
+                            break;
+                    }
 
-            listenForEditClick(editBTn)
-            listenForDeleteClick(delBTn)
+                })
+
+            })
+
         })
     })
 }
