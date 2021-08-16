@@ -16,9 +16,9 @@ let newBookCard = (id, title, author, pages, pagesRead, complete, rating, summar
     let targetHeading = `heading${id}`
     
     let template = `
-    <div class="accordian-item book">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-${target}" aria-expanded="false" aria-controls="flush-${target}">
-            <h4 class="accordian-header h3" data-toggle="collapse" href="#collapse1">
+    <div class="accordion-item book">
+            <button id="${id}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-${target}" aria-expanded="false" aria-controls="flush-${target}">
+            <h4 class="accordion-header h3" data-toggle="collapse" href="#collapse1">
                     <p class="h3">${title}</p>
                     <p class="h6">${author}</p>
                 </h4>
@@ -46,19 +46,19 @@ let newBookCard = (id, title, author, pages, pagesRead, complete, rating, summar
                 <div class="col-sm">${summary}</div>
                 </div>
                 <div container-fluid row>
-                <button type="button" id="completeBtn" class="btn btn-success">Complete</button>
-                <button type="button" id="editBtn" class="btn btn-warning">Edit</button>
-                <button type="button" id="deleteBtn" class="btn btn-danger">Delete</button>
+                <button type="button" id="completeBtn${id}" class="btn btn-success">Complete</button>
+                <button type="button" id="editBtn${id}" class="btn btn-warning">Edit</button>
+                <button type="button" id="deleteBtn${id}" class="btn btn-danger">Delete</button>
                 </div>
                 </div>
     `
     
-    const accordian = document.createElement('div')
-    accordian.classList.add('accordian', 'accordian-flush', 'book')
-    accordian.innerHTML = template
-    accordian.setAttribute('id', `${id}`)
+    const accordion = document.createElement('div')
+    accordion.classList.add('accordion', 'accordion-flush', 'book')
+    accordion.innerHTML = template
+    accordion.setAttribute('id', `${id}`)
     
-    bookCase.appendChild(accordian)
+    bookCase.appendChild(accordion)
 }
 
 // User inputs from form
@@ -84,7 +84,10 @@ const createNewBook = () => {
 // check for saved library in LocalStorage
 window.addEventListener('load', () => {
     console.log('page has loaded')
-    !localStorage.theLibrary ? console.log('there are no books saved yet') : updateMyLibrary(), displayMyLibrary(), console.log('myLibrary on window load'), console.log(myLibrary) 
+    !localStorage.theLibrary ? console.log('there are no books saved yet') : 
+    updateMyLibrary(), 
+    displayMyLibrary()
+    // console.table(myLibrary) 
 })
 
 
@@ -130,6 +133,8 @@ const displayMyLibrary = () => {
     keys.forEach( (key) => {
         newBookCard(myLibrary[key].id, myLibrary[key].title, myLibrary[key].author, myLibrary[key].pages, myLibrary[key].pagesRead, myLibrary[key].completed, myLibrary[key].rating, myLibrary[key].summary)
     })
+
+    listenForBookClicks()
 }
 
 const handleAddBookClick = () => {
@@ -143,60 +148,32 @@ const handleAddBookClick = () => {
 const addBookButton = document.getElementById('addBookButton')
 addBookButton.addEventListener('click', handleAddBookClick)
 
-// listenForMouseEventsOnBooks()
 
-// function mouseOver () {
-//     console.log(this)
-//     this.classList.add('bg-info')
-// }
+// DRY this out and refactor
+function listenForBookClicks() {
+    
+    const bookEls = document.querySelectorAll('.accordion-button')
+    bookEls.forEach( (el) => {
+        el.addEventListener('click', (e) => {
+            let bookId = e.target.id
+            const delBTn = document.getElementById(`deleteBtn${bookId}`)
+            const editBTn = document.getElementById(`editBtn${bookId}`)
+            
+            function listenForEditClick(button) {
+                button.addEventListener('click', () => {
+                    console.log('Edit button has been clicked')
+                })
+            }
+            
+            function listenForDeleteClick(button) {
+            
+                button.addEventListener('click', () => {
+                    console.log('Delete button has been clicked')
+                })
+            }
 
-// function mouseOut () {
-//     console.log('bye')
-//     this.classList.remove('bg-info')
-// }
-
-// function showBook (book) {
-//     openBookDetails(book)
-// }
-
-function listenForMouseEventsOnBooks() {
-
-    const libraryBooks = document.querySelectorAll('.book')
-    libraryBooks.forEach( book => {
-        book.addEventListener('mouseenter', mouseOver)
-        book.addEventListener('mouseout', mouseOut)
-        book.addEventListener('click', (e) => {
-            console.log(e.target.parentNode.id)
-            let bookId = 'ID' + e.target.parentNode.id
-            showBook(myLibrary[bookId])
+            listenForEditClick(editBTn)
+            listenForDeleteClick(delBTn)
         })
     })
-}
-
-listenForMouseEventsOnAccordianBtns()
-
-function listenForMouseEventsOnAccordianBtns() {
-
-    const accordianEls = document.querySelectorAll('.book')
-    accordianEls.forEach( accordian => {
-        accordian.addEventListener('click', (e) => {
-            console.log(e)
-        })
-    })
-}
-
-const logBtn = () => {
-    console.log(e)
-}
-
-function listenForEditClick() {
-
-}
-
-function listenForDeleteClick() {
-
-}
-
-function updateThisBook() {
-
 }
