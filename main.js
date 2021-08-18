@@ -144,6 +144,20 @@ const handleAddBookClick = () => {
 const addBookButton = document.getElementById('addBookButton')
 addBookButton.addEventListener('click', handleAddBookClick)
 
+function updateLibraryKeys (library) {
+    let tempIdNum = 1 
+    
+    let keys = Object.keys(library)
+    
+    keys.forEach( (key) => {
+        library[tempIdNum] = library[key]
+        delete myLibrary[key]
+        library[`ID${tempIdNum}`] = library[tempIdNum]
+        library[`ID${tempIdNum}`].id = tempIdNum
+        delete myLibrary[tempIdNum]
+        tempIdNum++
+    })
+}
 
 // DRY this out and refactor
 function listenForBookClicks() {
@@ -168,7 +182,13 @@ function listenForBookClicks() {
                             break;
                         case `deleteBtn${bookId}`:
                             console.log('You clicked on delete')
+                            console.log(bookId)
                             delete myLibrary[key]
+                            console.log(`library after book deleted: ${myLibrary}`)
+                            console.log(myLibrary)
+                            updateLibraryKeys(myLibrary)
+                            console.log(`library after key update: ${myLibrary}`)
+                            console.log(myLibrary)
                             saveLibrary(myLibrary)
                             displayMyLibrary()
                             break;
