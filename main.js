@@ -172,6 +172,107 @@ function deleteBook(key) {
     displayMyLibrary()
 }
 
+function editBook(key) {
+    titleInput.value = myLibrary[key].title
+    authorInput.value = myLibrary[key].author 
+    pagesInput.value = myLibrary[key]. pages
+    pagesReadInput.value = myLibrary[key].pagesRead
+    // completedInput.value = myLibrary[key]. 
+    ratingInput.value = myLibrary[key].rating
+    summaryInput.value = myLibrary[key].summary
+
+    hideAddBookBtn ()
+    makeUpdateBtn()
+    overlayBookShelf ()
+    listenForEditClicks(key)
+    
+}
+
+function cancelUpdate(){
+    const updateBtn = document.getElementById('updateBtn')
+    const cancelBtn = document.getElementById('cancelBtn')
+    const overlay = document.getElementById('overlayDiv')
+
+    form.reset()
+    addBookButton.style.display = ''
+
+    updateBtn.remove()
+    cancelBtn.remove()
+    overlay.remove()
+}
+
+function updateBook(key) {
+    myLibrary[key].title = titleInput.value
+    myLibrary[key].pages = pagesInput.value
+    myLibrary[key].pagesRead = pagesReadInput.value
+    myLibrary[key].complete = completedInput.value
+    myLibrary[key].rating = ratingInput.value
+    myLibrary[key].summary = summaryInput.value
+
+     if (completedInput.checked) {
+        myLibrary[key].pagesRead = myLibrary[key].pages
+     }
+
+     if(myLibrary[key].pagesRead === myLibrary[key].pages) {
+        myLibrary[key].completed = true
+     } else {
+        myLibrary[key].completed = false
+     }
+
+    saveLibrary(myLibrary)
+    displayMyLibrary()
+    cancelUpdate()
+
+}
+
+function listenForEditClicks (id) {
+    const updateBtn = document.getElementById('updateBtn')
+    const cancelBtn = document.getElementById('cancelBtn')
+
+    updateBtn.addEventListener('click', () => {
+        updateBook(id)
+    })
+
+    cancelBtn.addEventListener('click', (cancelUpdate))
+}
+
+function overlayBookShelf () {
+    const overlay = document.createElement('div')
+    overlay.classList.add('overlay')
+    overlay.setAttribute('id', 'overlayDiv')
+
+
+    const librarySection = document.getElementById('library-section')
+    librarySection.appendChild(overlay)
+
+}
+
+function hideAddBookBtn () {
+    addBookButton.style.display = 'none'
+}
+
+
+function makeUpdateBtn() {
+    const btnDiv = document.querySelector('.d-grid')
+    const updateBtn = document.createElement('button')
+
+    btnDiv.classList.add('gap-2')
+
+    updateBtn.setAttribute('id', 'updateBtn')
+    updateBtn.textContent = 'Update Book'
+    updateBtn.setAttribute('type', 'button')
+    updateBtn.classList.add('btn', 'btn-success', 'btn-lg')
+    
+    const cancelBtn = document.createElement('button')
+    cancelBtn.setAttribute('id', 'cancelBtn')
+    cancelBtn.textContent = 'Cancel'
+    cancelBtn.setAttribute('type', 'button')
+    cancelBtn.classList.add('btn', 'btn-danger', 'btn-lg')
+
+    btnDiv.appendChild(updateBtn)
+    btnDiv.appendChild(cancelBtn)
+}
+
 // DRY this out and refactor
 function listenForBookClicks() {
     
@@ -189,7 +290,7 @@ function listenForBookClicks() {
                             bookComplete(key)
                             break;
                         case `editBtn${bookId}`:
-                            console.log('You clicked on edit')
+                            editBook(key)
                             break;
                         case `deleteBtn${bookId}`:
                             deleteBook(key)
