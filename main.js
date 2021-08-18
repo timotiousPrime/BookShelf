@@ -159,6 +159,19 @@ function updateLibraryKeys (library) {
     })
 }
 
+function bookComplete(key) {
+    myLibrary[key].pagesRead = myLibrary[key].pages
+    saveLibrary(myLibrary)
+    displayMyLibrary()
+}
+
+function deleteBook(key) {
+    delete myLibrary[key]
+    updateLibraryKeys(myLibrary)
+    saveLibrary(myLibrary)
+    displayMyLibrary()
+}
+
 // DRY this out and refactor
 function listenForBookClicks() {
     
@@ -173,35 +186,21 @@ function listenForBookClicks() {
                     let btnClickedId = e.target.id
                     switch (`${btnClickedId}`) {
                         case `completeBtn${bookId}`:
-                            myLibrary[key].pagesRead = myLibrary[key].pages
-                            saveLibrary(myLibrary)
-                            displayMyLibrary()
+                            bookComplete(key)
                             break;
                         case `editBtn${bookId}`:
                             console.log('You clicked on edit')
                             break;
                         case `deleteBtn${bookId}`:
-                            console.log('You clicked on delete')
-                            console.log(bookId)
-                            delete myLibrary[key]
-                            console.log(`library after book deleted: ${myLibrary}`)
-                            console.log(myLibrary)
-                            updateLibraryKeys(myLibrary)
-                            console.log(`library after key update: ${myLibrary}`)
-                            console.log(myLibrary)
-                            saveLibrary(myLibrary)
-                            displayMyLibrary()
+                            deleteBook(key)
                             break;
                         default:
-                            console.log(`You didn't click an appropriate btn`)
-                            console.log(`${btnClickedId}${bookId}`)
                             break;
                     }
 
                 })
 
             })
-
         })
     })
 }
