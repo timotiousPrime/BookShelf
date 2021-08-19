@@ -14,37 +14,44 @@
     </header>
     <section class="col-md-3" id="form-section">
         <h2>New Book</h2>
-        <form id="form">
+        <form id="form" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="title-input" class="form-label">Title:</label>
-                <input type="text" class="form-control" id="title-input" aria-describedby="book title">
+                <input type="text" class="form-control" id="title-input" required aria-describedby="book title">
+                <div class="valid-feedback">
+                </div>
               </div>
               <div class="mb-3">
                 <label for="author-input" class="form-label">Author:</label>
-                <input type="text" class="form-control" id="author-input">
-              </div>
+                <input type="text" class="form-control" id="author-input"  required aria-describedby="book author">
+                </div><div class="valid-feedback">
+                  
+                </div>
               <div class="mb-3">
                 <label for="pages-input" class="form-label">Pages:</label>
-                <input type="number" min="1" class="form-control" id="pages-input">
+                <input type="number" min="1" class="form-control" id="pages-input" aria-describedby="book pages">
+                </div><div class="valid-feedback">
+                  
               </div>
               <div class="mb-3">
                 <label for="pages-read-input" class="form-label">Pages read:</label>
-                <input type="number" min="0" class="form-control" id="pages-read-input">
+                <input type="number" min="0" class="form-control" id="pages-read-input" aria-describedby="book pages read">
+                </div><div class="valid-feedback">
               </div>
               <div class="mb-3 form-check range">
                 <input type="radio" class="form-check-input" id="completed-input">
-                <label class="form-check-label" for="completed-input">Finished the book?</label>
+                <label class="form-check-label" for="completed-input" aria-describedby="book completed">Finished the book?</label>
               </div>
               <div class="mb-3">
                 <label for="rating-input" class="form-label">Rating:</label>
-                <input type="range" min="1" max="5" value="3" class="form-range" id="rating-input">
+                <input type="range" min="1" max="5" value="3" class="form-range" id="rating-input" aria-describedby="book rating">
               </div>
               <div class="mb-3">
                 <label for="summary-input" class="form-label">Summary:</label>
-                <textarea type="text" class="form-control" id="summary-input"></textarea>
+                <textarea type="text" class="form-control" id="summary-input"  aria-describedby="book summary"></textarea>
               </div>
               <div class="d-grid">
-                <button id="addBookButton" type="button" class="btn btn-primary btn-lg">Add Book</button>
+                <button id="addBookButton" type="submit" class="btn btn-primary btn-lg" aria-describedby="add book button">Add Book</button>
             </div>
         </form>
     </section>
