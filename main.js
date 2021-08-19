@@ -91,31 +91,41 @@ function disableAddBookBtn () {
     addBookButton.setAttribute('disabled')
 }
 
+function validateBookEntry () {
+    if (titleInput.value === '' || authorInput.value === '' || 
+        pagesInput.value < 0 || pagesReadInput.value < 0) {
+            console.log('invalid')
+        disableAddBookBtn()
+        }
+}
+
 // Creates a new book using the info from the form inputs
 const createNewBook = () => {
     let bookId = getNextBookId(myLibrary)
     
-    if (titleInput.value === '' ) {
-        console.log('invalid')
-        disableAddBookBtn()
-    }
+    // if (titleInput.value === '' ) {
+    //     console.log('invalid')
+    //     disableAddBookBtn()
+    // }
     
-    if (authorInput.value === '' ) {
-        console.log('invalid')
-        disableAddBookBtn()
-    }
+    // if (authorInput.value === '' ) {
+    //     console.log('invalid')
+    //     disableAddBookBtn()
+    // }
     
-    if (pagesInput.value < 1 ) {
-        console.log('invalid')
-        pagesInput.value = 0
-        disableAddBookBtn()
-    }
+    // if (pagesInput.value < 1 ) {
+    //     console.log('invalid')
+    //     pagesInput.value = 0
+    //     disableAddBookBtn()
+    // }
 
-    if (pagesReadInput.value < 0 ) {
-        console.log('invalid')
-        pagesReadInput.value = 0
-        disableAddBookBtn()
-    }
+    // if (pagesReadInput.value < 0 ) {
+    //     console.log('invalid')
+    //     pagesReadInput.value = 0
+    //     disableAddBookBtn()
+    // }
+
+    validateBookEntry ()    
 
     completedInput.checked ? pagesReadInput.value = pagesInput.value : console.log('finish the damn book')
     
@@ -232,6 +242,14 @@ function disableupdateBtn () {
     updateBtn.setAttribute('disabled')
 }
 
+function validateEditEntry () {
+    if (titleInput.value === '' || authorInput.value === '' ||
+        pagesInput.value < 0 || pagesReadInput.value < 0) {
+            console.log('invalid')
+            disableupdateBtn()
+        }
+}
+
 function updateBook(key) {
     myLibrary[key].title = titleInput.value
     myLibrary[key].author = authorInput.value
@@ -241,27 +259,29 @@ function updateBook(key) {
     myLibrary[key].rating = ratingInput.value
     myLibrary[key].summary = summaryInput.value
 
-    if (titleInput.value === '' ) {
-        console.log('invalid')
-        disableupdateBtn()
-    }
+    // if (titleInput.value === '' ) {
+    //     console.log('invalid')
+    //     disableupdateBtn()
+    // }
     
-    if (authorInput.value === '' ) {
-        console.log('invalid')
-        disableupdateBtn()
-    }
+    // if (authorInput.value === '' ) {
+    //     console.log('invalid')
+    //     disableupdateBtn()
+    // }
     
-    if (pagesInput.value < 1 ) {
-        console.log('invalid')
-        pagesInput.value = 0
-        disableupdateBtn()
-    }
+    // if (pagesInput.value < 1 ) {
+    //     console.log('invalid')
+    //     pagesInput.value = 0
+    //     disableupdateBtn()
+    // }
 
-    if (pagesReadInput.value < 0 ) {
-        console.log('invalid')
-        pagesReadInput.value = 0
-        disableupdateBtn()
-    }
+    // if (pagesReadInput.value < 0 ) {
+    //     console.log('invalid')
+    //     pagesReadInput.value = 0
+    //     disableupdateBtn()
+    // }
+
+    validateEditEntry ()
 
     if (completedInput.checked) {
         myLibrary[key].pagesRead = myLibrary[key].pages
