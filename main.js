@@ -87,10 +87,36 @@ const summaryInput = document.getElementById('summary-input')
 const form = document.getElementById('form')
 const bookCase = document.getElementById('book-case')
 
+function disableAddBookBtn () {
+    addBookButton.setAttribute('disabled')
+}
+
 // Creates a new book using the info from the form inputs
 const createNewBook = () => {
     let bookId = getNextBookId(myLibrary)
     
+    if (titleInput.value === '' ) {
+        console.log('invalid')
+        disableAddBookBtn()
+    }
+    
+    if (authorInput.value === '' ) {
+        console.log('invalid')
+        disableAddBookBtn()
+    }
+    
+    if (pagesInput.value < 1 ) {
+        console.log('invalid')
+        pagesInput.value = 0
+        disableAddBookBtn()
+    }
+
+    if (pagesReadInput.value < 0 ) {
+        console.log('invalid')
+        pagesReadInput.value = 0
+        disableAddBookBtn()
+    }
+
     completedInput.checked ? pagesReadInput.value = pagesInput.value : console.log('finish the damn book')
     
     return new BOOK (titleInput.value, authorInput.value, pagesInput.value, pagesReadInput.value, completedInput.checked, ratingInput.value, summaryInput.value, bookId)
@@ -201,15 +227,43 @@ function cancelUpdate(){
     overlay.remove()
 }
 
+function disableupdateBtn () {
+    const updateBtn = document.getElementById(updateBtn)
+    updateBtn.setAttribute('disabled')
+}
+
 function updateBook(key) {
     myLibrary[key].title = titleInput.value
+    myLibrary[key].author = authorInput.value
     myLibrary[key].pages = pagesInput.value
     myLibrary[key].pagesRead = pagesReadInput.value
     myLibrary[key].complete = completedInput.value
     myLibrary[key].rating = ratingInput.value
     myLibrary[key].summary = summaryInput.value
 
-     if (completedInput.checked) {
+    if (titleInput.value === '' ) {
+        console.log('invalid')
+        disableupdateBtn()
+    }
+    
+    if (authorInput.value === '' ) {
+        console.log('invalid')
+        disableupdateBtn()
+    }
+    
+    if (pagesInput.value < 1 ) {
+        console.log('invalid')
+        pagesInput.value = 0
+        disableupdateBtn()
+    }
+
+    if (pagesReadInput.value < 0 ) {
+        console.log('invalid')
+        pagesReadInput.value = 0
+        disableupdateBtn()
+    }
+
+    if (completedInput.checked) {
         myLibrary[key].pagesRead = myLibrary[key].pages
      }
 
