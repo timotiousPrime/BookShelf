@@ -89,38 +89,49 @@ const bookCase = document.getElementById('book-case')
 
 function disableAddBookBtn () {
     addBookButton.setAttribute('disabled')
-}
+}    
+
+// function  {
+//     if (titleInput.textContent === '') {
+//         titleInput.classList.add('required')
+//     } 
+//     if (authorInput.textContent === '') {
+//         authorInput.classList.add('required')
+//     }
+// }
+
 
 function validateBookEntry () {
     if (titleInput.value === '' || authorInput.value === '' || 
         pagesInput.value < 0 || pagesReadInput.value < 0) {
             console.log('invalid')
-        disableAddBookBtn()
+        disableAddBookBtn()    
+        
         }
-}
+}        
 
 // Creates a new book using the info from the form inputs
 const createNewBook = () => {
     let bookId = getNextBookId(myLibrary)
     
     // if (titleInput.value === '' ) {
-    //     console.log('invalid')
+    //     console.log('invalid')    
     //     disableAddBookBtn()
     // }
     
     // if (authorInput.value === '' ) {
-    //     console.log('invalid')
+    //     console.log('invalid')    
     //     disableAddBookBtn()
     // }
     
     // if (pagesInput.value < 1 ) {
-    //     console.log('invalid')
+    //     console.log('invalid')    
     //     pagesInput.value = 0
     //     disableAddBookBtn()
     // }
 
     // if (pagesReadInput.value < 0 ) {
-    //     console.log('invalid')
+    //     console.log('invalid')    
     //     pagesReadInput.value = 0
     //     disableAddBookBtn()
     // }
@@ -130,31 +141,31 @@ const createNewBook = () => {
     completedInput.checked ? pagesReadInput.value = pagesInput.value : console.log('finish the damn book')
     
     return new BOOK (titleInput.value, authorInput.value, pagesInput.value, pagesReadInput.value, completedInput.checked, ratingInput.value, summaryInput.value, bookId)
-}        
+}            
 
 const getNextBookId = (library) => {
     return Object.keys(library).length +1
-}
+}    
 
 const addNewBookToLibrary = (book) => {    
     myLibrary = {
         ...myLibrary,
         [`ID${book.id}`]: {...book}
-    }
-}
+    }    
+}    
 
 const saveLibrary = (library) => {
     localStorage.setItem('theLibrary', JSON.stringify(library))
-}
+}    
 
 const clearStoredLibrary = () => {
     localStorage.clear()
-}
+}    
 
 
 function removeCard (item) {
     item.remove();
-}
+}    
 
 const displayMyLibrary = () => {
     let keys = Object.keys(myLibrary)
@@ -164,10 +175,10 @@ const displayMyLibrary = () => {
 
     keys.forEach( (key) => {
         newBookCard(myLibrary[key].id, myLibrary[key].title, myLibrary[key].author, myLibrary[key].pages, myLibrary[key].pagesRead, myLibrary[key].completed, myLibrary[key].rating, myLibrary[key].summary)
-    })
+    })    
 
     listenForBookClicks()
-}
+}    
 
 const handleAddBookClick = () => {
     addNewBookToLibrary(createNewBook())
@@ -175,7 +186,7 @@ const handleAddBookClick = () => {
     saveLibrary(myLibrary)
     displayMyLibrary()
     // listenForMouseEventsOnBooks()
-}
+}    
 
 const addBookButton = document.getElementById('addBookButton')
 addBookButton.addEventListener('click', handleAddBookClick)
@@ -192,21 +203,21 @@ function updateLibraryKeys (library) {
         library[`ID${tempIdNum}`].id = tempIdNum
         delete myLibrary[tempIdNum]
         tempIdNum++
-    })
-}
+    })    
+}    
 
 function bookComplete(key) {
     myLibrary[key].pagesRead = myLibrary[key].pages
     saveLibrary(myLibrary)
     displayMyLibrary()
-}
+}    
 
 function deleteBook(key) {
     delete myLibrary[key]
     updateLibraryKeys(myLibrary)
     saveLibrary(myLibrary)
     displayMyLibrary()
-}
+}    
 
 function editBook(key) {
     titleInput.value = myLibrary[key].title
@@ -222,7 +233,7 @@ function editBook(key) {
     overlayBookShelf ()
     listenForEditClicks(key)
     
-}
+}    
 
 function cancelUpdate(){
     const updateBtn = document.getElementById('updateBtn')
@@ -235,18 +246,18 @@ function cancelUpdate(){
     updateBtn.remove()
     cancelBtn.remove()
     overlay.remove()
-}
+}    
 
 function disableupdateBtn () {
     const updateBtn = document.getElementById(updateBtn)
     updateBtn.setAttribute('disabled')
-}
-
+}    
 function validateEditEntry () {
     if (titleInput.value === '' || authorInput.value === '' ||
         pagesInput.value < 0 || pagesReadInput.value < 0) {
             console.log('invalid')
             disableupdateBtn()
+            
         }
 }
 
@@ -334,7 +345,7 @@ function makeUpdateBtn() {
 
     updateBtn.setAttribute('id', 'updateBtn')
     updateBtn.textContent = 'Update Book'
-    updateBtn.setAttribute('type', 'button')
+    updateBtn.setAttribute('type', 'submit')
     updateBtn.classList.add('btn', 'btn-success', 'btn-lg')
     
     const cancelBtn = document.createElement('button')
