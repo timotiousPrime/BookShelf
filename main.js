@@ -91,16 +91,6 @@ function disableAddBookBtn () {
     addBookButton.setAttribute('disabled')
 }    
 
-// function  {
-//     if (titleInput.textContent === '') {
-//         titleInput.classList.add('required')
-//     } 
-//     if (authorInput.textContent === '') {
-//         authorInput.classList.add('required')
-//     }
-// }
-
-
 function validateBookEntry () {
     if (titleInput.value === '' || authorInput.value === '' || 
         pagesInput.value < 0 || pagesReadInput.value < 0) {
@@ -113,28 +103,6 @@ function validateBookEntry () {
 // Creates a new book using the info from the form inputs
 const createNewBook = () => {
     let bookId = getNextBookId(myLibrary)
-    
-    // if (titleInput.value === '' ) {
-    //     console.log('invalid')    
-    //     disableAddBookBtn()
-    // }
-    
-    // if (authorInput.value === '' ) {
-    //     console.log('invalid')    
-    //     disableAddBookBtn()
-    // }
-    
-    // if (pagesInput.value < 1 ) {
-    //     console.log('invalid')    
-    //     pagesInput.value = 0
-    //     disableAddBookBtn()
-    // }
-
-    // if (pagesReadInput.value < 0 ) {
-    //     console.log('invalid')    
-    //     pagesReadInput.value = 0
-    //     disableAddBookBtn()
-    // }
 
     validateBookEntry ()    
 
@@ -185,7 +153,6 @@ const handleAddBookClick = () => {
     form.reset()
     saveLibrary(myLibrary)
     displayMyLibrary()
-    // listenForMouseEventsOnBooks()
 }    
 
 const addBookButton = document.getElementById('addBookButton')
@@ -270,28 +237,6 @@ function updateBook(key) {
     myLibrary[key].rating = ratingInput.value
     myLibrary[key].summary = summaryInput.value
 
-    // if (titleInput.value === '' ) {
-    //     console.log('invalid')
-    //     disableupdateBtn()
-    // }
-    
-    // if (authorInput.value === '' ) {
-    //     console.log('invalid')
-    //     disableupdateBtn()
-    // }
-    
-    // if (pagesInput.value < 1 ) {
-    //     console.log('invalid')
-    //     pagesInput.value = 0
-    //     disableupdateBtn()
-    // }
-
-    // if (pagesReadInput.value < 0 ) {
-    //     console.log('invalid')
-    //     pagesReadInput.value = 0
-    //     disableupdateBtn()
-    // }
-
     validateEditEntry ()
 
     if (completedInput.checked) {
@@ -358,7 +303,6 @@ function makeUpdateBtn() {
     btnDiv.appendChild(cancelBtn)
 }
 
-// DRY this out and refactor
 function listenForBookClicks() {
     
     const bookEls = document.querySelectorAll('.accordion-button')
