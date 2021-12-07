@@ -1,9 +1,19 @@
-import {BUTTONS, USER_INPUTS, LIBRARY} from './constants.js'
+import {BUTTONS, USER_INPUTS, LIBRARY, ALL} from './constants.js'
 import { Book } from './book.js'
 import { BookCard } from './cardTemplate.js'
-import { validateBookEntry } from './validation.js'
+import { validateBookEntry } from './formValidation.js'
+// import { myLibrary } from './Library.js'
+import { makeUpdateBtn } from './makeUpdateBtn.js'
+// import { myLibrary } from './Library.js'
 
 // Handling myLibrary 
+
+// let LocallyStoredBooks = JSON.parse(localStorage.theLibrary)
+
+// let myLibrary = LocallyStoredBooks
+// let myLib = getStoredBooks()
+
+// console.log(myLibrary)
 
 let myLibrary = {}
 
@@ -11,103 +21,40 @@ let myLibrary = {}
 window.addEventListener('load', () => {
     console.log('page has loaded')
     !localStorage.theLibrary ? console.log('there are no books saved yet') : 
-    pullLibraryFromLS(), 
+    getStoredBooks (), 
     displayMyLibrary()
     // console.table(myLibrary) 
 })
 
-const pullLibraryFromLS = () => {
+// function getStoredBooks () {
+//     return JSON.parse(localStorage.theLibrary)
+// }
+
+// console.log(getStoredBooks())
+
+// function pullLibraryFromLS() {
+//     return myLib
+// }
+
+function getStoredBooks () {
     myLibrary = JSON.parse(localStorage.theLibrary)
+    return myLibrary
 }
-// // TODO: Create a class for this
-// // TODO: Replace with class from module
-// function BOOK (title, author, pages, pagesRead, completed, rating, summary, id) {
-//     this.title = title;
-//     this.author = author;
-//     this.pages = pages;
-//     this.pagesRead = pagesRead
-//     this.completed = completed
-//     this.rating = rating
-//     this.summary = summary
-//     this.id = id
-// }    
-// TODO: Replace with class from module
-// let newBookCard = (id, title, author, pages, pagesRead, complete, rating, summary) => {
-//     let target = `collapseBook${id}`
-//     let targetHeading = `heading${id}`
-    
-//     let template = `
-//     <div class="accordion-item book">
-//             <button id="${id}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-${target}" aria-expanded="false" aria-controls="flush-${target}">
-//             <h4 class="accordion-header h3" data-toggle="collapse" href="#collapse1">
-//                     <p class="h3">${title}</p>
-//                     <p class="h6">${author}</p>
-//                 </h4>    
-//             </button>    
-//             </div>
-//         <div id="flush-${target}" class="accordion-collapse collapse" aria-labelledby="flush-${targetHeading}" data-bs-parent="#flush-${target}">    
-//         <div class=" row">
-//                 <div class="col-sm-3">Pages:</div>
-//                 <div class="col-sm">${pages}</div>
-//                 </div>
-//             <div class=" row">    
-//             <div class="col-sm-3">Pages read:</div>
-//                 <div class="col-sm">${pagesRead}</div>
-//                 </div>
-//                 <div class=" row">
-//                 <div class="col-sm-3">Rating:</div>
-//                 <div class="col-sm">${rating}</div>
-//                 </div>
-//                 <div class=" row">
-//                 <div class="col-sm-3">completed:</div>
-//                 <div class="col-sm">${complete}</div>
-//                 </div>
-//                 <div class=" col">
-//                 <div class="col-sm-3">Summary:</div>
-//                 <div class="col-sm">${summary}</div>
-//                 </div>
-//                 <div container-fluid row>
-//                 <button type="button" id="completeBtn${id}" class="btn btn-success">Complete</button>
-//                 <button type="button" id="editBtn${id}" class="btn btn-warning">Edit</button>
-//                 <button type="button" id="deleteBtn${id}" class="btn btn-danger">Delete</button>
-//                 </div>
-//                 </div>
-//     `            
-    
-//     const accordion = document.createElement('div')
-//     accordion.classList.add('accordion', 'accordion-flush', 'book')
-//     accordion.innerHTML = template
-//     accordion.setAttribute('id', `${id}`)
-    
-//     LIBRARY.bookCase.appendChild(accordion)
-// }    
-
-// function disableAddBookBtn () {
-//     addBookButton.setAttribute('disabled')
-// }    
-
-// function validateBookEntry () {
-//     if (USER_INPUTS.title.value === '' || USER_INPUTS.author.value === '' || 
-//         USER_INPUTS.pages.value < 0 || USER_INPUTS.pagesRead.value < 0) {
-//             console.log('invalid')
-//         disableAddBookBtn()    
-        
-//         }
-// }        
+   
 
 // Creates a new book using the info from the form inputs
 const createNewBook = () => {
     let bookId = getNextBookId(myLibrary)
 
-    validateBookEntry ()    
+    validateBookEntry(true)    
 
     USER_INPUTS.completed.checked ? USER_INPUTS.pagesRead.value = USER_INPUTS.pages.value : console.log('finish the damn book')
     
     return new Book (USER_INPUTS.title.value, USER_INPUTS.author.value, USER_INPUTS.pages.value, USER_INPUTS.pagesRead.value, USER_INPUTS.completed.checked, USER_INPUTS.rating.value, USER_INPUTS.summary.value, bookId)
 }            
 
-const getNextBookId = (library) => {
-    return Object.keys(library).length +1
+function getNextBookId(library) {
+    return Object.keys(library).length + 1
 }    
 
 function addNewBookToLibrary(book) {    
@@ -131,13 +78,12 @@ function removeCard (item) {
 }    
 
 const displayMyLibrary = () => {
-    let keys = Object.keys(myLibrary)
+    let books = Object.keys(myLibrary)
     
-    const newBookCards = document.querySelectorAll('.book');
-    newBookCards.forEach(removeCard);
+    ALL.bookCards.forEach(removeCard);
 
-    keys.forEach( (key) => {
-        let bookCard = new BookCard(myLibrary[key])
+    books.forEach( (book) => {
+        let bookCard = new BookCard(myLibrary[book])
         bookCard.generateCard()
     })    
 
@@ -183,61 +129,47 @@ function deleteBook(key) {
     displayMyLibrary()
 }    
 
-function editBook(key) {
-    USER_INPUTS.title.value = myLibrary[key].title
-    USER_INPUTS.author.value = myLibrary[key].author 
-    USER_INPUTS.pages.value = myLibrary[key]. pages
-    USER_INPUTS.pagesRead.value = myLibrary[key].pagesRead
-    // USER_INPUTS.completed.value = myLibrary[key]. 
-    USER_INPUTS.rating.value = myLibrary[key].rating
-    USER_INPUTS.summary.value = myLibrary[key].summary
+function fillInputFields (bookId){
+    USER_INPUTS.title.value = myLibrary[bookId].title
+    USER_INPUTS.author.value = myLibrary[bookId].author 
+    USER_INPUTS.pages.value = myLibrary[bookId].pages
+    USER_INPUTS.pagesRead.value = myLibrary[bookId].pagesRead
+    USER_INPUTS.rating.value = myLibrary[bookId].rating
+    USER_INPUTS.summary.value = myLibrary[bookId].summary
+}
 
+function handleEditBtnClick(key) {
+   
+    fillInputFields (key)
     hideAddBookBtn ()
     makeUpdateBtn()
     overlayBookShelf ()
-    listenForEditClicks(key)
+    listenForUpdate(key)
     
 }    
 
 function cancelUpdate(){
-    // TODO: Update to use constants
-    const updateBtn = document.getElementById('updateBtn')
-    const cancelBtn = document.getElementById('cancelBtn')
-    const overlay = document.getElementById('overlayDiv')
-
+    
     USER_INPUTS.form.reset()
-    addBookButton.style.display = ''
 
-    updateBtn.remove()
-    cancelBtn.remove()
-    overlay.remove()
+    BUTTONS.addBook.style.display = ''
+
+    BUTTONS.update.remove()
+    BUTTONS.cancel.remove()
+    BUTTONS.overlay.remove()
 }    
 
-function disableupdateBtn () {
-    // TODO: Update to use constants
-    const updateBtn = document.getElementById(updateBtn)
-    updateBtn.setAttribute('disabled')
-}    
-function validateEditEntry () {
-    if (USER_INPUTS.title.value === '' || USER_INPUTS.author.value === '' ||
-        USER_INPUTS.pages.value < 0 || USER_INPUTS.pagesRead.value < 0) {
-            console.log('invalid')
-            disableupdateBtn()
-            
-        }
-}
-
-// TODO: Update using book class methods
 function updateBook(key) {
-    myLibrary[key].title = USER_INPUTS.title.value
-    myLibrary[key].author = USER_INPUTS.author.value
-    myLibrary[key].pages = USER_INPUTS.pages.value
-    myLibrary[key].pagesRead = USER_INPUTS.pagesRead.value
-    myLibrary[key].complete = USER_INPUTS.completed.value
-    myLibrary[key].rating = USER_INPUTS.rating.value
-    myLibrary[key].summary = USER_INPUTS.summary.value
 
-    validateEditEntry ()
+    myLibrary[key].setTitle(USER_INPUTS.title.value)
+    myLibrary[key].setAuthor(USER_INPUTS.author.value)
+    myLibrary[key].setPages(USER_INPUTS.pages.value)
+    myLibrary[key].setPagesRead(USER_INPUTS.pagesRead.value)
+    myLibrary[key].setComplete(USER_INPUTS.completed.checked)
+    myLibrary[key].setRating(USER_INPUTS.rating.value)
+    myLibrary[key].setSummary(USER_INPUTS.summary.value)
+
+    validateBookEntry(false)
 
     if (USER_INPUTS.completed.checked) {
         myLibrary[key].pagesRead = myLibrary[key].pages
@@ -256,16 +188,13 @@ function updateBook(key) {
 }
 
 // TODO: Add to event listener module
-function listenForEditClicks (id) {
-    // TODO: Update to use constants
-    const updateBtn = document.getElementById('updateBtn')
-    const cancelBtn = document.getElementById('cancelBtn')
+function listenForUpdate (id) {
 
-    updateBtn.addEventListener('click', () => {
+    BUTTONS.update.addEventListener('click', () => {
         updateBook(id)
     })
 
-    cancelBtn.addEventListener('click', (cancelUpdate))
+    BUTTONS.cancel.addEventListener('click', (cancelUpdate))
 }
 
 function overlayBookShelf () {
@@ -273,47 +202,21 @@ function overlayBookShelf () {
     overlay.classList.add('overlay')
     overlay.setAttribute('id', 'overlayDiv')
 
-    // TODO: Update to use constants 
-    const librarySection = document.getElementById('library-section')
-    librarySection.appendChild(overlay)
+    LIBRARY.librarySection.appendChild(overlay)
 }
 
 function hideAddBookBtn () {
     addBookButton.style.display = 'none'
 }
 
-// TODO: Create module for this component
-function makeUpdateBtn() {
-    const btnDiv = document.querySelector('.d-grid')
-    const updateBtn = document.createElement('button')
-
-    btnDiv.classList.add('gap-2')
-
-    updateBtn.setAttribute('id', 'updateBtn')
-    updateBtn.textContent = 'Update Book'
-    updateBtn.setAttribute('type', 'submit')
-    updateBtn.classList.add('btn', 'btn-success', 'btn-lg')
-    
-    const cancelBtn = document.createElement('button')
-    cancelBtn.setAttribute('id', 'cancelBtn')
-    cancelBtn.textContent = 'Cancel'
-    cancelBtn.setAttribute('type', 'button')
-    cancelBtn.classList.add('btn', 'btn-danger', 'btn-lg')
-
-    btnDiv.appendChild(updateBtn)
-    btnDiv.appendChild(cancelBtn)
-}
-
 // TODO: Create Module for event listeners
 function listenForBookClicks() {
     
-    const bookEls = document.querySelectorAll('.accordion-button')
-    bookEls.forEach( (el) => {
+    ALL.accordianBtns.forEach( (el) => {
         el.addEventListener('click', (e) => {
             let bookId = e.target.id
             let key = `ID${bookId}`
-            const btnEls = document.querySelectorAll('.btn')
-            btnEls.forEach( (btn) => {
+            ALL.buttons.forEach( (btn) => {
                 btn.addEventListener('click', (e) => {
                     let btnClickedId = e.target.id
                     switch (`${btnClickedId}`) {
@@ -321,7 +224,7 @@ function listenForBookClicks() {
                             bookComplete(key)
                             break;
                         case `editBtn${bookId}`:
-                            editBook(key)
+                            handleEditBtnClick(key)
                             break;
                         case `deleteBtn${bookId}`:
                             deleteBook(key)
