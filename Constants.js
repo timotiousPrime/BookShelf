@@ -1,5 +1,5 @@
 // User inputs from form
-const USER_INPUTS = {
+export const USER_INPUTS = {
     title: document.getElementById('title-input'),
     author: document.getElementById('author-input'),
     pages: document.getElementById('pages-input'),
@@ -8,6 +8,19 @@ const USER_INPUTS = {
     rating: document.getElementById('rating-input'),
     summary: document.getElementById('summary-input'),
     form: document.getElementById('form'),
-    bookCase: document.getElementById('book-case'),
+    
 }
 
+export const BUTTONS = {
+    update: document.getElementById('updateBtn'),
+    cancel: document.getElementById('cancelBtn'),
+    addBook: document.getElementById('addBookButton'),
+    overlay: document.getElementById('overlayDiv'),
+
+}
+
+export const LIBRARY = {
+    bookCase: document.getElementById('book-case'),
+    librarySection: document.getElementById('library-section'),
+
+}
