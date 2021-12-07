@@ -57,7 +57,7 @@ export class Book {
         return this.completed;
     }
 
-    completed() {
+    setcompleted() {
         this.completed = true;
         this.pagesRead = this.pages;
     }
