@@ -1,4 +1,7 @@
 import {BUTTONS, USER_INPUTS, LIBRARY} from './constants.js'
+import { Book } from './book.js'
+import { BookCard } from './cardTemplate.js'
+import { validateBookEntry } from './validation.js'
 
 // Handling myLibrary 
 
@@ -16,81 +19,81 @@ window.addEventListener('load', () => {
 const pullLibraryFromLS = () => {
     myLibrary = JSON.parse(localStorage.theLibrary)
 }
-// TODO: Create a class for this
+// // TODO: Create a class for this
+// // TODO: Replace with class from module
+// function BOOK (title, author, pages, pagesRead, completed, rating, summary, id) {
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.pagesRead = pagesRead
+//     this.completed = completed
+//     this.rating = rating
+//     this.summary = summary
+//     this.id = id
+// }    
 // TODO: Replace with class from module
-function BOOK (title, author, pages, pagesRead, completed, rating, summary, id) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.pagesRead = pagesRead
-    this.completed = completed
-    this.rating = rating
-    this.summary = summary
-    this.id = id
-}    
-// TODO: Replace with class from module
-let newBookCard = (id, title, author, pages, pagesRead, complete, rating, summary) => {
-    let target = `collapseBook${id}`
-    let targetHeading = `heading${id}`
+// let newBookCard = (id, title, author, pages, pagesRead, complete, rating, summary) => {
+//     let target = `collapseBook${id}`
+//     let targetHeading = `heading${id}`
     
-    let template = `
-    <div class="accordion-item book">
-            <button id="${id}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-${target}" aria-expanded="false" aria-controls="flush-${target}">
-            <h4 class="accordion-header h3" data-toggle="collapse" href="#collapse1">
-                    <p class="h3">${title}</p>
-                    <p class="h6">${author}</p>
-                </h4>    
-            </button>    
-            </div>
-        <div id="flush-${target}" class="accordion-collapse collapse" aria-labelledby="flush-${targetHeading}" data-bs-parent="#flush-${target}">    
-        <div class=" row">
-                <div class="col-sm-3">Pages:</div>
-                <div class="col-sm">${pages}</div>
-                </div>
-            <div class=" row">    
-            <div class="col-sm-3">Pages read:</div>
-                <div class="col-sm">${pagesRead}</div>
-                </div>
-                <div class=" row">
-                <div class="col-sm-3">Rating:</div>
-                <div class="col-sm">${rating}</div>
-                </div>
-                <div class=" row">
-                <div class="col-sm-3">completed:</div>
-                <div class="col-sm">${complete}</div>
-                </div>
-                <div class=" col">
-                <div class="col-sm-3">Summary:</div>
-                <div class="col-sm">${summary}</div>
-                </div>
-                <div container-fluid row>
-                <button type="button" id="completeBtn${id}" class="btn btn-success">Complete</button>
-                <button type="button" id="editBtn${id}" class="btn btn-warning">Edit</button>
-                <button type="button" id="deleteBtn${id}" class="btn btn-danger">Delete</button>
-                </div>
-                </div>
-    `            
+//     let template = `
+//     <div class="accordion-item book">
+//             <button id="${id}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-${target}" aria-expanded="false" aria-controls="flush-${target}">
+//             <h4 class="accordion-header h3" data-toggle="collapse" href="#collapse1">
+//                     <p class="h3">${title}</p>
+//                     <p class="h6">${author}</p>
+//                 </h4>    
+//             </button>    
+//             </div>
+//         <div id="flush-${target}" class="accordion-collapse collapse" aria-labelledby="flush-${targetHeading}" data-bs-parent="#flush-${target}">    
+//         <div class=" row">
+//                 <div class="col-sm-3">Pages:</div>
+//                 <div class="col-sm">${pages}</div>
+//                 </div>
+//             <div class=" row">    
+//             <div class="col-sm-3">Pages read:</div>
+//                 <div class="col-sm">${pagesRead}</div>
+//                 </div>
+//                 <div class=" row">
+//                 <div class="col-sm-3">Rating:</div>
+//                 <div class="col-sm">${rating}</div>
+//                 </div>
+//                 <div class=" row">
+//                 <div class="col-sm-3">completed:</div>
+//                 <div class="col-sm">${complete}</div>
+//                 </div>
+//                 <div class=" col">
+//                 <div class="col-sm-3">Summary:</div>
+//                 <div class="col-sm">${summary}</div>
+//                 </div>
+//                 <div container-fluid row>
+//                 <button type="button" id="completeBtn${id}" class="btn btn-success">Complete</button>
+//                 <button type="button" id="editBtn${id}" class="btn btn-warning">Edit</button>
+//                 <button type="button" id="deleteBtn${id}" class="btn btn-danger">Delete</button>
+//                 </div>
+//                 </div>
+//     `            
     
-    const accordion = document.createElement('div')
-    accordion.classList.add('accordion', 'accordion-flush', 'book')
-    accordion.innerHTML = template
-    accordion.setAttribute('id', `${id}`)
+//     const accordion = document.createElement('div')
+//     accordion.classList.add('accordion', 'accordion-flush', 'book')
+//     accordion.innerHTML = template
+//     accordion.setAttribute('id', `${id}`)
     
-    LIBRARY.bookCase.appendChild(accordion)
-}    
+//     LIBRARY.bookCase.appendChild(accordion)
+// }    
 
-function disableAddBookBtn () {
-    addBookButton.setAttribute('disabled')
-}    
+// function disableAddBookBtn () {
+//     addBookButton.setAttribute('disabled')
+// }    
 
-function validateBookEntry () {
-    if (USER_INPUTS.title.value === '' || USER_INPUTS.author.value === '' || 
-        USER_INPUTS.pages.value < 0 || USER_INPUTS.pagesRead.value < 0) {
-            console.log('invalid')
-        disableAddBookBtn()    
+// function validateBookEntry () {
+//     if (USER_INPUTS.title.value === '' || USER_INPUTS.author.value === '' || 
+//         USER_INPUTS.pages.value < 0 || USER_INPUTS.pagesRead.value < 0) {
+//             console.log('invalid')
+//         disableAddBookBtn()    
         
-        }
-}        
+//         }
+// }        
 
 // Creates a new book using the info from the form inputs
 const createNewBook = () => {
@@ -100,14 +103,14 @@ const createNewBook = () => {
 
     USER_INPUTS.completed.checked ? USER_INPUTS.pagesRead.value = USER_INPUTS.pages.value : console.log('finish the damn book')
     
-    return new BOOK (USER_INPUTS.title.value, USER_INPUTS.author.value, USER_INPUTS.pages.value, USER_INPUTS.pagesRead.value, USER_INPUTS.completed.checked, USER_INPUTS.rating.value, USER_INPUTS.summary.value, bookId)
+    return new Book (USER_INPUTS.title.value, USER_INPUTS.author.value, USER_INPUTS.pages.value, USER_INPUTS.pagesRead.value, USER_INPUTS.completed.checked, USER_INPUTS.rating.value, USER_INPUTS.summary.value, bookId)
 }            
 
 const getNextBookId = (library) => {
     return Object.keys(library).length +1
 }    
 
-const addNewBookToLibrary = (book) => {    
+function addNewBookToLibrary(book) {    
     myLibrary = {
         ...myLibrary,
         [`ID${book.id}`]: {...book}
@@ -134,7 +137,8 @@ const displayMyLibrary = () => {
     newBookCards.forEach(removeCard);
 
     keys.forEach( (key) => {
-        newBookCard(myLibrary[key].id, myLibrary[key].title, myLibrary[key].author, myLibrary[key].pages, myLibrary[key].pagesRead, myLibrary[key].completed, myLibrary[key].rating, myLibrary[key].summary)
+        let bookCard = new BookCard(myLibrary[key])
+        bookCard.generateCard()
     })    
 
     listenForBookClicks()
