@@ -1,3 +1,5 @@
+import {BUTTONS, USER_INPUTS, LIBRARY} from './constants.js'
+
 // Handling myLibrary 
 
 let myLibrary = {}
@@ -14,7 +16,8 @@ window.addEventListener('load', () => {
 const pullLibraryFromLS = () => {
     myLibrary = JSON.parse(localStorage.theLibrary)
 }
-
+// TODO: Create a class for this
+// TODO: Replace with class from module
 function BOOK (title, author, pages, pagesRead, completed, rating, summary, id) {
     this.title = title;
     this.author = author;
@@ -25,7 +28,7 @@ function BOOK (title, author, pages, pagesRead, completed, rating, summary, id) 
     this.summary = summary
     this.id = id
 }    
-
+// TODO: Replace with class from module
 let newBookCard = (id, title, author, pages, pagesRead, complete, rating, summary) => {
     let target = `collapseBook${id}`
     let targetHeading = `heading${id}`
@@ -73,27 +76,16 @@ let newBookCard = (id, title, author, pages, pagesRead, complete, rating, summar
     accordion.innerHTML = template
     accordion.setAttribute('id', `${id}`)
     
-    bookCase.appendChild(accordion)
+    LIBRARY.bookCase.appendChild(accordion)
 }    
-
-// User inputs from form
-const titleInput = document.getElementById('title-input')
-const authorInput = document.getElementById('author-input')
-const pagesInput = document.getElementById('pages-input')
-const pagesReadInput = document.getElementById('pages-read-input')
-const completedInput = document.getElementById('completed-input')
-const ratingInput = document.getElementById('rating-input')
-const summaryInput = document.getElementById('summary-input')
-const form = document.getElementById('form')
-const bookCase = document.getElementById('book-case')
 
 function disableAddBookBtn () {
     addBookButton.setAttribute('disabled')
 }    
 
 function validateBookEntry () {
-    if (titleInput.value === '' || authorInput.value === '' || 
-        pagesInput.value < 0 || pagesReadInput.value < 0) {
+    if (USER_INPUTS.title.value === '' || USER_INPUTS.author.value === '' || 
+        USER_INPUTS.pages.value < 0 || USER_INPUTS.pagesRead.value < 0) {
             console.log('invalid')
         disableAddBookBtn()    
         
@@ -106,9 +98,9 @@ const createNewBook = () => {
 
     validateBookEntry ()    
 
-    completedInput.checked ? pagesReadInput.value = pagesInput.value : console.log('finish the damn book')
+    USER_INPUTS.completed.checked ? USER_INPUTS.pagesRead.value = USER_INPUTS.pages.value : console.log('finish the damn book')
     
-    return new BOOK (titleInput.value, authorInput.value, pagesInput.value, pagesReadInput.value, completedInput.checked, ratingInput.value, summaryInput.value, bookId)
+    return new BOOK (USER_INPUTS.title.value, USER_INPUTS.author.value, USER_INPUTS.pages.value, USER_INPUTS.pagesRead.value, USER_INPUTS.completed.checked, USER_INPUTS.rating.value, USER_INPUTS.summary.value, bookId)
 }            
 
 const getNextBookId = (library) => {
@@ -150,11 +142,12 @@ const displayMyLibrary = () => {
 
 const handleAddBookClick = () => {
     addNewBookToLibrary(createNewBook())
-    form.reset()
+    USER_INPUTS.form.reset()
     saveLibrary(myLibrary)
     displayMyLibrary()
 }    
 
+// TODO: Update to use constants
 const addBookButton = document.getElementById('addBookButton')
 addBookButton.addEventListener('click', handleAddBookClick)
 
@@ -187,13 +180,13 @@ function deleteBook(key) {
 }    
 
 function editBook(key) {
-    titleInput.value = myLibrary[key].title
-    authorInput.value = myLibrary[key].author 
-    pagesInput.value = myLibrary[key]. pages
-    pagesReadInput.value = myLibrary[key].pagesRead
-    // completedInput.value = myLibrary[key]. 
-    ratingInput.value = myLibrary[key].rating
-    summaryInput.value = myLibrary[key].summary
+    USER_INPUTS.title.value = myLibrary[key].title
+    USER_INPUTS.author.value = myLibrary[key].author 
+    USER_INPUTS.pages.value = myLibrary[key]. pages
+    USER_INPUTS.pagesRead.value = myLibrary[key].pagesRead
+    // USER_INPUTS.completed.value = myLibrary[key]. 
+    USER_INPUTS.rating.value = myLibrary[key].rating
+    USER_INPUTS.summary.value = myLibrary[key].summary
 
     hideAddBookBtn ()
     makeUpdateBtn()
@@ -203,11 +196,12 @@ function editBook(key) {
 }    
 
 function cancelUpdate(){
+    // TODO: Update to use constants
     const updateBtn = document.getElementById('updateBtn')
     const cancelBtn = document.getElementById('cancelBtn')
     const overlay = document.getElementById('overlayDiv')
 
-    form.reset()
+    USER_INPUTS.form.reset()
     addBookButton.style.display = ''
 
     updateBtn.remove()
@@ -216,30 +210,32 @@ function cancelUpdate(){
 }    
 
 function disableupdateBtn () {
+    // TODO: Update to use constants
     const updateBtn = document.getElementById(updateBtn)
     updateBtn.setAttribute('disabled')
 }    
 function validateEditEntry () {
-    if (titleInput.value === '' || authorInput.value === '' ||
-        pagesInput.value < 0 || pagesReadInput.value < 0) {
+    if (USER_INPUTS.title.value === '' || USER_INPUTS.author.value === '' ||
+        USER_INPUTS.pages.value < 0 || USER_INPUTS.pagesRead.value < 0) {
             console.log('invalid')
             disableupdateBtn()
             
         }
 }
 
+// TODO: Update using book class methods
 function updateBook(key) {
-    myLibrary[key].title = titleInput.value
-    myLibrary[key].author = authorInput.value
-    myLibrary[key].pages = pagesInput.value
-    myLibrary[key].pagesRead = pagesReadInput.value
-    myLibrary[key].complete = completedInput.value
-    myLibrary[key].rating = ratingInput.value
-    myLibrary[key].summary = summaryInput.value
+    myLibrary[key].title = USER_INPUTS.title.value
+    myLibrary[key].author = USER_INPUTS.author.value
+    myLibrary[key].pages = USER_INPUTS.pages.value
+    myLibrary[key].pagesRead = USER_INPUTS.pagesRead.value
+    myLibrary[key].complete = USER_INPUTS.completed.value
+    myLibrary[key].rating = USER_INPUTS.rating.value
+    myLibrary[key].summary = USER_INPUTS.summary.value
 
     validateEditEntry ()
 
-    if (completedInput.checked) {
+    if (USER_INPUTS.completed.checked) {
         myLibrary[key].pagesRead = myLibrary[key].pages
      }
 
@@ -255,7 +251,9 @@ function updateBook(key) {
 
 }
 
+// TODO: Add to event listener module
 function listenForEditClicks (id) {
+    // TODO: Update to use constants
     const updateBtn = document.getElementById('updateBtn')
     const cancelBtn = document.getElementById('cancelBtn')
 
@@ -271,17 +269,16 @@ function overlayBookShelf () {
     overlay.classList.add('overlay')
     overlay.setAttribute('id', 'overlayDiv')
 
-
+    // TODO: Update to use constants 
     const librarySection = document.getElementById('library-section')
     librarySection.appendChild(overlay)
-
 }
 
 function hideAddBookBtn () {
     addBookButton.style.display = 'none'
 }
 
-
+// TODO: Create module for this component
 function makeUpdateBtn() {
     const btnDiv = document.querySelector('.d-grid')
     const updateBtn = document.createElement('button')
@@ -303,6 +300,7 @@ function makeUpdateBtn() {
     btnDiv.appendChild(cancelBtn)
 }
 
+// TODO: Create Module for event listeners
 function listenForBookClicks() {
     
     const bookEls = document.querySelectorAll('.accordion-button')
