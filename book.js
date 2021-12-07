@@ -1,4 +1,4 @@
-class Book {
+export class Book {
 
     static bookIdCounter = 0;
     static generateID() {return ++Book.bookIdCounter;}
@@ -8,9 +8,9 @@ class Book {
     pagesRead = 0;
     rating = 3;
     summary = '';
-    id = Book.generateID();
+    // id = Book.generateID();
 
-    constructor(title, author, pages, pagesRead, completed, rating, summary) {
+    constructor(title, author, pages, pagesRead, completed, rating, summary, id) {
         this.title = title;
         this.author = author;
         this.pages = pages;
@@ -18,6 +18,7 @@ class Book {
         this.completed = completed;
         this.rating = rating;
         this.summary = summary;
+        this.id = id
     }
 
     get title() {
