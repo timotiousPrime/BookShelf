@@ -24,3 +24,8 @@ export const LIBRARY = {
     librarySection: document.getElementById('library-section'),
 
 }
+export const ALL = {
+    bookCards: document.querySelectorAll('.book'),
+    buttons: document.querySelectorAll('.btn'),
+    accordianBtns: document.querySelectorAll('.accordion-button') 
+}
