@@ -8,9 +8,9 @@ export class Book {
     pagesRead = 0;
     rating = 3;
     summary = '';
-    // id = Book.generateID();
+    id = Book.generateID();
 
-    constructor(title, author, pages, pagesRead, completed, rating, summary, id) {
+    constructor(title, author, pages, pagesRead, completed, rating, summary) {
         this.title = title;
         this.author = author;
         this.pages = pages;
@@ -18,7 +18,7 @@ export class Book {
         this.completed = completed;
         this.rating = rating;
         this.summary = summary;
-        this.id = id
+        // this.id = id
     }
 
     get title() {
