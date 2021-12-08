@@ -1,4 +1,8 @@
-import { BUTTONS } from './constants.js';
+import { Book } from './book.js';
+import { BUTTONS, USER_INPUTS } from './constants.js';
+import { validateBookEntry } from './formValidation.js';
+import { myLib } from './Library.js';
+
 
 // Handle all the eventListeners
 
@@ -12,29 +16,43 @@ window.addEventListener('load', () => {
     // console.table(myLibrary) 
 })
 
+function updatePagesRead(isCompleted){
+    if (isCompleted) {
+        USER_INPUTS.pagesRead.value = USER_INPUTS.pages.value
+    }
+}
+
 // Listen for add book button click
 BUTTONS.addBook.addEventListener('click', handleAddBookClick)
 // Handle the add book button click
 const handleAddBookClick = () => {
     // validate form
+    validateBookEntry()
     // create book
-    addNewBookToLibrary(createNewBook())
+    let book = new Book(USER_INPUTS.title.value, USER_INPUTS.author.value, USER_INPUTS.pages.value, USER_INPUTS.pagesRead.value, USER_INPUTS.completed.checked, USER_INPUTS.rating.value, USER_INPUTS.summary.value)
     // check if book is complete
-    // assign an id to the book
+    updatePagesRead(USER_INPUTS.completed.checked)
     // add book to myLibrary
-    saveLibrary(myLibrary)
+    myLib.addBook(book)
     // update Local Storage
+    myLib.saveBooks()
+
     // render myLibrary
-    displayMyLibrary()
+    myLib.displayBooks()
     // clear form
     USER_INPUTS.form.reset()
 }    
 
 // Handle the edit button click
     // Add books info to form
+    fillInputFields (key)
+    // hide Add book Button
+    hideAddBookBtn ()
     // Add update button
+    makeUpdateBtn()
     // Add cancel button
     // Display overlay over book section
+    overlayBookShelf ()
     // Add event listener to update button
     handleUpdateBtnClick(id)
     // Add event listener to cancel button
@@ -53,11 +71,17 @@ const handleAddBookClick = () => {
     
 // Handle cancel button click  
     // remove overlay
+    BUTTONS.overlay.remove()
     // clear form
+    USER_INPUTS.form.reset()
+    // Display add book button
+    BUTTONS.addBook.style.display = ''
     // remove event listener from update button
     // remove event listener from cancel button
     // remove update button
+    BUTTONS.update.remove()
     // remove cancel button
+    BUTTONS.cancel.remove()
 
 
 
