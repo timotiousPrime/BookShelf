@@ -4,7 +4,7 @@ import { BookCard } from './cardTemplate.js'
 import { validateBookEntry } from './formValidation.js'
 // import { myLibrary } from './Library.js'
 import { makeUpdateBtn } from './makeUpdateBtn.js'
-// import { myLibrary } from './Library.js'
+import { myLib } from './Library.js'
 
 // Handling myLibrary 
 
@@ -15,16 +15,18 @@ import { makeUpdateBtn } from './makeUpdateBtn.js'
 
 // console.log(myLibrary)
 
+console.log(myLib.books)
+
 let myLibrary = {}
 
-// check for saved library in LocalStorage
-window.addEventListener('load', () => {
-    console.log('page has loaded')
-    !localStorage.theLibrary ? console.log('there are no books saved yet') : 
-    getStoredBooks (), 
-    displayMyLibrary()
-    // console.table(myLibrary) 
-})
+// // check for saved library in LocalStorage
+// window.addEventListener('load', () => {
+//     console.log('page has loaded')
+//     !localStorage.theLibrary ? console.log('there are no books saved yet') : 
+//     // getStoredBooks (), 
+//     displayMyLibrary()
+//     // console.table(myLibrary) 
+// })
 
 // function getStoredBooks () {
 //     return JSON.parse(localStorage.theLibrary)
@@ -73,22 +75,22 @@ const clearStoredLibrary = () => {
 }    
 
 
-function removeCard (item) {
+export function removeCard (item) {
     item.remove();
 }    
 
-const displayMyLibrary = () => {
-    let books = Object.keys(myLibrary)
+// const displayMyLibrary = () => {
+//     let books = Object.keys(myLibrary)
     
-    ALL.bookCards.forEach(removeCard);
+//     ALL.bookCards.forEach(removeCard);
 
-    books.forEach( (book) => {
-        let bookCard = new BookCard(myLibrary[book])
-        bookCard.generateCard()
-    })    
+//     books.forEach( (book) => {
+//         let bookCard = new BookCard(myLibrary[book])
+//         bookCard.generateCard()
+//     })    
 
-    listenForBookClicks()
-}    
+//     listenForBookClicks()
+// }    
 
 const handleAddBookClick = () => {
     addNewBookToLibrary(createNewBook())
@@ -129,6 +131,7 @@ function deleteBook(key) {
     displayMyLibrary()
 }    
 
+// This is called in the eventListener module
 function fillInputFields (bookId){
     USER_INPUTS.title.value = myLibrary[bookId].title
     USER_INPUTS.author.value = myLibrary[bookId].author 
@@ -138,26 +141,26 @@ function fillInputFields (bookId){
     USER_INPUTS.summary.value = myLibrary[bookId].summary
 }
 
-function handleEditBtnClick(key) {
+// function handleEditBtnClick(key) {
    
-    fillInputFields (key)
-    hideAddBookBtn ()
-    makeUpdateBtn()
-    overlayBookShelf ()
-    listenForUpdate(key)
+//     fillInputFields (key)
+//     hideAddBookBtn ()
+//     makeUpdateBtn()
+//     overlayBookShelf ()
+//     listenForUpdate(key)
     
-}    
+// }    
 
-function cancelUpdate(){
+// function cancelUpdate(){
     
-    USER_INPUTS.form.reset()
+//     USER_INPUTS.form.reset()
 
-    BUTTONS.addBook.style.display = ''
+//     BUTTONS.addBook.style.display = ''
 
-    BUTTONS.update.remove()
-    BUTTONS.cancel.remove()
-    BUTTONS.overlay.remove()
-}    
+//     BUTTONS.update.remove()
+//     BUTTONS.cancel.remove()
+//     BUTTONS.overlay.remove()
+// }    
 
 function updateBook(key) {
 
@@ -187,15 +190,15 @@ function updateBook(key) {
 
 }
 
-// TODO: Add to event listener module
-function listenForUpdate (id) {
+// // TODO: Add to event listener module
+// function listenForUpdate (id) {
 
-    BUTTONS.update.addEventListener('click', () => {
-        updateBook(id)
-    })
+//     BUTTONS.update.addEventListener('click', () => {
+//         updateBook(id)
+//     })
 
-    BUTTONS.cancel.addEventListener('click', (cancelUpdate))
-}
+//     BUTTONS.cancel.addEventListener('click', (cancelUpdate))
+// }
 
 function overlayBookShelf () {
     const overlay = document.createElement('div')
@@ -209,33 +212,33 @@ function hideAddBookBtn () {
     addBookButton.style.display = 'none'
 }
 
-// TODO: Create Module for event listeners
-function listenForBookClicks() {
+// // TODO: Create Module for event listeners
+// function listenForBookClicks() {
     
-    ALL.accordianBtns.forEach( (el) => {
-        el.addEventListener('click', (e) => {
-            let bookId = e.target.id
-            let key = `ID${bookId}`
-            ALL.buttons.forEach( (btn) => {
-                btn.addEventListener('click', (e) => {
-                    let btnClickedId = e.target.id
-                    switch (`${btnClickedId}`) {
-                        case `completeBtn${bookId}`:
-                            bookComplete(key)
-                            break;
-                        case `editBtn${bookId}`:
-                            handleEditBtnClick(key)
-                            break;
-                        case `deleteBtn${bookId}`:
-                            deleteBook(key)
-                            break;
-                        default:
-                            break;
-                    }
+//     ALL.accordianBtns.forEach( (el) => {
+//         el.addEventListener('click', (e) => {
+//             let bookId = e.target.id
+//             let key = `ID${bookId}`
+//             ALL.buttons.forEach( (btn) => {
+//                 btn.addEventListener('click', (e) => {
+//                     let btnClickedId = e.target.id
+//                     switch (`${btnClickedId}`) {
+//                         case `completeBtn${bookId}`:
+//                             bookComplete(key)
+//                             break;
+//                         case `editBtn${bookId}`:
+//                             handleEditBtnClick(key)
+//                             break;
+//                         case `deleteBtn${bookId}`:
+//                             deleteBook(key)
+//                             break;
+//                         default:
+//                             break;
+//                     }
 
-                })
+//                 })
 
-            })
-        })
-    })
-}
+//             })
+//         })
+//     })
+// }
