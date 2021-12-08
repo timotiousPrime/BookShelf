@@ -1,4 +1,4 @@
-import { ALL } from "./constants"
+import { ALL } from "./constants.js"
 import { BookCard } from "./cardTemplate.js"
 
 // // Instantiate Libray
@@ -17,7 +17,7 @@ const pullLibraryFromLS = () => {
 //     }    
 // }    
 
-let myLib = {
+export let myLib = {
     books: [],
     lib: {},
 
