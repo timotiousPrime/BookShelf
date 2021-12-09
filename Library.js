@@ -18,14 +18,16 @@ const pullLibraryFromLS = () => {
 // }    
 
 export let myLib = {
-    books: [],
     lib: {},
 
     addBook: (book) => {
-        this.books.push(book)
-        this.lib = {
-            ...this.lib,
+        myLib.lib = {
+            ...myLib.lib,
             [`ID${book.id}`]: {...book}}
+    },
+
+    loadLibrary: (obj) => {
+        myLib.lib = {...obj}
     },
 
     getLocallySavedBooks(){
@@ -33,27 +35,26 @@ export let myLib = {
     },
 
     saveBooksToLocalStorage: () => {
-        localStorage.setItem('localLibrary', JSON.stringify(this.lib))
+        localStorage.setItem('localLibrary', JSON.stringify(myLib.lib))
     },
 
     clearBooks: () => {
-        this.lib = {}
-        this.books = []
+        myLib.lib = {}
         localStorage.clear()
     },
 
     removeBook: (id) => {
-        this.books = this.books.filter(book => book.id !== id)
-        delete this.lib[`ID${id}`]
+        myLib.books = myLib.books.filter(book => book.id !== id)
+        delete myLib.lib[`ID${id}`]
     },
 
     displayBooks: () => {
-        let keys = Object.keys(this.lib)
+        let keys = Object.keys(myLib.lib)
    
         ALL.bookCards.forEach(removeCard);
 
         keys.forEach( (key) => {
-            let bookCard = new bookCard(this.lib[key])
+            let bookCard = new bookCard(myLib.lib[key])
             bookCard.generateCard()
         })    
 
