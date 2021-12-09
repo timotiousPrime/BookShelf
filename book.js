@@ -3,6 +3,20 @@ export class Book {
 
     static bookIdCounter = 0;
     static generateID() {return ++Book.bookIdCounter;}
+    
+        static updateBookIdCounter() {
+            if (localStorage.IdCounter) {
+                if (Book.bookIdCounter < localStorage.IdCounter) {
+                    Book.bookIdCounter = localStorage.IdCounter;
+                } else {
+                    localStorage.IdCounter = Book.bookIdCounter;
+                }
+                // Book.bookIdCounter = localStorage.IdCounter;
+            } else {
+                localStorage.setItem('IdCounter', Book.bookIdCounter);
+            }
+            console.log(Book.bookIdCounter);
+        }
 
     completed = false;
     pages = 0;
