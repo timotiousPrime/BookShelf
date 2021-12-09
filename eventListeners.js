@@ -6,31 +6,39 @@ import { myLib } from './Library.js';
 
 // Handle all the eventListeners
 function handleEvents() {
+    
+    // check for saved library in LocalStorage
+    window.addEventListener('load', () => {
+        console.log('page has loaded')
+        !localStorage.theLibrary ? console.log('there are no books saved yet') : 
+        myLib.loadLibrary (myLib.getLocallySavedBooks()), 
+        myLib.displayBooks()
+        // console.table(myLibrary) 
+    })
+    
     // Handle the add book button click
     BUTTONS.addBook.addEventListener('click', handleAddBookClick)
+    
     // Handle the update book button click
     // handleUpdateBtnClick()
+    
     // // Handle the cancel update button click
     // handleCancelBtnClick()
+    
     // // Handle the delete book button click
     // handleDeleteBtnClick()
+    
     // // Handle the edit book button click
     // handleEditBtnClick()
+    
     // // Handle the complete book button click
     // handleCompleteBtnClick()
+    
     // // Handle the accordian button click
     // listenForBookClicks()
 
 }
 
-// check for saved library in LocalStorage
-window.addEventListener('load', () => {
-    console.log('page has loaded')
-    !localStorage.theLibrary ? console.log('there are no books saved yet') : 
-    getStoredBooks (), 
-    displayMyLibrary()
-    // console.table(myLibrary) 
-})
 
 function updatePagesRead(isCompleted){
     if (isCompleted) {
@@ -113,7 +121,7 @@ function handleCancelBtnClick() {
 }
 
 // TODO: Create Module for event listeners
-function listenForBookClicks() {
+export function listenForBookClicks() {
     
     ALL.accordianBtns.forEach( (el) => {
         el.addEventListener('click', (e) => {
