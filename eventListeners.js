@@ -12,6 +12,7 @@ export function handleEvents() {
         console.log('page has loaded')
         !localStorage.theLibrary ? console.log('there are no books saved yet') : 
         myLib.loadLibrary (myLib.getLocallySavedBooks()), 
+        Book.updateBookIdCounter()
         myLib.displayBooks()
         // console.table(myLibrary) 
     })
@@ -19,6 +20,8 @@ export function handleEvents() {
     // Listen for add book button click
     BUTTONS.addBook.addEventListener('click', handleAddBookClick)
     
+
+
     // Handle the update book button click
     // handleUpdateBtnClick()
     
@@ -39,6 +42,40 @@ export function handleEvents() {
 
 }
 
+    // Listen for book card clicks    
+export function listenForBookClicks() {
+        ALL.accordianBtns.forEach( (el) => {
+            el.addEventListener('mouseover', () => {
+                console.log(e.target.id)})
+            el.addEventListener('click', (e) => {
+                let bookId = e.target.id
+                let key = `ID${bookId}`
+                ALL.buttons.forEach( (btn) => {
+                    btn.addEventListener('click', (e) => {
+                        let btnClickedId = e.target.id
+                        switch (`${btnClickedId}`) {
+                            case `completeBtn${bookId}`:
+                                // bookComplete(key)
+                                console.log('complete button clicked')
+                                break;
+                            case `editBtn${bookId}`:
+                                // handleEditBtnClick(key)
+                                console.log('edit button clicked')
+                                break;
+                            case `deleteBtn${bookId}`:
+                                // deleteBook(key)
+                                console.log(`delete button has been clicked`)
+                                break;
+                            default:
+                                break;
+                        }
+    
+                    })
+    
+                })
+            })
+        })
+    }
 
 function updatePagesRead(isCompleted){
     if (isCompleted) {
@@ -63,6 +100,14 @@ function handleAddBookClick () {
     // clear form
     USER_INPUTS.form.reset()
     console.log("new book has been successfully added")
+    console.log("My Library Collection",myLib.lib)
+    console.log("Locally saved books", myLib.getLocallySavedBooks())
+
+    // Update book ID counter
+    Book.updateBookIdCounter()
+
+    // Listen for clicks on books in library
+    // listenForBookClicks()
 }    
 
 // // Handle the edit button click
@@ -118,34 +163,34 @@ function handleCancelBtnClick() {
     BUTTONS.cancel.addEventListener('click', (cancelUpdate))
 }
 
-// TODO: Create Module for event listeners
-export function listenForBookClicks() {
+// // TODO: Create Module for event listeners
+// export function listenForBookClicks() {
     
-    ALL.accordianBtns.forEach( (el) => {
-        el.addEventListener('click', (e) => {
-            let bookId = e.target.id
-            let key = `ID${bookId}`
-            ALL.buttons.forEach( (btn) => {
-                btn.addEventListener('click', (e) => {
-                    let btnClickedId = e.target.id
-                    switch (`${btnClickedId}`) {
-                        case `completeBtn${bookId}`:
-                            bookComplete(key)
-                            break;
-                        case `editBtn${bookId}`:
-                            handleEditBtnClick(key)
-                            break;
-                        case `deleteBtn${bookId}`:
-                            deleteBook(key)
-                            break;
-                        default:
-                            break;
-                    }
+//     ALL.accordianBtns.forEach( (el) => {
+//         el.addEventListener('click', (e) => {
+//             let bookId = e.target.id
+//             let key = `ID${bookId}`
+//             ALL.buttons.forEach( (btn) => {
+//                 btn.addEventListener('click', (e) => {
+//                     let btnClickedId = e.target.id
+//                     switch (`${btnClickedId}`) {
+//                         case `completeBtn${bookId}`:
+//                             bookComplete(key)
+//                             break;
+//                         case `editBtn${bookId}`:
+//                             handleEditBtnClick(key)
+//                             break;
+//                         case `deleteBtn${bookId}`:
+//                             deleteBook(key)
+//                             break;
+//                         default:
+//                             break;
+//                     }
 
-                })
+//                 })
 
-            })
-        })
-    })
-}
+//             })
+//         })
+//     })
+// }
 
