@@ -1,5 +1,6 @@
 import { ALL } from "./constants.js"
 import { BookCard } from "./cardTemplate.js"
+import { listenForBookClicks } from "./eventListeners.js"
 
 // // Instantiate Libray
 // export let myLibrary = {}
