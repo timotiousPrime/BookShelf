@@ -12,8 +12,8 @@ export class BookCard {
         <div class="accordion-item book">
             <button id="${book.id}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-${this.target}" aria-expanded="false" aria-controls="flush-${this.target}">
             <h4 class="accordion-header h3" data-toggle="collapse" href="#collapse1">
-                    <p class="h3">${book.title}</p>
-                    <p class="h6">${book.author}</p>
+                    <p class="h3">${book._title}</p>
+                    <p class="h6">${book._author}</p>
                 </h4>    
             </button>    
             </div>
