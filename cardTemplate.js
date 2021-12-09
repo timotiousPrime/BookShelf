@@ -55,4 +55,8 @@ export class BookCard {
 
         LIBRARY.bookCase.appendChild(accordion)
     }
+
+    removeCards(card) {
+        card.remove
+    }
 }
