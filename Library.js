@@ -24,7 +24,10 @@ export let myLib = {
     addBook: (book) => {
         myLib.lib = {
             ...myLib.lib,
-            [`ID${book.id}`]: {...book}}
+            [`ID${book.id}`]: {...book}
+        }
+        console.log(myLib.lib)
+
     },
 
     loadLibrary: () => {
