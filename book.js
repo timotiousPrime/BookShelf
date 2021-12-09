@@ -1,3 +1,4 @@
+import  { USER_INPUTS } from './constants.js';
 export class Book {
 
     static bookIdCounter = 0;
@@ -11,8 +12,8 @@ export class Book {
     id = Book.generateID();
 
     constructor(title, author, pages, pagesRead, completed, rating, summary) {
-        this.title = title;
-        this.author = author;
+        this._title = title;
+        this._author = author;
         this.pages = pages;
         this.pagesRead = pagesRead;
         this.completed = completed;
@@ -22,19 +23,19 @@ export class Book {
     }
 
     get title() {
-        return this.title;
+        return this._title;
     }
 
     setTitle(value) {
-        this.title = value;
+        this._title = value;
     }
 
     get author() {
-        return this.author;
+        return this._author;
     }
 
     setAuthor(value) {
-        this.author = value;
+        this._author = value;
     }
 
     get pages() {
