@@ -28,8 +28,12 @@ export let myLib = {
             [`ID${book.id}`]: {...book}}
     },
 
-    saveBooks: () => {
-        localStorage.setItem('theLibrary', JSON.stringify(this.lib))
+    getLocallySavedBooks(){
+        if (localStorage.theLibrary) return JSON.parse(localStorage.localLibrary)
+    },
+
+    saveBooksToLocalStorage: () => {
+        localStorage.setItem('localLibrary', JSON.stringify(this.lib))
     },
 
     clearBooks: () => {
