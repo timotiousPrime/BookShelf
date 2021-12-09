@@ -1,10 +1,11 @@
-import {BUTTONS, USER_INPUTS, LIBRARY, ALL} from './constants.js'
-import { Book } from './book.js'
-import { BookCard } from './cardTemplate.js'
-import { validateBookEntry } from './formValidation.js'
-// import { myLibrary } from './Library.js'
-import { makeUpdateBtn } from './makeUpdateBtn.js'
+// import {BUTTONS, USER_INPUTS, LIBRARY, ALL} from './constants.js'
+// import { Book } from './book.js'
+// import { BookCard } from './cardTemplate.js'
+// import { validateBookEntry } from './formValidation.js'
+// // import { myLibrary } from './Library.js'
+// import { makeUpdateBtn } from './makeUpdateBtn.js'
 import { myLib } from './Library.js'
+import { handleEvents } from './eventListeners.js'
 
 // Handling myLibrary 
 
@@ -16,6 +17,35 @@ import { myLib } from './Library.js'
 // console.log(myLibrary)
 
 console.log(myLib.books)
+
+handleEvents()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // let myLibrary = {}
 
