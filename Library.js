@@ -57,9 +57,16 @@ export let myLib = {
     },
 
     displayBooks: () => {
+        console.log('displaying books')
         let keys = Object.keys(myLib.lib)
    
-        ALL.bookCards.forEach(removeCard);
+        console.log(ALL.bookCards)
+
+        Array.from(ALL.bookCards).forEach(card => {
+            console.log(card)})         
+        // ALL.bookCards.forEach(removeCard);
+        ALL.bookCards.forEach( (card) => {
+            console.log(card)})
 
         keys.forEach( (key) => {
             let bookCard = new BookCard(myLib.lib[key])
@@ -72,6 +79,7 @@ export let myLib = {
 }
 
 function removeCard(item) {
+    console.log("trying to remove bookcards")
     item.remove()        
 }
 
