@@ -27,12 +27,16 @@ export let myLib = {
             [`ID${book.id}`]: {...book}}
     },
 
-    loadLibrary: (obj) => {
-        myLib.lib = {...obj}
+    loadLibrary: () => {
+        if (localStorage.localLibrary) {
+            myLib.lib = {...JSON.parse(localStorage.localLibrary)}
+        } else {
+            localStorage.setItem('localLibrary', JSON.stringify(myLib.lib))
+        }
     },
 
     getLocallySavedBooks(){
-        if (localStorage.theLibrary) return JSON.parse(localStorage.localLibrary)
+        return JSON.parse(localStorage.localLibrary)
     },
 
     saveBooksToLocalStorage: () => {
