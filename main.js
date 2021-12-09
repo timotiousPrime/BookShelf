@@ -17,7 +17,7 @@ import { myLib } from './Library.js'
 
 console.log(myLib.books)
 
-let myLibrary = {}
+// let myLibrary = {}
 
 // // check for saved library in LocalStorage
 // window.addEventListener('load', () => {
@@ -38,46 +38,46 @@ let myLibrary = {}
 //     return myLib
 // }
 
-function getStoredBooks () {
-    myLibrary = JSON.parse(localStorage.theLibrary)
-    return myLibrary
-}
+// function getStoredBooks () {
+//     myLibrary = JSON.parse(localStorage.theLibrary)
+//     return myLibrary
+// }
    
 
-// Creates a new book using the info from the form inputs
-const createNewBook = () => {
-    let bookId = getNextBookId(myLibrary)
+// // Creates a new book using the info from the form inputs
+// const createNewBook = () => {
+//     let bookId = getNextBookId(myLibrary)
 
-    validateBookEntry(true)    
+//     validateBookEntry(true)    
 
-    USER_INPUTS.completed.checked ? USER_INPUTS.pagesRead.value = USER_INPUTS.pages.value : console.log('finish the damn book')
+//     USER_INPUTS.completed.checked ? USER_INPUTS.pagesRead.value = USER_INPUTS.pages.value : console.log('finish the damn book')
     
-    return new Book (USER_INPUTS.title.value, USER_INPUTS.author.value, USER_INPUTS.pages.value, USER_INPUTS.pagesRead.value, USER_INPUTS.completed.checked, USER_INPUTS.rating.value, USER_INPUTS.summary.value, bookId)
-}            
+//     return new Book (USER_INPUTS.title.value, USER_INPUTS.author.value, USER_INPUTS.pages.value, USER_INPUTS.pagesRead.value, USER_INPUTS.completed.checked, USER_INPUTS.rating.value, USER_INPUTS.summary.value, bookId)
+// }            
 
-function getNextBookId(library) {
-    return Object.keys(library).length + 1
-}    
+// function getNextBookId(library) {
+//     return Object.keys(library).length + 1
+// }    
 
-function addNewBookToLibrary(book) {    
-    myLibrary = {
-        ...myLibrary,
-        [`ID${book.id}`]: {...book}
-    }    
-}    
+// function addNewBookToLibrary(book) {    
+//     myLibrary = {
+//         ...myLibrary,
+//         [`ID${book.id}`]: {...book}
+//     }    
+// }    
 
-const saveLibrary = (library) => {
-    localStorage.setItem('theLibrary', JSON.stringify(library))
-}    
+// const saveLibrary = (library) => {
+//     localStorage.setItem('theLibrary', JSON.stringify(library))
+// }    
 
-const clearStoredLibrary = () => {
-    localStorage.clear()
-}    
+// const clearStoredLibrary = () => {
+//     localStorage.clear()
+// }    
 
 
-export function removeCard (item) {
-    item.remove();
-}    
+// export function removeCard (item) {
+//     item.remove();
+// }    
 
 // const displayMyLibrary = () => {
 //     let books = Object.keys(myLibrary)
@@ -92,54 +92,54 @@ export function removeCard (item) {
 //     listenForBookClicks()
 // }    
 
-const handleAddBookClick = () => {
-    addNewBookToLibrary(createNewBook())
-    USER_INPUTS.form.reset()
-    saveLibrary(myLibrary)
-    displayMyLibrary()
-}    
+// const handleAddBookClick = () => {
+//     addNewBookToLibrary(createNewBook())
+//     USER_INPUTS.form.reset()
+//     saveLibrary(myLibrary)
+//     displayMyLibrary()
+// }    
 
-// TODO: Update to use constants
-const addBookButton = document.getElementById('addBookButton')
-addBookButton.addEventListener('click', handleAddBookClick)
+// // TODO: Update to use constants
+// const addBookButton = document.getElementById('addBookButton')
+// addBookButton.addEventListener('click', handleAddBookClick)
 
-function updateLibraryKeys (library) {
-    let tempIdNum = 1 
+// function updateLibraryKeys (library) {
+//     let tempIdNum = 1 
     
-    let keys = Object.keys(library)
+//     let keys = Object.keys(library)
     
-    keys.forEach( (key) => {
-        library[tempIdNum] = library[key]
-        delete myLibrary[key]
-        library[`ID${tempIdNum}`] = library[tempIdNum]
-        library[`ID${tempIdNum}`].id = tempIdNum
-        delete myLibrary[tempIdNum]
-        tempIdNum++
-    })    
-}    
+//     keys.forEach( (key) => {
+//         library[tempIdNum] = library[key]
+//         delete myLibrary[key]
+//         library[`ID${tempIdNum}`] = library[tempIdNum]
+//         library[`ID${tempIdNum}`].id = tempIdNum
+//         delete myLibrary[tempIdNum]
+//         tempIdNum++
+//     })    
+// }    
 
-function bookComplete(key) {
-    myLibrary[key].pagesRead = myLibrary[key].pages
-    saveLibrary(myLibrary)
-    displayMyLibrary()
-}    
+// function bookComplete(key) {
+//     myLibrary[key].pagesRead = myLibrary[key].pages
+//     saveLibrary(myLibrary)
+//     displayMyLibrary()
+// }    
 
-function deleteBook(key) {
-    delete myLibrary[key]
-    updateLibraryKeys(myLibrary)
-    saveLibrary(myLibrary)
-    displayMyLibrary()
-}    
+// function deleteBook(key) {
+//     delete myLibrary[key]
+//     updateLibraryKeys(myLibrary)
+//     saveLibrary(myLibrary)
+//     displayMyLibrary()
+// }    
 
-// This is called in the eventListener module
-function fillInputFields (bookId){
-    USER_INPUTS.title.value = myLibrary[bookId].title
-    USER_INPUTS.author.value = myLibrary[bookId].author 
-    USER_INPUTS.pages.value = myLibrary[bookId].pages
-    USER_INPUTS.pagesRead.value = myLibrary[bookId].pagesRead
-    USER_INPUTS.rating.value = myLibrary[bookId].rating
-    USER_INPUTS.summary.value = myLibrary[bookId].summary
-}
+// // This is called in the eventListener module
+// function fillInputFields (bookId){
+//     USER_INPUTS.title.value = myLibrary[bookId].title
+//     USER_INPUTS.author.value = myLibrary[bookId].author 
+//     USER_INPUTS.pages.value = myLibrary[bookId].pages
+//     USER_INPUTS.pagesRead.value = myLibrary[bookId].pagesRead
+//     USER_INPUTS.rating.value = myLibrary[bookId].rating
+//     USER_INPUTS.summary.value = myLibrary[bookId].summary
+// }
 
 // function handleEditBtnClick(key) {
    
@@ -162,33 +162,33 @@ function fillInputFields (bookId){
 //     BUTTONS.overlay.remove()
 // }    
 
-function updateBook(key) {
+// function updateBook(key) {
 
-    myLibrary[key].setTitle(USER_INPUTS.title.value)
-    myLibrary[key].setAuthor(USER_INPUTS.author.value)
-    myLibrary[key].setPages(USER_INPUTS.pages.value)
-    myLibrary[key].setPagesRead(USER_INPUTS.pagesRead.value)
-    myLibrary[key].setComplete(USER_INPUTS.completed.checked)
-    myLibrary[key].setRating(USER_INPUTS.rating.value)
-    myLibrary[key].setSummary(USER_INPUTS.summary.value)
+//     myLibrary[key].setTitle(USER_INPUTS.title.value)
+//     myLibrary[key].setAuthor(USER_INPUTS.author.value)
+//     myLibrary[key].setPages(USER_INPUTS.pages.value)
+//     myLibrary[key].setPagesRead(USER_INPUTS.pagesRead.value)
+//     myLibrary[key].setComplete(USER_INPUTS.completed.checked)
+//     myLibrary[key].setRating(USER_INPUTS.rating.value)
+//     myLibrary[key].setSummary(USER_INPUTS.summary.value)
 
-    validateBookEntry(false)
+//     validateBookEntry(false)
 
-    if (USER_INPUTS.completed.checked) {
-        myLibrary[key].pagesRead = myLibrary[key].pages
-     }
+//     if (USER_INPUTS.completed.checked) {
+//         myLibrary[key].pagesRead = myLibrary[key].pages
+//      }
 
-     if(myLibrary[key].pagesRead === myLibrary[key].pages) {
-        myLibrary[key].completed = true
-     } else {
-        myLibrary[key].completed = false
-     }
+//      if(myLibrary[key].pagesRead === myLibrary[key].pages) {
+//         myLibrary[key].completed = true
+//      } else {
+//         myLibrary[key].completed = false
+//      }
 
-    saveLibrary(myLibrary)
-    displayMyLibrary()
-    cancelUpdate()
+//     saveLibrary(myLibrary)
+//     displayMyLibrary()
+//     cancelUpdate()
 
-}
+// }
 
 // // TODO: Add to event listener module
 // function listenForUpdate (id) {
@@ -200,17 +200,17 @@ function updateBook(key) {
 //     BUTTONS.cancel.addEventListener('click', (cancelUpdate))
 // }
 
-function overlayBookShelf () {
-    const overlay = document.createElement('div')
-    overlay.classList.add('overlay')
-    overlay.setAttribute('id', 'overlayDiv')
+// function overlayBookShelf () {
+//     const overlay = document.createElement('div')
+//     overlay.classList.add('overlay')
+//     overlay.setAttribute('id', 'overlayDiv')
 
-    LIBRARY.librarySection.appendChild(overlay)
-}
+//     LIBRARY.librarySection.appendChild(overlay)
+// }
 
-function hideAddBookBtn () {
-    addBookButton.style.display = 'none'
-}
+// function hideAddBookBtn () {
+//     addBookButton.style.display = 'none'
+// }
 
 // // TODO: Create Module for event listeners
 // function listenForBookClicks() {
