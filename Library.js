@@ -62,7 +62,7 @@ export let myLib = {
         ALL.bookCards.forEach(removeCard);
 
         keys.forEach( (key) => {
-            let bookCard = new bookCard(myLib.lib[key])
+            let bookCard = new BookCard(myLib.lib[key])
             bookCard.generateCard()
         })    
 
