@@ -16,8 +16,6 @@ import { handleEvents } from './eventListeners.js'
 
 // console.log(myLibrary)
 
-console.log(myLib.books)
-
 handleEvents()
 
 
