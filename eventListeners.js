@@ -1,11 +1,11 @@
 import { Book } from './book.js';
-import { BUTTONS, USER_INPUTS } from './constants.js';
+import { BUTTONS, USER_INPUTS, ALL } from './constants.js';
 import { validateBookEntry } from './formValidation.js';
 import { myLib } from './Library.js';
 
 
 // Handle all the eventListeners
-function handleEvents() {
+export function handleEvents() {
     
     // check for saved library in LocalStorage
     window.addEventListener('load', () => {
@@ -16,7 +16,7 @@ function handleEvents() {
         // console.table(myLibrary) 
     })
     
-    // Handle the add book button click
+    // Listen for add book button click
     BUTTONS.addBook.addEventListener('click', handleAddBookClick)
     
     // Handle the update book button click
@@ -46,8 +46,6 @@ function updatePagesRead(isCompleted){
     }
 }
 
-// Listen for add book button click
-BUTTONS.addBook.addEventListener('click', handleAddBookClick)
 // Handle the add book button click
 const handleAddBookClick = () => {
     // validate form
