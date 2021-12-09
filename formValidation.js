@@ -1,4 +1,4 @@
-import { BUTTONS } from "./constants.js"
+import { BUTTONS, USER_INPUTS } from "./constants.js"
 
 export function validateBookEntry (isNewEntry) {
     if (USER_INPUTS.title.value === '' ||
