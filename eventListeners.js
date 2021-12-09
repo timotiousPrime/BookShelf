@@ -57,7 +57,7 @@ const handleAddBookClick = () => {
     // add book to myLibrary
     myLib.addBook(book)
     // update Local Storage
-    myLib.saveBooks()
+    myLib.saveBooksToLocalStorage()
 
     // render myLibrary
     myLib.displayBooks()
