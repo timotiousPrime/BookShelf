@@ -47,19 +47,17 @@ function updatePagesRead(isCompleted){
 }
 
 // Handle the add book button click
-const handleAddBookClick = () => {
+function handleAddBookClick () {
     // validate form
     validateBookEntry()
     // create book
     let book = new Book(USER_INPUTS.title.value, USER_INPUTS.author.value, USER_INPUTS.pages.value, USER_INPUTS.pagesRead.value, USER_INPUTS.completed.checked, USER_INPUTS.rating.value, USER_INPUTS.summary.value)
     // check if book is complete
     updatePagesRead(USER_INPUTS.completed.checked)
-
     // add book to myLibrary
     myLib.addBook(book)
     // update Local Storage
     myLib.saveBooksToLocalStorage()
-
     // render myLibrary
     myLib.displayBooks()
     // clear form
