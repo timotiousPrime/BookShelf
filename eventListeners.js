@@ -50,19 +50,27 @@ function updatePagesRead(isCompleted){
 const handleAddBookClick = () => {
     // validate form
     validateBookEntry()
+    console.log("new entry has been validated")
     // create book
     let book = new Book(USER_INPUTS.title.value, USER_INPUTS.author.value, USER_INPUTS.pages.value, USER_INPUTS.pagesRead.value, USER_INPUTS.completed.checked, USER_INPUTS.rating.value, USER_INPUTS.summary.value)
+    console.log("new book has been created")
     // check if book is complete
     updatePagesRead(USER_INPUTS.completed.checked)
+
     // add book to myLibrary
     myLib.addBook(book)
+    console.log("book has been added to myLib")
     // update Local Storage
     myLib.saveBooksToLocalStorage()
+    console.log("book has been saved to Local Storage")
 
     // render myLibrary
     myLib.displayBooks()
+    console.log("myLib has been rendered")
     // clear form
     USER_INPUTS.form.reset()
+    console.log("form has been cleared")
+    console.log("new book has been successfully added")
 }    
 
 // // Handle the edit button click
