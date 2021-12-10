@@ -5,6 +5,18 @@ export class Book {
     static generateID() {return ++Book.bookIdCounter;}
     
         static updateBookIdCounter() {
+            
+            if (localStorage.localLibrary) {
+                
+                let lastId = 0;
+
+                for (let prop in JSON.parse(localStorage.getItem('localLibrary'))) {
+                    lastId = Math.max(lastId, prop[2]);    
+                }
+
+                localStorage.setItem('IdCounter', lastId);  
+            }
+
             if (localStorage.IdCounter) {
                 if (Book.bookIdCounter < localStorage.IdCounter) {
                     Book.bookIdCounter = localStorage.IdCounter;
@@ -33,7 +45,6 @@ export class Book {
         this.completed = completed;
         this.rating = rating;
         this.summary = summary;
-        // this.id = id
     }
 
     get title() {
