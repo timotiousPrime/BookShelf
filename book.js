@@ -5,6 +5,8 @@ export class Book {
     static generateID() {return ++Book.bookIdCounter;}
     
         static updateBookIdCounter() {
+
+            console.log(JSON.parse(localStorage.localLibrary))
             
             if (localStorage.localLibrary) {
                 
@@ -45,6 +47,10 @@ export class Book {
         this.completed = completed;
         this.rating = rating;
         this.summary = summary;
+    }
+
+    __toString() {
+        return `${this._title} by ${this._author}`;
     }
 
     get title() {
