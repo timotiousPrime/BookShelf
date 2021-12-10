@@ -20,8 +20,12 @@ const pullLibraryFromLS = () => {
 
 export let myLib = {
     lib: {},
+    books: [],
 
     addBook: (book) => {
+
+        myLib.books.push(book)
+        
         myLib.lib = {
             ...myLib.lib,
             [`ID${book.id}`]: {...book}
@@ -32,10 +36,14 @@ export let myLib = {
 
     loadLibrary: () => {
         if (localStorage.localLibrary) {
-            myLib.lib = {...JSON.parse(localStorage.localLibrary)}
+            myLib.lib = JSON.parse(localStorage.localLibrary)
+            console.log('my lib has been loaded')
+            console.log(myLib.lib)
         } else {
             localStorage.setItem('localLibrary', JSON.stringify(myLib.lib))
         }
+
+        myLib.books = Object.values(myLib.lib)
     },
 
     getLocallySavedBooks(){
@@ -57,23 +65,33 @@ export let myLib = {
     },
 
     displayBooks: () => {
-        console.log('displaying books')
-        let keys = Object.keys(myLib.lib)
+
+        console.log(JSON.stringify(myLib.lib))
+        console.log(JSON.stringify(myLib.books))
+        if (myLib.books.length > 0) {
+            console.log(myLib.books[0].id)
+            }
+        console.log(myLib.lib)
+        
+
+
+        // console.log('displaying books')
+        // let keys = Object.keys(myLib.lib)
    
-        console.log(ALL.bookCards)
+        // console.log(ALL.bookCards)
 
-        Array.from(ALL.bookCards).forEach(card => {
-            console.log(card)})         
-        // ALL.bookCards.forEach(removeCard);
-        ALL.bookCards.forEach( (card) => {
-            console.log(card)})
+        // Array.from(ALL.bookCards).forEach(card => {
+        //     console.log(card)})         
+        // // ALL.bookCards.forEach(removeCard);
+        // ALL.bookCards.forEach( (card) => {
+        //     console.log(card)})
 
-        keys.forEach( (key) => {
-            let bookCard = new BookCard(myLib.lib[key])
-            bookCard.generateCard()
-        })    
+        // keys.forEach( (key) => {
+        //     let bookCard = new BookCard(myLib.lib[key])
+        //     bookCard.generateCard()
+        // })    
 
-        listenForBookClicks()
+        // listenForBookClicks()
     }
 
 }
