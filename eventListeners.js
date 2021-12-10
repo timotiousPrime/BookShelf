@@ -11,7 +11,8 @@ export function handleEvents() {
     window.addEventListener('load', () => {
         console.log('page has loaded')
         !localStorage.theLibrary ? console.log('there are no books saved yet') : 
-        myLib.loadLibrary (myLib.getLocallySavedBooks()), 
+        myLib.loadLibrary(), 
+        console.log(myLib.lib)
         Book.updateBookIdCounter()
         myLib.displayBooks()
         // console.table(myLibrary) 
