@@ -1,4 +1,5 @@
 import  { USER_INPUTS } from './constants.js';
+import { myLib } from './Library.js';
 export class Book {
 
     static bookIdCounter = 0;
@@ -6,29 +7,22 @@ export class Book {
     
         static updateBookIdCounter() {
 
-            console.log(JSON.parse(localStorage.localLibrary))
+
+
+            // console.log(JSON.parse(localStorage))
             
-            if (localStorage.localLibrary) {
+            if (myLib.books.length > 0) {
                 
                 let lastId = 0;
 
-                for (let prop in JSON.parse(localStorage.getItem('localLibrary'))) {
-                    lastId = Math.max(lastId, prop[2]);    
-                }
+                myLib.books.forEach(book => {
+                    lastId = Math.max(lastId, book.id);
+                    console.log(book.id)
+                });
 
                 localStorage.setItem('IdCounter', lastId);  
             }
 
-            if (localStorage.IdCounter) {
-                if (Book.bookIdCounter < localStorage.IdCounter) {
-                    Book.bookIdCounter = localStorage.IdCounter;
-                } else {
-                    localStorage.IdCounter = Book.bookIdCounter;
-                }
-                // Book.bookIdCounter = localStorage.IdCounter;
-            } else {
-                localStorage.setItem('IdCounter', Book.bookIdCounter);
-            }
             console.log(Book.bookIdCounter);
         }
 

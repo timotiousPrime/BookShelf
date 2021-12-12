@@ -7,7 +7,8 @@ export class BookCard {
         this.target = `collapseBook${book.id}`
         this.targetHeading = `heading${book.id}`
 
-        
+        console.log
+
         this.template = `
         <div class="accordion-item book">
             <button id="${book.id}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-${this.target}" aria-expanded="false" aria-controls="flush-${this.target}">
@@ -47,7 +48,7 @@ export class BookCard {
         `
     }
 
-    generateCard() {
+    generateCard(book) {
         const accordion = document.createElement('div')
         accordion.classList.add('accordion', 'accordion-flush', 'book')
         accordion.innerHTML = this.template

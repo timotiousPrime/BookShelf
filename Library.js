@@ -5,10 +5,10 @@ import { listenForBookClicks } from "./eventListeners.js"
 // // Instantiate Libray
 // export let myLibrary = {}
 
-// Get library from local storage
-const pullLibraryFromLS = () => {
-    myLibrary = JSON.parse(localStorage.theLibrary)
-}
+// // Get library from local storage
+// const pullLibraryFromLS = () => {
+//     myLibrary = JSON.parse(localStorage.theLibrary)
+// }
 
 
 // const addNewBookToLibrary = (book) => {    
@@ -20,30 +20,22 @@ const pullLibraryFromLS = () => {
 
 export let myLib = {
     lib: {},
-    books: [],
+    books: [
+        {_title: "The Hobbit", _author: "J.R.R. Tolkien", pages: 300, completed: false, id: 1},
+        {_title: "The Lord of the Rings", _author: "J.R.R. Tolkien", pages: 300, completed: false, id: 2},
+    ],
 
     addBook: (book) => {
-
         myLib.books.push(book)
-        
-        myLib.lib = {
-            ...myLib.lib,
-            [`ID${book.id}`]: {...book}
-        }
-        console.log(myLib.lib)
-
     },
 
     loadLibrary: () => {
         if (localStorage.localLibrary) {
-            myLib.lib = JSON.parse(localStorage.localLibrary)
+            myLib.books = JSON.parse(localStorage.localLibrary)
             console.log('my lib has been loaded')
-            console.log(myLib.lib)
         } else {
-            localStorage.setItem('localLibrary', JSON.stringify(myLib.lib))
+            localStorage.setItem('localLibrary', JSON.stringify(myLib.books))
         }
-
-        myLib.books = Object.values(myLib.lib)
     },
 
     getLocallySavedBooks(){
@@ -51,11 +43,11 @@ export let myLib = {
     },
 
     saveBooksToLocalStorage: () => {
-        localStorage.setItem('localLibrary', JSON.stringify(myLib.lib))
+        localStorage.setItem('localLibrary', JSON.stringify(myLib.books))
     },
 
     clearBooks: () => {
-        myLib.lib = {}
+        myLib.books = {}
         localStorage.clear()
     },
 
@@ -66,39 +58,22 @@ export let myLib = {
 
     displayBooks: () => {
 
-        console.log(JSON.stringify(myLib.lib))
-        console.log(JSON.stringify(myLib.books))
-        if (myLib.books.length > 0) {
-            console.log(myLib.books[0].id)
-            }
-        console.log(myLib.lib)
-        
+        // remove all existing book cards
+        ALL.bookCards.forEach( book => {
+            console.log(book.remove())
+            // remove event listeners
+            book.removeEventListener('click', listenForBookClicks)
+        })
 
-
-        // console.log('displaying books')
-        // let keys = Object.keys(myLib.lib)
-   
-        // console.log(ALL.bookCards)
-
-        // Array.from(ALL.bookCards).forEach(card => {
-        //     console.log(card)})         
-        // // ALL.bookCards.forEach(removeCard);
-        // ALL.bookCards.forEach( (card) => {
-        //     console.log(card)})
-
-        // keys.forEach( (key) => {
-        //     let bookCard = new BookCard(myLib.lib[key])
-        //     bookCard.generateCard()
-        // })    
-
-        // listenForBookClicks()
+        // log what datastructure myLib.books is
+        myLib.books.map( book => {
+            const bookCard = new BookCard(book)
+            console.log(book._title)
+            bookCard.generateCard(book)
+            // listenForBookClicks(bookCard)
+        })
     }
 
-}
-
-function removeCard(item) {
-    console.log("trying to remove bookcards")
-    item.remove()        
 }
 
 // const saveLibrary = (library) => {

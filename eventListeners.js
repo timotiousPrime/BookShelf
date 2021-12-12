@@ -10,13 +10,19 @@ export function handleEvents() {
     // check for saved library in LocalStorage
     window.addEventListener('load', () => {
         console.log('page has loaded')
-        !localStorage.theLibrary ? console.log('there are no books saved yet') : 
-        myLib.loadLibrary(), 
-        console.log(myLib.lib)
-        Book.updateBookIdCounter()
-        myLib.displayBooks()
-        // console.table(myLibrary) 
+
+            console.log('local storage has books')
+            myLib.loadLibrary()
+            myLib.displayBooks()
     })
+
+    //     !localStorage.localLibrary ? console.log('there are no books saved yet') : 
+    //     myLib.loadLibrary(), 
+    //     console.log(myLib.books)
+    //     Book.updateBookIdCounter()
+    //     myLib.displayBooks()
+    //     // console.table(myLibrary) 
+    // })
     
     // Listen for add book button click
     BUTTONS.addBook.addEventListener('click', handleAddBookClick)
