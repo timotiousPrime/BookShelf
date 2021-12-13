@@ -6,19 +6,13 @@ export class Book {
     static generateID() {return ++Book.bookIdCounter;}
     
     static updateBookIdCounter() {
-        // console.log(JSON.parse(localStorage))
-        
         if (myLib.books.length > 0) {
-            
             let lastId = 0;
-
             myLib.books.forEach(book => {
                 lastId = Math.max(lastId, book.id);
-                console.log(lastId);
-                console.log(book.__toString, book.id)
             });
-            Book.bookIdCounter = lastId;
-            localStorage.setItem('IdCounter', Book.bookIdCounter);  
+        Book.bookIdCounter = lastId;
+        localStorage.setItem('IdCounter', Book.bookIdCounter);  
         }
     }
 
