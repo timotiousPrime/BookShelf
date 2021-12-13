@@ -5,26 +5,22 @@ export class Book {
     static bookIdCounter = 0;
     static generateID() {return ++Book.bookIdCounter;}
     
-        static updateBookIdCounter() {
-
-
-
-            // console.log(JSON.parse(localStorage))
+    static updateBookIdCounter() {
+        // console.log(JSON.parse(localStorage))
+        
+        if (myLib.books.length > 0) {
             
-            if (myLib.books.length > 0) {
-                
-                let lastId = 0;
+            let lastId = 0;
 
-                myLib.books.forEach(book => {
-                    lastId = Math.max(lastId, book.id);
-                    console.log(book.id)
-                });
-
-                localStorage.setItem('IdCounter', lastId);  
-            }
-
-            console.log(Book.bookIdCounter);
+            myLib.books.forEach(book => {
+                lastId = Math.max(lastId, book.id);
+                console.log(lastId);
+                console.log(book.__toString, book.id)
+            });
+            Book.bookIdCounter = lastId;
+            localStorage.setItem('IdCounter', Book.bookIdCounter);  
         }
+    }
 
     completed = false;
     pages = 0;
