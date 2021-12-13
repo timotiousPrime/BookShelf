@@ -15,6 +15,16 @@ export class Book {
         localStorage.setItem('IdCounter', Book.bookIdCounter);  
         }
     }
+    
+        constructor(title, author, pages, pagesRead, completed, rating, summary) {
+            this._title = title;
+            this._author = author;
+            this.pages = pages;
+            this.pagesRead = pagesRead;
+            this.completed = completed;
+            this.rating = rating;
+            this.summary = summary;
+        }
 
     completed = false;
     pages = 0;
@@ -22,16 +32,6 @@ export class Book {
     rating = 3;
     summary = '';
     id = Book.generateID();
-
-    constructor(title, author, pages, pagesRead, completed, rating, summary) {
-        this._title = title;
-        this._author = author;
-        this.pages = pages;
-        this.pagesRead = pagesRead;
-        this.completed = completed;
-        this.rating = rating;
-        this.summary = summary;
-    }
 
     __toString() {
         return `${this._title} by ${this._author}`;
