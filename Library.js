@@ -1,4 +1,4 @@
-import { ALL } from "./constants.js"
+import { ALL, LIBRARY } from "./constants.js"
 import { Book } from "./book.js"
 import { BookCard } from "./cardTemplate.js"
 // import { listenForBookClicks } from "./eventListeners.js"
@@ -6,8 +6,8 @@ import { BookCard } from "./cardTemplate.js"
 export let myLib = {
     lib: {},
     books: [
-        {_title: "The Hobbit", _author: "J.R.R. Tolkien", pages: 300, completed: false, id: 1},
-        {_title: "The Lord of the Rings", _author: "J.R.R. Tolkien", pages: 300, completed: false, id: 2},
+        {_title: "The Hobbit", _author: "J.R.R. Tolkien", pages: 300, completed: false, id: 0},
+        {_title: "The Lord of the Rings", _author: "J.R.R. Tolkien", pages: 300, completed: false, id: 1},
     ],
 
     addBook: (book) => {
@@ -49,35 +49,10 @@ export let myLib = {
         let bookCase = document.getElementById('book-case')
 
         if (bookCase.children.length > 0) {
-            let cards = bookCase.children
-
-            for (let i = 0; i < cards.length; i++) {
-                console.log(cards[i])
-                cards[i].remove()
+            while (LIBRARY.bookCase.firstChild) {
+                LIBRARY.bookCase.removeChild(bookCase.lastChild)
             }
-            
-            // console.log('clearing book cards')
-            // console.log(bookCase.children.length)
-            // myLib.books.forEach(book => {
-            //     console.log(bookCase.children[book.id])
-            //     console.log(typeof bookCase.children)
-            //     let card = bookCase.children[book.id - 1]
-            //     console.log(card)
-            //     card.remove()
-            // })
         }
-        // const cards = Array.from(ALL.bookCards)
-        // console.log(cards)
-        // console.log(typeof cards)
-
-        // // remove all existing book cards
-        // cards.forEach( book => {
-        //     console.log(book.remove())
-        //     console.log(book)
-        //     book.remove()
-        //     // remove event listeners
-        //     book.removeEventListener('click', listenForBookClicks)
-        // })
 
         // log what datastructure myLib.books is
         console.log(myLib.books)
