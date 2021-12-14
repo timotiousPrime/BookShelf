@@ -39,7 +39,7 @@ export class BookCard {
                 <div class="col-sm-3">Summary:</div>
                 <div class="col-sm">${book.summary}</div>
                 </div>
-                <div container-fluid row>
+                <div class="container-fluid col">
                 <button type="button" id="completeBtn${book.id}" class="btn btn-success">Complete</button>
                 <button type="button" id="editBtn${book.id}" class="btn btn-warning">Edit</button>
                 <button type="button" id="deleteBtn${book.id}" class="btn btn-danger">Delete</button>
