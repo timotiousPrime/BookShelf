@@ -41,7 +41,6 @@ export let myLib = {
 
     removeBook: (id) => {
         myLib.books = myLib.books.filter(book => book.id !== id)
-        delete myLib.lib[`ID${id}`]
     },
 
     displayBooks: () => {
