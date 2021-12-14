@@ -198,8 +198,11 @@ function handleCancelBtnClick() {
 // }
 
 function listenForBookClick(){
+    console.log('listening for book clicks')
     ALL.accordianBtns.forEach( (el) => {
+        console.log(el)
         el.addEventListener('click', (e) => {
+            console.log(`${e.target.id} element has been clicked`)
             let bookId = e.target.id
             // let key = `ID${bookId}`
             ALL.buttons.forEach( (btn) => {
