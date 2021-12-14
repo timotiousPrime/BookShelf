@@ -65,28 +65,3 @@ export let myLib = {
     }
 
 }
-
-// const saveLibrary = (library) => {
-//     localStorage.setItem('theLibrary', JSON.stringify(library))
-// }    
-
-// const clearStoredLibrary = () => {
-//     localStorage.clear()
-// }    
-
-
-// function removeCard (item) {
-//     item.remove();
-// }    
-
-// const displayMyLibrary = () => {
-//     let keys = Object.keys(myLibrary)
-    
-//     ALL.bookCards.forEach(removeCard);
-
-//     keys.forEach( (key) => {
-//         newBookCard(myLibrary[key])
-//     })    
-
-//     listenForBookClicks()
-// }    
