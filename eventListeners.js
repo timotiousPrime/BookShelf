@@ -15,11 +15,15 @@ export function handleEvents() {
             myLib.loadLibrary()
             Book.updateBookIdCounter()
             myLib.displayBooks()
+
+            listenForBookClick()
+
     })
 
     // Listen for add book button click
     BUTTONS.addBook.addEventListener('click', handleAddBookClick)
     
+
 
 
     // Handle the update book button click
@@ -106,7 +110,7 @@ function handleAddBookClick () {
     Book.updateBookIdCounter()
 
     // Listen for clicks on books in library
-    // listenForBookClicks()
+    listenForBookClick()
 }    
 
 // // Handle the edit button click
@@ -193,3 +197,34 @@ function handleCancelBtnClick() {
 //     })
 // }
 
+function listenForBookClick(){
+    ALL.accordianBtns.forEach( (el) => {
+        el.addEventListener('click', (e) => {
+            let bookId = e.target.id
+            // let key = `ID${bookId}`
+            ALL.buttons.forEach( (btn) => {
+                btn.addEventListener('click', (e) => {
+                    let btnClickedId = e.target.id
+                    switch (`${btnClickedId}`) {
+                        case `completeBtn${bookId}`:
+                            bookComplete(key)
+                            break;
+                        case `editBtn${bookId}`:
+                            handleEditBtnClick(key)
+                            break;
+                        case `deleteBtn${bookId}`:
+                            console.log(`delete button has been clicked`)
+                            myLib.removeBook(bookId)
+                            myLib.saveBooksToLocalStorage()
+                            myLib.displayBooks()
+                            break;
+                        default:
+                            break;
+                    }
+
+                })
+
+            })
+        })
+    })
+}
