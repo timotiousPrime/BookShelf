@@ -17,14 +17,6 @@ export function handleEvents() {
             myLib.displayBooks()
     })
 
-    //     !localStorage.localLibrary ? console.log('there are no books saved yet') : 
-    //     myLib.loadLibrary(), 
-    //     console.log(myLib.books)
-    //     Book.updateBookIdCounter()
-    //     myLib.displayBooks()
-    //     // console.table(myLibrary) 
-    // })
-    
     // Listen for add book button click
     BUTTONS.addBook.addEventListener('click', handleAddBookClick)
     
