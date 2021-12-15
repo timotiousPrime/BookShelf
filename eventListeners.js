@@ -16,7 +16,7 @@ export function handleEvents() {
             Book.updateBookIdCounter()
             myLib.displayBooks()
 
-            listenForBookClick()
+            listenForUpdates()
 
     })
 
@@ -110,7 +110,7 @@ function handleAddBookClick () {
     Book.updateBookIdCounter()
 
     // Listen for clicks on books in library
-    listenForBookClick()
+    listenForUpdates()
 }    
 
 // // Handle the edit button click
@@ -197,37 +197,30 @@ function handleCancelBtnClick() {
 //     })
 // }
 
-function listenForBookClick(){
-    console.log('listening for book clicks')
-    ALL.accordianBtns.forEach( (el) => {
-        console.log(el)
-        el.addEventListener('click', (e) => {
-            console.log(`${e.target.id} element has been clicked`)
-            let bookId = e.target.id
-            // let key = `ID${bookId}`
-            ALL.buttons.forEach( (btn) => {
-                btn.addEventListener('click', (e) => {
-                    let btnClickedId = e.target.id
-                    switch (`${btnClickedId}`) {
-                        case `completeBtn${bookId}`:
-                            bookComplete(key)
-                            break;
-                        case `editBtn${bookId}`:
-                            handleEditBtnClick(key)
-                            break;
-                        case `deleteBtn${bookId}`:
-                            console.log(`delete button has been clicked`)
-                            myLib.removeBook(bookId)
-                            myLib.saveBooksToLocalStorage()
-                            myLib.displayBooks()
-                            break;
-                        default:
-                            break;
-                    }
+export function listenForUpdates(){
+    const btns = document.querySelectorAll('.btn')
 
-                })
-
-            })
+    Array.from(btns).forEach( ele => {
+        ele.addEventListener('click', e => {
+            let id 
+            switch (e.target.innerText) {
+                case 'Complete':
+                    id = e.target.id.slice(11)
+                    break;
+                case 'Edit':
+                    id = e.target.id.slice(7)
+                    console.log(id)
+                    console.log('edit button clicked')
+                    break;
+                case 'Delete':
+                    id = e.target.id.slice(9)
+                    myLib.removeBook(id)
+                    myLib.saveBooksToLocalStorage()
+                    myLib.displayBooks()
+                    break;
+                default:
+                    break;
+            }
         })
     })
 }
