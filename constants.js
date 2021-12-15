@@ -27,5 +27,4 @@ export const LIBRARY = {
 export const ALL = {
     bookCards: document.querySelectorAll('.book'),
     buttons: document.querySelectorAll('.btn'),
-    accordianBtns: document.querySelectorAll('.accordion-button') 
 }
