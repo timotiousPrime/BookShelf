@@ -19,6 +19,10 @@ export let myLib = {
         return myLib.books.find(book => book.id === id)
     },
 
+    getBookIndex: (id) => {
+        return myLib.books.findIndex(book => book.id === id)
+    },
+
     loadLibrary: () => {
         if (localStorage.localLibrary) {
             console.log(JSON.parse(localStorage.localLibrary))
@@ -45,11 +49,21 @@ export let myLib = {
     },
 
     removeBook: (id) => {
-        myLib.books.splice(id, 1)
+        console.log('remove book with id: ', id)
+        console.log(myLib.books)
+        let bookIndex = myLib.getBookIndex(id)
+        console.log('book index: ', bookIndex)
+        
+
+        myLib.books.splice(bookIndex, 1)
+
+        // myLib.books = myLib.books.filter(book => book.id !== id)
+        console.log('my library: ', myLib.books)
     },
 
     displayBooks: () => {
 
+        // remove all book DOM elements so that they can be re-rendered
         let bookCase = document.getElementById('book-case')
 
         if (bookCase.children.length > 0) {
@@ -64,7 +78,7 @@ export let myLib = {
             const bookCard = new BookCard(book)
             console.log(book._title)
             bookCard.generateCard(book)
-            listenForUpdates()
+            // listenForUpdates()
         })
     }
 
