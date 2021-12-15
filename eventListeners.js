@@ -104,11 +104,8 @@ function handleAddBookClick () {
     // clear form
     USER_INPUTS.form.reset()
     console.log("new book has been successfully added")
-    console.log("Locally saved books", myLib.getLocallySavedBooks())
-
     // Update book ID counter
     Book.updateBookIdCounter()
-
     // Listen for clicks on books in library
     listenForUpdates()
 }    
@@ -166,36 +163,6 @@ function handleCancelBtnClick() {
     BUTTONS.cancel.addEventListener('click', (cancelUpdate))
 }
 
-// // TODO: Create Module for event listeners
-// export function listenForBookClicks() {
-    
-//     ALL.accordianBtns.forEach( (el) => {
-//         el.addEventListener('click', (e) => {
-//             let bookId = e.target.id
-//             let key = `ID${bookId}`
-//             ALL.buttons.forEach( (btn) => {
-//                 btn.addEventListener('click', (e) => {
-//                     let btnClickedId = e.target.id
-//                     switch (`${btnClickedId}`) {
-//                         case `completeBtn${bookId}`:
-//                             bookComplete(key)
-//                             break;
-//                         case `editBtn${bookId}`:
-//                             handleEditBtnClick(key)
-//                             break;
-//                         case `deleteBtn${bookId}`:
-//                             deleteBook(key)
-//                             break;
-//                         default:
-//                             break;
-//                     }
-
-//                 })
-
-//             })
-//         })
-//     })
-// }
 
 export function listenForUpdates(){
     const btns = document.querySelectorAll('.btn')
@@ -213,7 +180,8 @@ export function listenForUpdates(){
                     console.log('edit button clicked')
                     break;
                 case 'Delete':
-                    id = e.target.id.slice(9)
+                    id = parseInt(e.target.id.slice(9))
+                    // console.log(e)
                     myLib.removeBook(id)
                     myLib.saveBooksToLocalStorage()
                     myLib.displayBooks()
