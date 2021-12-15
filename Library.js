@@ -1,6 +1,7 @@
 import { ALL, LIBRARY } from "./constants.js"
 import { Book } from "./book.js"
 import { BookCard } from "./cardTemplate.js"
+import { listenForUpdates } from "./eventListeners.js"
 // import { listenForBookClicks } from "./eventListeners.js"
 
 export let myLib = {
@@ -12,6 +13,10 @@ export let myLib = {
 
     addBook: (book) => {
         myLib.books.push(book)
+    },
+
+    getBook: (id) => {
+        return myLib.books.find(book => book.id === id)
     },
 
     loadLibrary: () => {
@@ -40,7 +45,7 @@ export let myLib = {
     },
 
     removeBook: (id) => {
-        myLib.books = myLib.books.filter(book => book.id !== id)
+        myLib.books.splice(id, 1)
     },
 
     displayBooks: () => {
@@ -59,7 +64,7 @@ export let myLib = {
             const bookCard = new BookCard(book)
             console.log(book._title)
             bookCard.generateCard(book)
-            // listenForBookClicks(bookCard)
+            listenForUpdates()
         })
     }
 
