@@ -7,8 +7,8 @@ import { listenForUpdates } from "./eventListeners.js"
 export let myLib = {
     lib: {},
     books: [
-        {_title: "The Hobbit", _author: "J.R.R. Tolkien", pages: 300, completed: false, id: 0},
-        {_title: "The Lord of the Rings", _author: "J.R.R. Tolkien", pages: 300, completed: false, id: 1},
+        // {_title: "The Hobbit", _author: "J.R.R. Tolkien", pages: 300, completed: false, id: 0},
+        // {_title: "The Lord of the Rings", _author: "J.R.R. Tolkien", pages: 300, completed: false, id: 1},
     ],
 
     addBook: (book) => {
@@ -52,7 +52,7 @@ export let myLib = {
         console.log('remove book with id: ', id)
         console.log(myLib.books)
         let bookIndex = myLib.getBookIndex(id)
-        console.log('book index: ', bookIndex)
+        console.log('remove book with index: ', bookIndex)
         
 
         myLib.books.splice(bookIndex, 1)
@@ -73,13 +73,12 @@ export let myLib = {
         }
 
         // log what datastructure myLib.books is
-        console.log(myLib.books)
         myLib.books.map( book => {
             const bookCard = new BookCard(book)
             console.log(book._title)
             bookCard.generateCard(book)
-            // listenForUpdates()
         })
+        listenForUpdates()
     }
 
 }
