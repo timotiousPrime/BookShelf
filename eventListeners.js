@@ -16,7 +16,7 @@ export function handleEvents() {
             Book.updateBookIdCounter()
             myLib.displayBooks()
 
-            listenForUpdates()
+            // listenForUpdates()
 
     })
 
@@ -107,7 +107,7 @@ function handleAddBookClick () {
     // Update book ID counter
     Book.updateBookIdCounter()
     // Listen for clicks on books in library
-    listenForUpdates()
+    // listenForUpdates()
 }    
 
 // // Handle the edit button click
@@ -165,6 +165,8 @@ function handleCancelBtnClick() {
 
 
 export function listenForUpdates(){
+    console.log('listening for updates')
+
     const btns = document.querySelectorAll('.btn')
 
     Array.from(btns).forEach( ele => {
