@@ -159,15 +159,6 @@ handleEvents()
 //     displayMyLibrary()
 // }    
 
-// // This is called in the eventListener module
-// function fillInputFields (bookId){
-//     USER_INPUTS.title.value = myLibrary[bookId].title
-//     USER_INPUTS.author.value = myLibrary[bookId].author 
-//     USER_INPUTS.pages.value = myLibrary[bookId].pages
-//     USER_INPUTS.pagesRead.value = myLibrary[bookId].pagesRead
-//     USER_INPUTS.rating.value = myLibrary[bookId].rating
-//     USER_INPUTS.summary.value = myLibrary[bookId].summary
-// }
 
 // function handleEditBtnClick(key) {
    
@@ -236,9 +227,6 @@ handleEvents()
 //     LIBRARY.librarySection.appendChild(overlay)
 // }
 
-// function hideAddBookBtn () {
-//     addBookButton.style.display = 'none'
-// }
 
 // // TODO: Create Module for event listeners
 // function listenForBookClicks() {
