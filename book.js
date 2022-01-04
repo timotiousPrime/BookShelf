@@ -73,7 +73,7 @@ export class Book {
         return this.completed;
     }
 
-    setcompleted() {
+    setCompleted() {
         this.completed = true;
         this.pagesRead = this.pages;
     }
