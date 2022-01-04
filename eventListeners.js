@@ -1,7 +1,8 @@
 import { Book } from './book.js';
-import { BUTTONS, USER_INPUTS, ALL } from './constants.js';
+import { BUTTONS, USER_INPUTS, LIBRARY } from './constants.js';
 import { validateBookEntry } from './formValidation.js';
 import { myLib } from './Library.js';
+import { makeUpdateBtn } from './makeUpdateBtn.js'
 
 
 // Handle all the eventListeners
@@ -10,13 +11,11 @@ export function handleEvents() {
     // check for saved library in LocalStorage
     window.addEventListener('load', () => {
         console.log('page has loaded')
+        myLib.loadLibrary()
+        Book.updateBookIdCounter()
+        myLib.displayBooks()
 
-            console.log('local storage has books')
-            myLib.loadLibrary()
-            Book.updateBookIdCounter()
-            myLib.displayBooks()
-
-            // listenForUpdates()
+        // listenForUpdates()
 
     })
 
@@ -35,7 +34,7 @@ export function handleEvents() {
     // // Handle the delete book button click
     // handleDeleteBtnClick()
     
-    // // Handle the edit book button click
+    // Handle the edit book button click
     // handleEditBtnClick()
     
     // // Handle the complete book button click
@@ -46,40 +45,6 @@ export function handleEvents() {
 
 }
 
-//     // Listen for book card clicks    
-// export function listenForBookClicks() {
-//         ALL.accordianBtns.forEach( (el) => {
-//             el.addEventListener('mouseover', () => {
-//                 console.log(e.target.id)})
-//             el.addEventListener('click', (e) => {
-//                 let bookId = e.target.id
-//                 let key = `ID${bookId}`
-//                 ALL.buttons.forEach( (btn) => {
-//                     btn.addEventListener('click', (e) => {
-//                         let btnClickedId = e.target.id
-//                         switch (`${btnClickedId}`) {
-//                             case `completeBtn${bookId}`:
-//                                 // bookComplete(key)
-//                                 console.log('complete button clicked')
-//                                 break;
-//                             case `editBtn${bookId}`:
-//                                 // handleEditBtnClick(key)
-//                                 console.log('edit button clicked')
-//                                 break;
-//                             case `deleteBtn${bookId}`:
-//                                 // deleteBook(key)
-//                                 console.log(`delete button has been clicked`)
-//                                 break;
-//                             default:
-//                                 break;
-//                         }
-    
-//                     })
-    
-//                 })
-//             })
-//         })
-//     }
 
 function updatePagesRead(isCompleted){
     if (isCompleted) {
@@ -110,20 +75,57 @@ function handleAddBookClick () {
     // listenForUpdates()
 }    
 
-// // Handle the edit button click
-//     // Add books info to form
-//     fillInputFields (key)
-//     // hide Add book Button
-//     hideAddBookBtn ()
-//     // Add update button
-//     makeUpdateBtn()
-//     // Add cancel button
-//     // Display overlay over book section
-//     overlayBookShelf ()
-//     // Add event listener to update button
-//     handleUpdateBtnClick(id)
-//     // Add event listener to cancel button
-//     handleCancelBtnClick(id)
+// Handle the edit button click
+function handleEditBtnClick(id){
+
+    const book = myLib.getBook(id)
+
+    console.log('handleEditBtnClick function called')
+    // Add books info to form
+    fillInputFields (book)
+    // hide Add book Button
+    hideAddBookBtn ()
+    // Add update button
+    makeUpdateBtn()
+    // Add cancel button
+    // Display overlay over book section
+    overlayBookShelf ()
+    // Add event listener to update button
+    handleUpdateBtnClick(book)
+    // Add event listener to cancel button
+    handleCancelBtnClick(book)
+}
+
+function fillInputFields (book) {
+    USER_INPUTS.title.value = book._title
+    USER_INPUTS.author.value = book._author 
+    USER_INPUTS.pages.value = book.pages
+    USER_INPUTS.pagesRead.value = book.pagesRead
+    USER_INPUTS.rating.value = book.rating
+    USER_INPUTS.summary.value = book.summary
+}
+
+function hideAddBookBtn () {
+        addBookButton.style.display = 'none'
+}
+
+function overlayBookShelf () {
+
+    console.log('overlayBookShelf function called sdfhsdfbsfdgbsf')
+    const overlay = document.createElement('div')
+    overlay.classList.add('overlay')
+    overlay.setAttribute('id', 'overlayDiv')
+
+    LIBRARY.librarySection.appendChild(overlay)
+}
+
+function handleUpdateBtnClick(id) {
+    // listenForUpdate()
+    const updateBtn = document.getElementById('updateBtn')
+
+    updateBtn.addEventListener('click', () => {updateBook(id)
+    })
+}
 
 // Handle update button click
     // validate form
@@ -153,16 +155,9 @@ function handleAddBookClick () {
 
 
 
-function handleUpdateBtnClick(id) {
-    // listenForUpdate()
-    BUTTONS.update.addEventListener('click', () => {updateBook(id)
-    })
-}
-
 function handleCancelBtnClick() {
     BUTTONS.cancel.addEventListener('click', (cancelUpdate))
 }
-
 
 export function listenForUpdates(){
     console.log('listening for updates')
@@ -177,9 +172,10 @@ export function listenForUpdates(){
                     id = e.target.id.slice(11)
                     break;
                 case 'Edit':
-                    id = e.target.id.slice(7)
-                    console.log(id)
+                    id = parseInt(e.target.id.slice(7))
+                    // console.log(id)
                     console.log('edit button clicked')
+                    handleEditBtnClick(id)
                     break;
                 case 'Delete':
                     id = parseInt(e.target.id.slice(9))
@@ -193,4 +189,38 @@ export function listenForUpdates(){
             }
         })
     })
+}
+
+
+
+function updateBook(book) {
+
+    console.log('updating book')
+
+    console.log(book)
+
+    book.setTitle(USER_INPUTS.title.value)
+    book.setAuthor(USER_INPUTS.author.value)
+    book.setPages(USER_INPUTS.pages.value)
+    book.setPagesRead(USER_INPUTS.pagesRead.value)
+    book.setCompleted(USER_INPUTS.completed.checked)
+    book.setRating(USER_INPUTS.rating.value)
+    book.setSummary(USER_INPUTS.summary.value)
+
+    validateBookEntry(false)
+
+    if (USER_INPUTS.completed.checked) {
+        book.pagesRead = book.pages
+     }
+
+     if(book.pagesRead === book.pages) {
+        book.completed = true
+     } else {
+        book.completed = false
+     }
+
+    saveLibrary(myLibrary)
+    displayMyLibrary()
+    cancelUpdate()
+
 }
