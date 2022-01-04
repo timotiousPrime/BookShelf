@@ -25,14 +25,11 @@ export let myLib = {
 
     loadLibrary: () => {
         if (localStorage.localLibrary) {
-            console.log(JSON.parse(localStorage.localLibrary))
             myLib.books = JSON.parse(localStorage.localLibrary)
-            console.log('my library has been loaded')
             Book.updateBookIdCounter()
         } else {
             localStorage.setItem('localLibrary', JSON.stringify(myLib.books))
         }
-        console.log('Library: ', myLib.books)
     },
 
     getLocallySavedBooks(){
@@ -75,7 +72,6 @@ export let myLib = {
         // log what datastructure myLib.books is
         myLib.books.map( book => {
             const bookCard = new BookCard(book)
-            console.log(book._title)
             bookCard.generateCard(book)
         })
         listenForUpdates()
