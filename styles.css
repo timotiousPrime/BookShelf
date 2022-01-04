@@ -1,3 +1,9 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
 #form-section > h2 {
     margin: 1rem 0;
 }
@@ -10,6 +16,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#library-section > h2 {
+    padding: 1rem;
+}
+
+#book-case {
+    padding: 1rem;
+}
+
+#library-section {
+    overflow: hidden;
+    /* margin: 1rem;
+    padding: 1rem; */
+    /* width: 100%;
+    border: 1px solid #ccc; */
 }
 
 #bookDetailCard {
@@ -32,7 +54,7 @@
     overflow: hidden;
     position: absolute;
     top: 0;
-    width: 100%;
+    width: inherit;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.61);
 }
