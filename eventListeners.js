@@ -120,7 +120,6 @@ function overlayBookShelf () {
 }
 
 function handleUpdateBtnClick(id) {
-    // listenForUpdate()
     const updateBtn = document.getElementById('updateBtn')
 
     updateBtn.addEventListener('click', () => {updateBook(id)
@@ -156,7 +155,26 @@ function handleUpdateBtnClick(id) {
 
 
 function handleCancelBtnClick() {
-    BUTTONS.cancel.addEventListener('click', (cancelUpdate))
+
+    const cancelBtn = document.getElementById('cancelBtn')
+
+    cancelBtn.addEventListener('click', (cancelUpdate))
+}
+
+function cancelUpdate () {
+    console.log('cancelUpdate function called')
+    const cancelBtn = document.getElementById('cancelBtn')
+    const updateBtn = document.getElementById('updateBtn')
+    const overlay = document.getElementById('overlayDiv')
+
+
+    USER_INPUTS.form.reset()
+    
+    BUTTONS.addBook.style.display = ''
+
+    updateBtn.remove()
+    cancelBtn.remove()
+    overlay.remove()
 }
 
 export function listenForUpdates(){
@@ -193,34 +211,48 @@ export function listenForUpdates(){
 
 
 
-function updateBook(book) {
+function updateBook(thisBook) {
 
     console.log('updating book')
 
-    console.log(book)
+    console.log(thisBook.protoype)
 
-    book.setTitle(USER_INPUTS.title.value)
-    book.setAuthor(USER_INPUTS.author.value)
-    book.setPages(USER_INPUTS.pages.value)
-    book.setPagesRead(USER_INPUTS.pagesRead.value)
-    book.setCompleted(USER_INPUTS.completed.checked)
-    book.setRating(USER_INPUTS.rating.value)
-    book.setSummary(USER_INPUTS.summary.value)
 
+    
+    thisBook._title = USER_INPUTS.title.value
+    thisBook._author = USER_INPUTS.author.value
+    thisBook.pages = USER_INPUTS.pages.value
+    thisBook.pagesRead = USER_INPUTS.pagesRead.value
+    thisBook.completed = USER_INPUTS.completed.checked
+    thisBook.rating = USER_INPUTS.rating.value
+    thisBook.summary = USER_INPUTS.summary.value
+
+    // input whether book entry is a new book or not
     validateBookEntry(false)
 
     if (USER_INPUTS.completed.checked) {
-        book.pagesRead = book.pages
+        thisBook.pagesRead = thisBook.pages
      }
 
-     if(book.pagesRead === book.pages) {
-        book.completed = true
+     if(thisBook.pagesRead === thisBook.pages) {
+        thisBook.completed = true
      } else {
-        book.completed = false
+        thisBook.completed = false
      }
 
-    saveLibrary(myLibrary)
-    displayMyLibrary()
+    myLib.saveBooksToLocalStorage()
+    myLib.displayBooks()
     cancelUpdate()
 
 }
+
+// function cancelUpdate(){
+    
+//         USER_INPUTS.form.reset()
+    
+//         BUTTONS.addBook.style.display = ''
+    
+//         BUTTONS.update.remove()
+//         BUTTONS.cancel.remove()
+//         BUTTONS.overlay.remove()
+//     } 
