@@ -7,8 +7,6 @@ import { listenForUpdates } from "./eventListeners.js"
 export let myLib = {
     lib: {},
     books: [
-        // {_title: "The Hobbit", _author: "J.R.R. Tolkien", pages: 300, completed: false, id: 0},
-        // {_title: "The Lord of the Rings", _author: "J.R.R. Tolkien", pages: 300, completed: false, id: 1},
     ],
 
     addBook: (book) => {
@@ -77,4 +75,18 @@ export let myLib = {
         listenForUpdates()
     }
 
+}
+
+export function bookComplete (bookId) {
+    bookId = parseInt(bookId)
+
+    const book = myLib.getBook(bookId)
+
+    book.completed = true;
+    book.pagesRead = book.pages
+
+    console.log(book)
+    // book.setCompleted()
+    myLib.saveBooksToLocalStorage()
+    myLib.displayBooks()
 }
