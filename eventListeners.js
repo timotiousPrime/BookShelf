@@ -1,8 +1,9 @@
 import { Book } from './book.js';
 import { BUTTONS, USER_INPUTS, LIBRARY } from './constants.js';
 import { validateBookEntry } from './formValidation.js';
-import { myLib } from './Library.js';
-import { makeUpdateBtn } from './makeUpdateBtn.js'
+import { myLib, bookComplete } from './Library.js';
+import { makeUpdateBtn } from './makeUpdateBtn.js';
+
 
 
 // Handle all the eventListeners
@@ -21,28 +22,6 @@ export function handleEvents() {
 
     // Listen for add book button click
     BUTTONS.addBook.addEventListener('click', handleAddBookClick)
-    
-
-
-
-    // Handle the update book button click
-    // handleUpdateBtnClick()
-    
-    // // Handle the cancel update button click
-    // handleCancelBtnClick()
-    
-    // // Handle the delete book button click
-    // handleDeleteBtnClick()
-    
-    // Handle the edit book button click
-    // handleEditBtnClick()
-    
-    // // Handle the complete book button click
-    // handleCompleteBtnClick()
-    
-    // // Handle the accordian button click
-    // listenForBookClicks()
-
 }
 
 
@@ -126,34 +105,6 @@ function handleUpdateBtnClick(id) {
     })
 }
 
-// Handle update button click
-    // validate form
-    // update book with form info
-    // check if book is complete
-    // update LS
-    // render myLibrary
-    // clear form
-    // close overlay
-    // remove event listener from update button
-    // remove event listener from cancel button
-    
-// // Handle cancel button click  
-//     // remove overlay
-//     BUTTONS.overlay.remove()
-//     // clear form
-//     USER_INPUTS.form.reset()
-//     // Display add book button
-//     BUTTONS.addBook.style.display = ''
-//     // remove event listener from update button
-//     // remove event listener from cancel button
-//     // remove update button
-//     BUTTONS.update.remove()
-//     // remove cancel button
-//     BUTTONS.cancel.remove()
-
-
-
-
 function handleCancelBtnClick() {
 
     const cancelBtn = document.getElementById('cancelBtn')
@@ -162,7 +113,7 @@ function handleCancelBtnClick() {
 }
 
 function cancelUpdate () {
-    console.log('cancelUpdate function called')
+
     const cancelBtn = document.getElementById('cancelBtn')
     const updateBtn = document.getElementById('updateBtn')
     const overlay = document.getElementById('overlayDiv')
@@ -188,6 +139,9 @@ export function listenForUpdates(){
             switch (e.target.innerText) {
                 case 'Complete':
                     id = e.target.id.slice(11)
+                    // bookComplete(id)
+                    console.log(id)
+                    bookComplete(id)
                     break;
                 case 'Edit':
                     id = parseInt(e.target.id.slice(7))
@@ -209,35 +163,33 @@ export function listenForUpdates(){
     })
 }
 
-
-
-function updateBook(thisBook) {
+function updateBook(book) {
 
     console.log('updating book')
 
-    console.log(thisBook.protoype)
+    console.log(book.protoype)
 
 
     
-    thisBook._title = USER_INPUTS.title.value
-    thisBook._author = USER_INPUTS.author.value
-    thisBook.pages = USER_INPUTS.pages.value
-    thisBook.pagesRead = USER_INPUTS.pagesRead.value
-    thisBook.completed = USER_INPUTS.completed.checked
-    thisBook.rating = USER_INPUTS.rating.value
-    thisBook.summary = USER_INPUTS.summary.value
+    book._title = USER_INPUTS.title.value
+    book._author = USER_INPUTS.author.value
+    book.pages = USER_INPUTS.pages.value
+    book.pagesRead = USER_INPUTS.pagesRead.value
+    book.completed = USER_INPUTS.completed.checked
+    book.rating = USER_INPUTS.rating.value
+    book.summary = USER_INPUTS.summary.value
 
     // input whether book entry is a new book or not
     validateBookEntry(false)
 
     if (USER_INPUTS.completed.checked) {
-        thisBook.pagesRead = thisBook.pages
+        book.pagesRead = book.pages
      }
 
-     if(thisBook.pagesRead === thisBook.pages) {
-        thisBook.completed = true
+     if(book.pagesRead === book.pages) {
+        book.completed = true
      } else {
-        thisBook.completed = false
+        book.completed = false
      }
 
     myLib.saveBooksToLocalStorage()
@@ -245,14 +197,3 @@ function updateBook(thisBook) {
     cancelUpdate()
 
 }
-
-// function cancelUpdate(){
-    
-//         USER_INPUTS.form.reset()
-    
-//         BUTTONS.addBook.style.display = ''
-    
-//         BUTTONS.update.remove()
-//         BUTTONS.cancel.remove()
-//         BUTTONS.overlay.remove()
-//     } 
