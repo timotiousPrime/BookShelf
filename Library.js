@@ -82,7 +82,7 @@ export function bookComplete (bookId) {
 
     const book = myLib.getBook(bookId)
 
-    book.completed = true;
+    book.complete = true;
     book.pagesRead = book.pages
 
     console.log(book)
